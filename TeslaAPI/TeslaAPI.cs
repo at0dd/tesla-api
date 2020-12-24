@@ -56,7 +56,8 @@
     /// </summary>
     public class TeslaAPI : ITeslaAPI
     {
-        private readonly string _ownerApiBaseUrl = "https://owner-api.teslamotors.com/api/v1";
+        private readonly string _ownerApiBaseUrl = "https://owner-api.teslamotors.com";
+        private readonly string _apiV1 = "/api/1";
 
         /// <inheritdoc/>
         public TeslaAccessToken GetAccessToken(HttpClient client, string clientID, string clientSecret, string email, string password)
@@ -92,14 +93,14 @@
         /// <inheritdoc/>
         public List<Vehicle> GetAllVehicles(HttpClient client)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}/vehicles");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles");
             return SendRequest<ListResponse<Vehicle>>(client, request).Result.Data;
         }
 
         /// <inheritdoc/>
         public Vehicle GetVehicle(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}/vehicles/{vehicleID}");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}");
             return SendRequest<Response<Vehicle>>(client, request).Result.Data;
         }
 
