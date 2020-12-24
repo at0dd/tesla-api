@@ -5,69 +5,61 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using global::TeslaAPI.Models;
+    using global::TeslaAPI.Models.Response;
     using Newtonsoft.Json;
-    using TeslaAPI.Models;
-    using TeslaAPI.Models.Response;
 
     /// <summary>
     /// The TeslaClient interface.
     /// </summary>
-    public interface ITeslaClient
+    public interface ITeslaAPI
     {
         /// <summary>
         /// Authenticate with the Tesla API to get an access token.
         /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="clientID">The Tesla client ID.</param>
         /// <param name="clientSecret">The Tesla client secret.</param>
         /// <param name="email">The user's email address.</param>
         /// <param name="password">The user's password.</param>
         /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
-        public TeslaAccessToken GetAccessToken(string clientID, string clientSecret, string email, string password);
+        public TeslaAccessToken GetAccessToken(HttpClient client, string clientID, string clientSecret, string email, string password);
 
         /// <summary>
         /// Refresh an access token.
         /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="clientID">The Tesla client ID.</param>
         /// <param name="clientSecret">The Tesla client secret.</param>
         /// <param name="refreshToken">The exising refresh token.</param>
         /// <returns>Returns a new <see cref="TeslaAccessToken"/>.</returns>
-        public TeslaAccessToken RefreshToken(string clientID, string clientSecret, string refreshToken);
+        public TeslaAccessToken RefreshToken(HttpClient client, string clientID, string clientSecret, string refreshToken);
 
         /// <summary>
         /// Get all <see cref="Vehicle"/>s in the user's Tesla account.
         /// </summary>
-        /// <param name="accessToken">The user's access token.</param>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns a list of <see cref="Vehicle"/>s.</returns>
-        public List<Vehicle> GetAllVehicles(string accessToken);
+        public List<Vehicle> GetAllVehicles(HttpClient client);
 
         /// <summary>
         /// Get all <see cref="Vehicle"/> by its ID.
         /// </summary>
-        /// <param name="accessToken">The user's access token.</param>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
         /// <returns>Returns the <see cref="Vehicle"/>.</returns>
-        public Vehicle GetVehicle(string accessToken, string vehicleID);
+        public Vehicle GetVehicle(HttpClient client, string vehicleID);
     }
 
     /// <summary>
     /// The TeslaClient class.
     /// </summary>
-    public class TeslaClient : ITeslaClient
+    public class TeslaAPI : ITeslaAPI
     {
-        private readonly HttpClient _client = new HttpClient();
         private readonly string _ownerApiBaseUrl = "https://owner-api.teslamotors.com/api/v1";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeslaClient"/> class.
-        /// </summary>
-        /// <param name="userAgent">Your application identifier.</param>
-        public TeslaClient(string userAgent)
-        {
-            _client.DefaultRequestHeaders.Add("User-Agent", userAgent);
-        }
-
         /// <inheritdoc/>
-        public TeslaAccessToken GetAccessToken(string clientID, string clientSecret, string email, string password)
+        public TeslaAccessToken GetAccessToken(HttpClient client, string clientID, string clientSecret, string email, string password)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -78,12 +70,12 @@
                 { "password", password },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token", body: body);
-            return SendRequest<TeslaAccessToken>(request).Result;
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=password", body: body);
+            return SendRequest<TeslaAccessToken>(client, request).Result;
         }
 
         /// <inheritdoc/>
-        public TeslaAccessToken RefreshToken(string clientID, string clientSecret, string refreshToken)
+        public TeslaAccessToken RefreshToken(HttpClient client, string clientID, string clientSecret, string refreshToken)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -93,22 +85,22 @@
                 { "refresh_token", refreshToken },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token", body: body);
-            return SendRequest<TeslaAccessToken>(request).Result;
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=refresh_token", body);
+            return SendRequest<TeslaAccessToken>(client, request).Result;
         }
 
         /// <inheritdoc/>
-        public List<Vehicle> GetAllVehicles(string accessToken)
+        public List<Vehicle> GetAllVehicles(HttpClient client)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}/vehicles", accessToken);
-            return SendRequest<ListResponse<Vehicle>>(request).Result.Data;
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}/vehicles");
+            return SendRequest<ListResponse<Vehicle>>(client, request).Result.Data;
         }
 
         /// <inheritdoc/>
-        public Vehicle GetVehicle(string accessToken, string vehicleID)
+        public Vehicle GetVehicle(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}/vehicles/{vehicleID}", accessToken);
-            return SendRequest<Response<Vehicle>>(request).Result.Data;
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}/vehicles/{vehicleID}");
+            return SendRequest<Response<Vehicle>>(client, request).Result.Data;
         }
 
         /// <summary>
@@ -116,21 +108,16 @@
         /// </summary>
         /// <param name="method">POST, GET, PUT, DELETE.</param>
         /// <param name="url">The request URL.</param>
-        /// <param name="accessToken">The user's access token.</param>
         /// <param name="body">The request body.</param>
         /// <returns>Returns the build request message.</returns>
-        private static HttpRequestMessage BuildRequest(HttpMethod method, string url, string accessToken = null, Dictionary<string, string> body = null)
+        private static HttpRequestMessage BuildRequest(HttpMethod method, string url, Dictionary<string, string> body = null)
         {
             HttpRequestMessage request = new HttpRequestMessage
             {
                 Method = method,
                 RequestUri = new Uri(url),
             };
-
-            if (accessToken != null)
-            {
-                request.Headers.Add("Authorization", $"Bearer {accessToken}");
-            }
+            request.Headers.Add("Accept", "application/json");
 
             if (body != null)
             {
@@ -144,14 +131,16 @@
         /// Send a request to the API and return the response.
         /// </summary>
         /// <typeparam name="T">The return type.</typeparam>
+        /// <param name="client">The <see cref="HttpClient"/> to send the request with.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
         /// <returns>Returns the response <see cref="Task"/>.</returns>
-        private async Task<T> SendRequest<T>(HttpRequestMessage request)
+        private static async Task<T> SendRequest<T>(HttpClient client, HttpRequestMessage request)
         {
-            HttpResponseMessage response = await _client.SendAsync(request);
+            HttpResponseMessage response = await client.SendAsync(request);
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception(await response.Content.ReadAsStringAsync());
+                string errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(await response.Content.ReadAsStringAsync()).Error;
+                throw new Exception(errorMessage);
             }
 
             return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
