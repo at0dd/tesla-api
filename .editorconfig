@@ -1,7 +1,19 @@
 ﻿[*.cs]
 
+# SA0001: XML comment analysis is disabled due to project configuration
+dotnet_diagnostic.SA0001.severity = none
+
 # SA1633: File should have header
 dotnet_diagnostic.SA1633.severity = none
 
 # CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 dotnet_diagnostic.CS8632.severity = none
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none
+
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = none
+
+# SA1649: File name should match first type name
+dotnet_diagnostic.SA1649.severity = none

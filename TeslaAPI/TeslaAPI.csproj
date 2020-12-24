@@ -9,6 +9,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -16,6 +17,8 @@
     <Folder Include="Models\Response\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\.editorconfig" />
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
   </ItemGroup>
 </Project>
