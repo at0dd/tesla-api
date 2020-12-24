@@ -6,6 +6,7 @@ Buying a Tesla? [Get 1,000 miles of free supercharging](https://ts.la/alex19632)
 This is an unofficial .NET 5 client implementation of the Tesla JSON API used by the Android and iOS apps. The API provides functionality to monitor and control the Tesla vehicles remotely.
 
 [Tim Dorr API Documentation](https://tesla-api.timdorr.com/)
+
 [API Documentation GitHub](https://github.com/timdorr/tesla-api)
 
 Installation
