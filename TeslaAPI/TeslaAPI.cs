@@ -49,6 +49,78 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
         /// <returns>Returns the <see cref="Vehicle"/>.</returns>
         public Vehicle GetVehicle(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Get all data for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
+        /// <returns>Returns the <see cref="VehicleDataResponse"/>.</returns>
+        public VehicleDataResponse GetVehicleData(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Get the <see cref="ChargeState"/> for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns the <see cref="ChargeState"/>.</returns>
+        public ChargeState GetVehicleChargeState(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Get the <see cref="ClimateState"/> for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns the <see cref="ClimateState"/>.</returns>
+        public ClimateState GetVehicleClimateState(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Get the <see cref="DriveState"/> for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns the <see cref="DriveState"/>.</returns>
+        public DriveState GetVehicleDriveState(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Get the <see cref="GUISettings"/> for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns the <see cref="GUISettings"/>.</returns>
+        public GUISettings GetVehicleGUISettings(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Get the <see cref="VehicleState"/> for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns the <see cref="VehicleState"/>.</returns>
+        public VehicleState GetVehicleState(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Get the <see cref="VehicleConfig"/> for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns the <see cref="VehicleConfig"/>.</returns>
+        public VehicleConfig GetVehicleConfig(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Gets if mobile access is enabled for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns a <see cref="bool"/>.</returns>
+        public bool GetMobileEnabled(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Gets <see cref="NearbyChargingSitesResponse"/> for a <see cref="Vehicle"/>.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <returns>Returns the <see cref="NearbyChargingSitesResponse"/>.</returns>
+        public NearbyChargingSitesResponse GetNearbyChargingSites(HttpClient client, string vehicleID);
     }
 
     /// <summary>
@@ -102,6 +174,69 @@
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}");
             return SendRequest<Response<Vehicle>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public VehicleDataResponse GetVehicleData(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/vehicle_data");
+            return SendRequest<Response<VehicleDataResponse>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public ChargeState GetVehicleChargeState(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/charge_state");
+            return SendRequest<Response<ChargeState>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public ClimateState GetVehicleClimateState(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/climate_state");
+            return SendRequest<Response<ClimateState>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public DriveState GetVehicleDriveState(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/drive_state");
+            return SendRequest<Response<DriveState>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public GUISettings GetVehicleGUISettings(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/gui_settings");
+            return SendRequest<Response<GUISettings>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public VehicleState GetVehicleState(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/vehicle_state");
+            return SendRequest<Response<VehicleState>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public VehicleConfig GetVehicleConfig(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/vehicle_config");
+            return SendRequest<Response<VehicleConfig>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public bool GetMobileEnabled(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/mobile_enabled");
+            return SendRequest<Response<bool>>(client, request).Result.Data;
+        }
+
+        /// <inheritdoc/>
+        public NearbyChargingSitesResponse GetNearbyChargingSites(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/nearby_charging_sites");
+            return SendRequest<Response<NearbyChargingSitesResponse>>(client, request).Result.Data;
         }
 
         /// <summary>
