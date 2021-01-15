@@ -4,18 +4,24 @@
     <TargetFramework>net5.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>Tesla-API</PackageId>
-    <PackageVersion>0.1.0</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>Alex Todd</Authors>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageLicenseUrl>https://github.com/at0dd/tesla-api/blob/main/LICENSE</PackageLicenseUrl>
+    <License>https://github.com/at0dd/tesla-api/blob/main/LICENSE</License>
     <Owners>Alex Todd</Owners>
     <PackageProjectUrl>https://github.com/at0dd/tesla-api</PackageProjectUrl>
     <Summary>An unofficial .NET Core implementation of the Tesla API.</Summary>
     <Title>Tesla API</Title>
     <Description>An unofficial .NET Core implementation of the Tesla API.</Description>
+    <RepositoryUrl>https://github.com/at0dd/tesla-api</RepositoryUrl>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>

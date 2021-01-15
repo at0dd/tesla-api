@@ -13,6 +13,6 @@
 
         RearCenter = 4,
 
-        RearRight = 5
+        RearRight = 5,
     }
 }

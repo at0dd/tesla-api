@@ -13,6 +13,6 @@
 
         SentryMode = 7,
 
-        DogMode = 8
+        DogMode = 8,
     }
 }
