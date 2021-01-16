@@ -24,7 +24,7 @@
         /// <param name="email">The user's email address.</param>
         /// <param name="password">The user's password.</param>
         /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
-        public TeslaAccessToken GetAccessToken(HttpClient client, string clientID, string clientSecret, string email, string password);
+        public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string email, string password);
 
         /// <summary>
         /// Refresh an access token.
@@ -34,14 +34,14 @@
         /// <param name="clientSecret">The Tesla client secret.</param>
         /// <param name="refreshToken">The exising refresh token.</param>
         /// <returns>Returns a new <see cref="TeslaAccessToken"/>.</returns>
-        public TeslaAccessToken RefreshToken(HttpClient client, string clientID, string clientSecret, string refreshToken);
+        public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken);
 
         /// <summary>
         /// Get all <see cref="Vehicle"/>s in the user's Tesla account.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns a list of <see cref="Vehicle"/>s.</returns>
-        public List<Vehicle> GetAllVehicles(HttpClient client);
+        public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client);
 
         /// <summary>
         /// Get all <see cref="Vehicle"/> by its ID.
@@ -49,7 +49,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
         /// <returns>Returns the <see cref="Vehicle"/>.</returns>
-        public Vehicle GetVehicle(HttpClient client, string vehicleID);
+        public Task<Vehicle> GetVehicleAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get all data for a <see cref="Vehicle"/>.
@@ -57,7 +57,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
         /// <returns>Returns the <see cref="VehicleDataResponse"/>.</returns>
-        public VehicleDataResponse GetVehicleData(HttpClient client, string vehicleID);
+        public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get the <see cref="ChargeState"/> for a <see cref="Vehicle"/>.
@@ -65,7 +65,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="ChargeState"/>.</returns>
-        public ChargeState GetVehicleChargeState(HttpClient client, string vehicleID);
+        public Task<ChargeState> GetVehicleChargeStateAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get the <see cref="ClimateState"/> for a <see cref="Vehicle"/>.
@@ -73,7 +73,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="ClimateState"/>.</returns>
-        public ClimateState GetVehicleClimateState(HttpClient client, string vehicleID);
+        public Task<ClimateState> GetVehicleClimateStateAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get the <see cref="DriveState"/> for a <see cref="Vehicle"/>.
@@ -81,7 +81,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="DriveState"/>.</returns>
-        public DriveState GetVehicleDriveState(HttpClient client, string vehicleID);
+        public Task<DriveState> GetVehicleDriveStateAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get the <see cref="GUISettings"/> for a <see cref="Vehicle"/>.
@@ -89,7 +89,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="GUISettings"/>.</returns>
-        public GUISettings GetVehicleGUISettings(HttpClient client, string vehicleID);
+        public Task<GUISettings> GetVehicleGUISettingsAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get the <see cref="VehicleState"/> for a <see cref="Vehicle"/>.
@@ -97,7 +97,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="VehicleState"/>.</returns>
-        public VehicleState GetVehicleState(HttpClient client, string vehicleID);
+        public Task<VehicleState> GetVehicleStateAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get the <see cref="VehicleConfig"/> for a <see cref="Vehicle"/>.
@@ -105,7 +105,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="VehicleConfig"/>.</returns>
-        public VehicleConfig GetVehicleConfig(HttpClient client, string vehicleID);
+        public Task<VehicleConfig> GetVehicleConfigAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Gets if mobile access is enabled for a <see cref="Vehicle"/>.
@@ -113,7 +113,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="bool"/>.</returns>
-        public bool GetMobileEnabled(HttpClient client, string vehicleID);
+        public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Gets <see cref="NearbyChargingSitesResponse"/> for a <see cref="Vehicle"/>.
@@ -122,7 +122,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="NearbyChargingSitesResponse"/>.</returns>
-        public NearbyChargingSitesResponse GetNearbyChargingSites(HttpClient client, string vehicleID);
+        public Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Wake up a <see cref="Vehicle"/> from a sleeping state.
@@ -131,7 +131,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="Vehicle"/>.</returns>
-        public Vehicle WakeUp(HttpClient client, string vehicleID);
+        public Task<Vehicle> WakeUpAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Honks the horn twice.
@@ -139,7 +139,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse HorkHorn(HttpClient client, string vehicleID);
+        public Task<CommandResponse> HorkHornAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Flash the headlights once.
@@ -147,7 +147,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse FlashLights(HttpClient client, string vehicleID);
+        public Task<CommandResponse> FlashLightsAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Enables keyless driving.
@@ -157,7 +157,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="password">The password for the Tesla account.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse RemoteStart(HttpClient client, string vehicleID, string password);
+        public Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID, string password);
 
         /// <summary>
         /// Opens or closes the primary Homelink device.
@@ -168,7 +168,7 @@
         /// <param name="latitude">The current location latitude.</param>
         /// <param name="longitude">The current location longitude.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse TriggerHomelink(HttpClient client, string vehicleID, double latitude, double longitude);
+        public Task<CommandResponse> TriggerHomelinkAsync(HttpClient client, string vehicleID, double latitude, double longitude);
 
         /// <summary>
         /// Sets the maximum speed allowed when Speed Limit Mode is active.
@@ -177,7 +177,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="speedLimit">The speed limit in miles per hour. Must be between 50-90.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SpeedLimitSetMaximum(HttpClient client, string vehicleID, int speedLimit);
+        public Task<CommandResponse> SpeedLimitSetMaximumAsync(HttpClient client, string vehicleID, int speedLimit);
 
         /// <summary>
         /// Activates Speed Limit Mode at the currently set speed.
@@ -186,7 +186,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The existing PIN, if previously set, or a new 4 digit PIN.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SpeedLimitActivate(HttpClient client, string vehicleID, int pin);
+        public Task<CommandResponse> SpeedLimitActivateAsync(HttpClient client, string vehicleID, int pin);
 
         /// <summary>
         /// Deactivates Speed Limit Mode if it is currently active.
@@ -195,7 +195,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The 4 digit PIN used to activate Speed Limit Mode.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SpeedLimitDeactivate(HttpClient client, string vehicleID, int pin);
+        public Task<CommandResponse> SpeedLimitDeactivateAsync(HttpClient client, string vehicleID, int pin);
 
         /// <summary>
         /// Clears the currently set PIN for Speed Limit Mode.
@@ -204,7 +204,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The 4 digit PIN used to activate Speed Limit Mode.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SpeedLimitClearPIN(HttpClient client, string vehicleID, int pin);
+        public Task<CommandResponse> SpeedLimitClearPINAsync(HttpClient client, string vehicleID, int pin);
 
         /// <summary>
         /// Activates or deactivates Valet Mode.
@@ -216,7 +216,7 @@
         /// <param name="on">T to activate, False to deactivate.</param>
         /// <param name="password">A PIN to deactivate Valet Mode.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ValetSetMode(HttpClient client, string vehicleID, bool on, int? password = null);
+        public Task<CommandResponse> ValetSetModeAsync(HttpClient client, string vehicleID, bool on, int? password = null);
 
         /// <summary>
         /// Clears the currently set PIN for Valet Mode when deactivated.
@@ -225,7 +225,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ValetResetPIN(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ValetResetPINAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Turns sentry mode on or off.
@@ -234,7 +234,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SetSentryMode(HttpClient client, string vehicleID, bool on);
+        public Task<CommandResponse> SetSentryModeAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
         /// Unlocks the doors to the car. Extends the handles on the S and X.
@@ -242,7 +242,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse DoorsUnlock(HttpClient client, string vehicleID);
+        public Task<CommandResponse> DoorsUnlockAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Locks the doors to the car. Retracts the handles on the S and X, if they are extended.
@@ -250,7 +250,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse DoorsLock(HttpClient client, string vehicleID);
+        public Task<CommandResponse> DoorsLockAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Opens either the front or rear trunk. On the Model S and X, it will also close the rear trunk.
@@ -259,7 +259,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="which_trunk">Which trunk to open/close. rear and front are the only options.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ActuateTrunk(HttpClient client, string vehicleID, string which_trunk);
+        public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk);
 
         /// <summary>
         /// Controls the windows. Will vent or close all windows simultaneously.
@@ -272,7 +272,7 @@
         /// <param name="latitude">Your current latitude.</param>
         /// <param name="longitude">Your current longitude.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse WindowControl(HttpClient client, string vehicleID, string command, double latitude, double longitude);
+        public Task<CommandResponse> WindowControlAsync(HttpClient client, string vehicleID, string command, double latitude, double longitude);
 
         /// <summary>
         /// Controls the panoramic sunroof on the Model S.
@@ -283,7 +283,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="state">The amount to open the sunroof. Currently this only allows the values vent and close.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SunroofControl(HttpClient client, string vehicleID, string state);
+        public Task<CommandResponse> SunroofControlAsync(HttpClient client, string vehicleID, string state);
 
         /// <summary>
         /// Opens the charge port.
@@ -291,7 +291,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ChargingPortOpen(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ChargingPortOpenAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// For vehicles with a motorized charge port, this closes it.
@@ -299,7 +299,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ChargingPortClose(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ChargingPortCloseAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// If the car is plugged in but not currently charging, this will start it charging.
@@ -307,7 +307,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ChargeStart(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ChargeStartAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// If the car is currently charging, this will stop it.
@@ -315,7 +315,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ChargeStop(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ChargeStopAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the charge limit to "standard" or ~90%.
@@ -323,7 +323,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ChargeStandard(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ChargeStandardAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the charge limit to "max range" or 100%.
@@ -331,7 +331,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ChargeMaximumRange(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ChargeMaximumRangeAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the charge limit to a custom value.
@@ -340,7 +340,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="percent">The percentage the battery will charge until.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ChargeSetLimit(HttpClient client, string vehicleID, int percent);
+        public Task<CommandResponse> ChargeSetLimitAsync(HttpClient client, string vehicleID, int percent);
 
         /// <summary>
         /// Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.
@@ -348,7 +348,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ClimateStartAutoConditioning(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ClimateStartAutoConditioningAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Stop the climate control (HVAC) system.
@@ -356,7 +356,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ClimateStopAutoConditioning(HttpClient client, string vehicleID);
+        public Task<CommandResponse> ClimateStopAutoConditioningAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the target temperature for the climate control (HVAC) system.
@@ -368,7 +368,7 @@
         /// <param name="driverTemperature">The desired temperature on the driver's side in celsius.</param>
         /// <param name="passengerTemperature">The desired temperature on the passenger's side in celsius.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ClimateSetTemperatures(HttpClient client, string vehicleID, double driverTemperature, double passengerTemperature);
+        public Task<CommandResponse> ClimateSetTemperaturesAsync(HttpClient client, string vehicleID, double driverTemperature, double passengerTemperature);
 
         /// <summary>
         /// Toggles the climate controls between Max Defrost and the previous setting.
@@ -377,7 +377,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ClimateSetPreconditioningMax(HttpClient client, string vehicleID, bool on);
+        public Task<CommandResponse> ClimateSetPreconditioningMaxAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
         /// Sets the specified seat's heater level.
@@ -387,7 +387,7 @@
         /// <param name="heater">The desired seat to heat. (0-5).</param>
         /// <param name="level">The desired level for the heater. (0-3).</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ClimateSetSeatHeaters(HttpClient client, string vehicleID, Seat heater, int level);
+        public Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat heater, int level);
 
         /// <summary>
         /// Turn steering wheel heater on or off.
@@ -396,7 +396,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse ClimateSetSteeringWheelHeat(HttpClient client, string vehicleID, bool on);
+        public Task<CommandResponse> ClimateSetSteeringWheelHeatAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
         /// Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.
@@ -404,7 +404,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse MediaTogglePlayback(HttpClient client, string vehicleID);
+        public Task<CommandResponse> MediaTogglePlaybackAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the next track in the current playlist.
@@ -412,7 +412,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse MediaNextTrack(HttpClient client, string vehicleID);
+        public Task<CommandResponse> MediaNextTrackAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the previous track in the current playlist.
@@ -421,7 +421,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse MediaPreviousTrack(HttpClient client, string vehicleID);
+        public Task<CommandResponse> MediaPreviousTrackAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the next saved favorite in the media system.
@@ -429,7 +429,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse MediaNextFavorite(HttpClient client, string vehicleID);
+        public Task<CommandResponse> MediaNextFavoriteAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the previous saved favorite in the media system.
@@ -437,7 +437,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse MediaPreviousFavorite(HttpClient client, string vehicleID);
+        public Task<CommandResponse> MediaPreviousFavoriteAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Turns up the volume of the media system.
@@ -445,7 +445,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse MediaVolumeUp(HttpClient client, string vehicleID);
+        public Task<CommandResponse> MediaVolumeUpAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Turns down the volume of the media system.
@@ -453,7 +453,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse MediaVolumeDown(HttpClient client, string vehicleID);
+        public Task<CommandResponse> MediaVolumeDownAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sends a location for the car to start navigation or play a video in theatre mode.
@@ -464,7 +464,7 @@
         /// <param name="locale">The locale for the navigation request.</param>
         /// <param name="timestamp">The current UNIX timestamp.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse Share(HttpClient client, string vehicleID, string value, string locale, long timestamp);
+        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp);
 
         /// <summary>
         /// Schedules a software update to be installed, if one is available.
@@ -473,7 +473,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="offset">How many seconds in the future to schedule the update. Set to 0 for immediate install.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SoftwareUpdateSchedule(HttpClient client, string vehicleID, int offset);
+        public Task<CommandResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset);
 
         /// <summary>
         /// Cancels a software update, if one is scheduled and has not yet started.
@@ -481,7 +481,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public CommandResponse SoftwareUpdateCancel(HttpClient client, string vehicleID);
+        public Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID);
     }
 
     /// <summary>
@@ -493,7 +493,7 @@
         private readonly string _apiV1 = "/api/1";
 
         /// <inheritdoc/>
-        public TeslaAccessToken GetAccessToken(HttpClient client, string clientID, string clientSecret, string email, string password)
+        public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string email, string password)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -505,11 +505,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=password", body: body);
-            return SendRequest<TeslaAccessToken>(client, request).Result;
+            return SendRequestAsync<TeslaAccessToken>(client, request);
         }
 
         /// <inheritdoc/>
-        public TeslaAccessToken RefreshToken(HttpClient client, string clientID, string clientSecret, string refreshToken)
+        public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -520,109 +520,109 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=refresh_token", body);
-            return SendRequest<TeslaAccessToken>(client, request).Result;
+            return SendRequestAsync<TeslaAccessToken>(client, request);
         }
 
         /// <inheritdoc/>
-        public List<Vehicle> GetAllVehicles(HttpClient client)
+        public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles");
-            return SendRequest<ListResponse<Vehicle>>(client, request).Result.Data;
+            return SendRequestResponseListUnwrapAsync<Vehicle>(client, request);
         }
 
         /// <inheritdoc/>
-        public Vehicle GetVehicle(HttpClient client, string vehicleID)
+        public Task<Vehicle> GetVehicleAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}");
-            return SendRequest<Response<Vehicle>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<Vehicle>(client, request);
         }
 
         /// <inheritdoc/>
-        public VehicleDataResponse GetVehicleData(HttpClient client, string vehicleID)
+        public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/vehicle_data");
-            return SendRequest<Response<VehicleDataResponse>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<VehicleDataResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public ChargeState GetVehicleChargeState(HttpClient client, string vehicleID)
+        public Task<ChargeState> GetVehicleChargeStateAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/charge_state");
-            return SendRequest<Response<ChargeState>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<ChargeState>(client, request);
         }
 
         /// <inheritdoc/>
-        public ClimateState GetVehicleClimateState(HttpClient client, string vehicleID)
+        public Task<ClimateState> GetVehicleClimateStateAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/climate_state");
-            return SendRequest<Response<ClimateState>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<ClimateState>(client, request);
         }
 
         /// <inheritdoc/>
-        public DriveState GetVehicleDriveState(HttpClient client, string vehicleID)
+        public Task<DriveState> GetVehicleDriveStateAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/drive_state");
-            return SendRequest<Response<DriveState>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<DriveState>(client, request);
         }
 
         /// <inheritdoc/>
-        public GUISettings GetVehicleGUISettings(HttpClient client, string vehicleID)
+        public Task<GUISettings> GetVehicleGUISettingsAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/gui_settings");
-            return SendRequest<Response<GUISettings>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<GUISettings>(client, request);
         }
 
         /// <inheritdoc/>
-        public VehicleState GetVehicleState(HttpClient client, string vehicleID)
+        public Task<VehicleState> GetVehicleStateAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/vehicle_state");
-            return SendRequest<Response<VehicleState>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<VehicleState>(client, request);
         }
 
         /// <inheritdoc/>
-        public VehicleConfig GetVehicleConfig(HttpClient client, string vehicleID)
+        public Task<VehicleConfig> GetVehicleConfigAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/vehicle_config");
-            return SendRequest<Response<VehicleConfig>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<VehicleConfig>(client, request);
         }
 
         /// <inheritdoc/>
-        public bool GetMobileEnabled(HttpClient client, string vehicleID)
+        public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/mobile_enabled");
-            return SendRequest<Response<bool>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<bool>(client, request);
         }
 
         /// <inheritdoc/>
-        public NearbyChargingSitesResponse GetNearbyChargingSites(HttpClient client, string vehicleID)
+        public Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/nearby_charging_sites");
-            return SendRequest<Response<NearbyChargingSitesResponse>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<NearbyChargingSitesResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public Vehicle WakeUp(HttpClient client, string vehicleID)
+        public Task<Vehicle> WakeUpAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/wake_up");
-            return SendRequest<Response<Vehicle>>(client, request).Result.Data;
+            return SendRequestResponseUnwrapAsync<Vehicle>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse HorkHorn(HttpClient client, string vehicleID)
+        public Task<CommandResponse> HorkHornAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/honk_horn");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse FlashLights(HttpClient client, string vehicleID)
+        public Task<CommandResponse> FlashLightsAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/flash_lights");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse RemoteStart(HttpClient client, string vehicleID, string password)
+        public Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID, string password)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -630,11 +630,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_start_drive", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse TriggerHomelink(HttpClient client, string vehicleID, double latitude, double longitude)
+        public Task<CommandResponse> TriggerHomelinkAsync(HttpClient client, string vehicleID, double latitude, double longitude)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -643,11 +643,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/trigger_homelink", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SpeedLimitSetMaximum(HttpClient client, string vehicleID, int speedLimit)
+        public Task<CommandResponse> SpeedLimitSetMaximumAsync(HttpClient client, string vehicleID, int speedLimit)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -655,11 +655,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_set_limit", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SpeedLimitActivate(HttpClient client, string vehicleID, int pin)
+        public Task<CommandResponse> SpeedLimitActivateAsync(HttpClient client, string vehicleID, int pin)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -667,11 +667,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_activate", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SpeedLimitDeactivate(HttpClient client, string vehicleID, int pin)
+        public Task<CommandResponse> SpeedLimitDeactivateAsync(HttpClient client, string vehicleID, int pin)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -679,11 +679,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_deactivate", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SpeedLimitClearPIN(HttpClient client, string vehicleID, int pin)
+        public Task<CommandResponse> SpeedLimitClearPINAsync(HttpClient client, string vehicleID, int pin)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -691,11 +691,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_clear_pin", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ValetSetMode(HttpClient client, string vehicleID, bool on, int? password = null)
+        public Task<CommandResponse> ValetSetModeAsync(HttpClient client, string vehicleID, bool on, int? password = null)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -708,39 +708,39 @@
             }
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_valet_mode", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ValetResetPIN(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ValetResetPINAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/reset_valet_pin");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SetSentryMode(HttpClient client, string vehicleID, bool on)
+        public Task<CommandResponse> SetSentryModeAsync(HttpClient client, string vehicleID, bool on)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_sentry_mode");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse DoorsUnlock(HttpClient client, string vehicleID)
+        public Task<CommandResponse> DoorsUnlockAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/door_unlock");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse DoorsLock(HttpClient client, string vehicleID)
+        public Task<CommandResponse> DoorsLockAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/door_lock");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ActuateTrunk(HttpClient client, string vehicleID, string which_trunk)
+        public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -748,11 +748,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/actuate_trunk", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse WindowControl(HttpClient client, string vehicleID, string command, double latitude, double longitude)
+        public Task<CommandResponse> WindowControlAsync(HttpClient client, string vehicleID, string command, double latitude, double longitude)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -762,11 +762,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/window_control", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SunroofControl(HttpClient client, string vehicleID, string state)
+        public Task<CommandResponse> SunroofControlAsync(HttpClient client, string vehicleID, string state)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -774,53 +774,53 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/sun_roof_control", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ChargingPortOpen(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ChargingPortOpenAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_port_door_open");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ChargingPortClose(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ChargingPortCloseAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_port_door_close");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ChargeStart(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ChargeStartAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_start");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ChargeStop(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ChargeStopAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_stop");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ChargeStandard(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ChargeStandardAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_standard");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ChargeMaximumRange(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ChargeMaximumRangeAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_max_range");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ChargeSetLimit(HttpClient client, string vehicleID, int percent)
+        public Task<CommandResponse> ChargeSetLimitAsync(HttpClient client, string vehicleID, int percent)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -828,25 +828,25 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charge_limit", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ClimateStartAutoConditioning(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ClimateStartAutoConditioningAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/auto_conditioning_start");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ClimateStopAutoConditioning(HttpClient client, string vehicleID)
+        public Task<CommandResponse> ClimateStopAutoConditioningAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/auto_conditioning_stop");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ClimateSetTemperatures(HttpClient client, string vehicleID, double driverTemperature, double passengerTemperature)
+        public Task<CommandResponse> ClimateSetTemperaturesAsync(HttpClient client, string vehicleID, double driverTemperature, double passengerTemperature)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -855,11 +855,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_temps", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ClimateSetPreconditioningMax(HttpClient client, string vehicleID, bool on)
+        public Task<CommandResponse> ClimateSetPreconditioningMaxAsync(HttpClient client, string vehicleID, bool on)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -867,11 +867,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_preconditioning_max", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ClimateSetSeatHeaters(HttpClient client, string vehicleID, Seat heater, int level)
+        public Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat heater, int level)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -880,11 +880,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_seat_heater_request", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse ClimateSetSteeringWheelHeat(HttpClient client, string vehicleID, bool on)
+        public Task<CommandResponse> ClimateSetSteeringWheelHeatAsync(HttpClient client, string vehicleID, bool on)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -892,60 +892,60 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_steering_wheel_heater_request", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse MediaTogglePlayback(HttpClient client, string vehicleID)
+        public Task<CommandResponse> MediaTogglePlaybackAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_toggle_playback");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse MediaNextTrack(HttpClient client, string vehicleID)
+        public Task<CommandResponse> MediaNextTrackAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_next_track");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse MediaPreviousTrack(HttpClient client, string vehicleID)
+        public Task<CommandResponse> MediaPreviousTrackAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_prev_track");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse MediaNextFavorite(HttpClient client, string vehicleID)
+        public Task<CommandResponse> MediaNextFavoriteAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_next_fav");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse MediaPreviousFavorite(HttpClient client, string vehicleID)
+        public Task<CommandResponse> MediaPreviousFavoriteAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_prev_fav");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse MediaVolumeUp(HttpClient client, string vehicleID)
+        public Task<CommandResponse> MediaVolumeUpAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_volume_up");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse MediaVolumeDown(HttpClient client, string vehicleID)
+        public Task<CommandResponse> MediaVolumeDownAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_volume_down");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse Share(HttpClient client, string vehicleID, string value, string locale, long timestamp)
+        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp)
         {
             Dictionary<string, string> shareValue = new Dictionary<string, string>
             {
@@ -961,11 +961,11 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/share", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SoftwareUpdateSchedule(HttpClient client, string vehicleID, int offset)
+        public Task<CommandResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
@@ -973,14 +973,14 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/schedule_software_update", body);
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
-        public CommandResponse SoftwareUpdateCancel(HttpClient client, string vehicleID)
+        public Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/cancel_software_update");
-            return SendRequest<CommandResponse>(client, request).Result;
+            return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <summary>
@@ -1014,7 +1014,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to send the request with.</param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to send.</param>
         /// <returns>Returns the response <see cref="Task"/>.</returns>
-        private static async Task<T> SendRequest<T>(HttpClient client, HttpRequestMessage request)
+        private static async Task<T> SendRequestAsync<T>(HttpClient client, HttpRequestMessage request)
         {
             HttpResponseMessage response = await client.SendAsync(request);
             if (!response.IsSuccessStatusCode)
@@ -1024,6 +1024,18 @@
             }
 
             return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+        }
+
+        private static async Task<T> SendRequestResponseUnwrapAsync<T>(HttpClient client, HttpRequestMessage request)
+        {
+            var response = await SendRequestAsync<Response<T>>(client, request);
+            return response.Data;
+        }
+
+        private static async Task<List<T>> SendRequestResponseListUnwrapAsync<T>(HttpClient client, HttpRequestMessage request)
+        {
+            var response = await SendRequestAsync<ListResponse<T>>(client, request);
+            return response.Data;
         }
     }
 }
