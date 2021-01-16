@@ -139,7 +139,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> HorkHornAsync(HttpClient client, string vehicleID);
+        public Task<CommandResponse> HonkHornAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Flash the headlights once.
@@ -608,7 +608,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> HorkHornAsync(HttpClient client, string vehicleID)
+        public Task<CommandResponse> HonkHornAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/honk_horn");
             return SendRequestAsync<CommandResponse>(client, request);
