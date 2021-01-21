@@ -83,6 +83,7 @@ $RECYCLE.BIN/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+*mono_crash*
 
 # Build results
 [Dd]ebug/
