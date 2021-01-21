@@ -37,9 +37,4 @@
     <Folder Include="Models\Response\" />
     <Folder Include="Enumerators\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\.editorconfig">
-      <Link>.editorconfig</Link>
-    </None>
-  </ItemGroup>
 </Project>
