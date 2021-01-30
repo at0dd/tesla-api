@@ -62,10 +62,10 @@ public class TeslaService
 	/// <returns>Returns a list of all Vehicles.</returns>
 	public List<Vehicle> GetVehicles(string clientID, string clientSecret, string email, string password)
 	{
-	    TeslaAccessToken accessToken = _teslaAPI.GetAccessToken(_client, clientID, clientSecret, email, password);
+	    TeslaAccessToken accessToken = _teslaAPI.GetAccesTokenAsync(_client, clientID, clientSecret, bearerToken);
 	    _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken.AccessToken}");
 
-	    return _teslaAPI.GetAllVehicles(_client);
+	    return _teslaAPI.GetAllVehiclesAsync(_client);
 	}
 }
 ```
