@@ -51,10 +51,9 @@
         /// Refresh an access token.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="clientID">The OAuth client ID.</param>
         /// <param name="refreshToken">The refresh token from a prior authentication.</param>
         /// <returns>Returns a <see cref="TeslaRefreshToken"/> with the new access token.</returns>
-        public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string clientID, string refreshToken);
+        public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken);
 
         /// <summary>
         /// Refresh an access token.
@@ -576,13 +575,12 @@
         }
 
         /// <inheritdoc/>
-        public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string clientID, string refreshToken)
+        public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
             {
                 { "grant_type", "refresh_token" },
                 { "client_id", "ownerapi" },
-                { "client_secret", clientID },
                 { "refresh_token", refreshToken },
                 { "scope", "openid email offline_access" },
             };
