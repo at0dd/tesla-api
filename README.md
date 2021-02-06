@@ -1,3 +1,4 @@
+
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/at0dd/tesla-api/.NET)
 ![Release Version](https://img.shields.io/github/v/release/at0dd/tesla-api)
 ![Nuget Version](https://img.shields.io/nuget/v/tesla-api)
@@ -36,10 +37,12 @@ services.AddScoped<ITeslaAPI, TeslaAPI>();
 ```
 
 #### Making a Request
-To make a request with the Tesla API, you'll need to create a `HttpClient` and set the `User-Agent` header to an identifier for your application. After getting an access token you can add the `Authorization` header to the `HttpClient`. This client is passed into all calls.
+To make a request with the Tesla API, you'll need to create a `HttpClient` and set the `User-Agent` header to an identifier for your application.
 
-You do not need to call the `GetAccessToken` method in every API request. This is just an example to show the basic setup.
+#### Authenticating with Tesla
+Follow the standard OAuth process [documented here](https://tesla-api.timdorr.com/api-basics/authentication) to get an access token. After getting an access token, add it to the `Authorization` header on the `HttpClient`, which is passed into data API calls.
 
+#### Example
 ```c#
 public class TeslaService
 {
@@ -60,12 +63,12 @@ public class TeslaService
 	/// Get all Vehicles in the user's account.
 	/// </summary>
 	/// <returns>Returns a list of all Vehicles.</returns>
-	public List<Vehicle> GetVehicles(string clientID, string clientSecret, string email, string password)
+	public List<Vehicle> GetVehicles(string clientID, string clientSecret, string bearerToken)
 	{
-	    TeslaAccessToken accessToken = _teslaAPI.GetAccessToken(_client, clientID, clientSecret, email, password);
+	    TeslaAccessToken accessToken = _teslaAPI.GetAccesTokenAsync(_client, clientID, clientSecret, bearerToken);
 	    _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken.AccessToken}");
 
-	    return _teslaAPI.GetAllVehicles(_client);
+	    return _teslaAPI.GetAllVehiclesAsync(_client);
 	}
 }
 ```

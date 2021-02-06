@@ -16,7 +16,27 @@
     public interface ITeslaAPI
     {
         /// <summary>
-        /// Authenticate with the Tesla API to get an access token.
+        /// Exchange an authorization code for a bearer token.
+        /// This is part of the standard OAuth 2.0 Authorization Code exchange.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="authorizationCode">The authorization code from the previous OAuth request.</param>
+        /// <param name="codeVerifier">The code verifier string generated previously.</param>
+        /// <returns>Returns a <see cref="TeslaBearerToken"/>.</returns>
+        public Task<TeslaBearerToken> GetBearerTokenAsync(HttpClient client, string authorizationCode, string codeVerifier);
+
+        /// <summary>
+        /// Exchange a bearer token for an access token.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="clientID">The Tesla client ID.</param>
+        /// <param name="clientSecret">The Tesla client secret.</param>
+        /// <param name="bearerToken">The generated bearer token.</param>
+        /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
+        public Task<TeslaAccessToken> GetAccesTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken);
+
+        /// <summary>
+        /// Authenticate with the Tesla API via email address and password to get an access token.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="clientID">The Tesla client ID.</param>
@@ -24,7 +44,16 @@
         /// <param name="email">The user's email address.</param>
         /// <param name="password">The user's password.</param>
         /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
+        [Obsolete("This method will be depreciated as Tesla switches over to OAuth.")]
         public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string email, string password);
+
+        /// <summary>
+        /// Refresh an access token.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="refreshToken">The refresh token from a prior authentication.</param>
+        /// <returns>Returns a <see cref="TeslaRefreshToken"/> with the new access token.</returns>
+        public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken);
 
         /// <summary>
         /// Refresh an access token.
@@ -34,6 +63,7 @@
         /// <param name="clientSecret">The Tesla client secret.</param>
         /// <param name="refreshToken">The exising refresh token.</param>
         /// <returns>Returns a new <see cref="TeslaAccessToken"/>.</returns>
+        [Obsolete("This method will be depreciated as Tesla switches over to OAuth.")]
         public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken);
 
         /// <summary>
@@ -489,8 +519,44 @@
     /// </summary>
     public class TeslaAPI : ITeslaAPI
     {
+        private readonly string _authenticationBaseUrl = "https://auth.tesla.com/oauth2/v3";
         private readonly string _ownerApiBaseUrl = "https://owner-api.teslamotors.com";
         private readonly string _apiV1 = "/api/1";
+
+        /// <inheritdoc/>
+        public Task<TeslaBearerToken> GetBearerTokenAsync(HttpClient client, string authorizationCode, string codeVerifier)
+        {
+            Dictionary<string, string> body = new Dictionary<string, string>
+            {
+                { "grant_type", "authorization_code" },
+                { "client_id", "ownerapi" },
+                { "code", authorizationCode },
+                { "code_verifier", codeVerifier },
+                { "redirect_uri", "https://auth.tesla.com/void/callback" },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_authenticationBaseUrl}/token", body: body);
+            return SendRequestAsync<TeslaBearerToken>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<TeslaAccessToken> GetAccesTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken)
+        {
+            Dictionary<string, string> headers = new Dictionary<string, string>
+            {
+                { "Authorization", $"Bearer {bearerToken}" },
+            };
+
+            Dictionary<string, string> body = new Dictionary<string, string>
+            {
+                { "grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer" },
+                { "client_id", clientID },
+                { "client_secret", clientSecret },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token", headers: headers, body: body);
+            return SendRequestAsync<TeslaAccessToken>(client, request);
+        }
 
         /// <inheritdoc/>
         public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string email, string password)
@@ -509,6 +575,21 @@
         }
 
         /// <inheritdoc/>
+        public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken)
+        {
+            Dictionary<string, string> body = new Dictionary<string, string>
+            {
+                { "grant_type", "refresh_token" },
+                { "client_id", "ownerapi" },
+                { "refresh_token", refreshToken },
+                { "scope", "openid email offline_access" },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_authenticationBaseUrl}/token", body: body);
+            return SendRequestAsync<TeslaRefreshToken>(client, request);
+        }
+
+        /// <inheritdoc/>
         public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken)
         {
             Dictionary<string, string> body = new Dictionary<string, string>
@@ -519,7 +600,7 @@
                 { "refresh_token", refreshToken },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=refresh_token", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=refresh_token", body: body);
             return SendRequestAsync<TeslaAccessToken>(client, request);
         }
 
@@ -629,7 +710,7 @@
                 { "password", password },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_start_drive", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_start_drive", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -642,7 +723,7 @@
                 { "lon", longitude.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/trigger_homelink", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/trigger_homelink", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -654,7 +735,7 @@
                 { "limit_mph", speedLimit.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_set_limit", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_set_limit", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -666,7 +747,7 @@
                 { "pin", pin.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_activate", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_activate", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -678,7 +759,7 @@
                 { "pin", pin.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_deactivate", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_deactivate", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -690,7 +771,7 @@
                 { "pin", pin.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_clear_pin", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_clear_pin", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -707,7 +788,7 @@
                 body.Add("password", password.ToString());
             }
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_valet_mode", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_valet_mode", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -747,7 +828,7 @@
                 { "which_trunk", which_trunk },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/actuate_trunk", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/actuate_trunk", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -761,7 +842,7 @@
                 { "lon", longitude.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/window_control", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/window_control", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -773,7 +854,7 @@
                 { "state", state },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/sun_roof_control", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/sun_roof_control", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -827,7 +908,7 @@
                 { "percent", percent.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charge_limit", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charge_limit", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -854,7 +935,7 @@
                 { "passenger_temp", passengerTemperature.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_temps", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_temps", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -866,7 +947,7 @@
                 { "on", on.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_preconditioning_max", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_preconditioning_max", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -879,7 +960,7 @@
                 { "level", level.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_seat_heater_request", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_seat_heater_request", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -891,7 +972,7 @@
                 { "on", on.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_steering_wheel_heater_request", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_steering_wheel_heater_request", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -960,7 +1041,7 @@
                 { "timestamp", timestamp.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/share", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/share", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -972,7 +1053,7 @@
                 { "offset", offset.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/schedule_software_update", body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/schedule_software_update", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -988,16 +1069,25 @@
         /// </summary>
         /// <param name="method">POST, GET, PUT, DELETE.</param>
         /// <param name="url">The request URL.</param>
+        /// <param name="headers">Additional headers to add to the request.</param>
         /// <param name="body">The request body.</param>
         /// <returns>Returns the build request message.</returns>
-        private static HttpRequestMessage BuildRequest(HttpMethod method, string url, Dictionary<string, string> body = null)
+        private static HttpRequestMessage BuildRequest(HttpMethod method, string url, Dictionary<string, string> headers = null, Dictionary<string, string> body = null)
         {
             HttpRequestMessage request = new HttpRequestMessage
             {
                 Method = method,
                 RequestUri = new Uri(url),
             };
+
             request.Headers.Add("Accept", "application/json");
+            if (headers != null)
+            {
+                foreach (KeyValuePair<string, string> header in headers)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                }
+            }
 
             if (body != null)
             {
@@ -1026,15 +1116,29 @@
             return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
         }
 
+        /// <summary>
+        /// Send a request to the Tesla API - return a singular object.
+        /// </summary>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="client">The <see cref="HttpClient"/> to send the request with.</param>
+        /// <param name="request">The request to send.</param>
+        /// <returns>Returns the request data.</returns>
         private static async Task<T> SendRequestResponseUnwrapAsync<T>(HttpClient client, HttpRequestMessage request)
         {
-            var response = await SendRequestAsync<Response<T>>(client, request);
+            Response<T> response = await SendRequestAsync<Response<T>>(client, request);
             return response.Data;
         }
 
+        /// <summary>
+        /// Send a request to the Tesla API - return a list of objects.
+        /// </summary>
+        /// <typeparam name="T">The return data type.</typeparam>
+        /// <param name="client">The <see cref="HttpClient"/> to send the request with.</param>
+        /// <param name="request">The request to send.</param>
+        /// <returns>Returns the request data.</returns>
         private static async Task<List<T>> SendRequestResponseListUnwrapAsync<T>(HttpClient client, HttpRequestMessage request)
         {
-            var response = await SendRequestAsync<ListResponse<T>>(client, request);
+            ListResponse<T> response = await SendRequestAsync<ListResponse<T>>(client, request);
             return response.Data;
         }
     }
