@@ -36,6 +36,6 @@ Global
 		$2.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $3
 		$3.scope = text/x-csharp
-		version = 1.0.1
+		version = 1.0.2
 	EndGlobalSection
 EndGlobal
