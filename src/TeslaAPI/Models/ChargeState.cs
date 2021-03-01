@@ -113,7 +113,7 @@
         public int MinutesToFullCharge { get; set; }
 
         [JsonProperty("not_enough_power_to_heat")]
-        public bool NotEnoughPowerToHeat { get; set; }
+        public bool? NotEnoughPowerToHeat { get; set; }
 
         [JsonProperty("scheduled_charging_pending")]
         public bool ScheduledChargingPending { get; set; }
