@@ -18,12 +18,12 @@ Installation
 ----------------------------
 
 From Powershell
-```c#
+```ps1
 Nuget-Install 'Tesla-API'
 ```
 
 .NET CLI
-```c#
+```ps1
 dotnet add package 'Tesla-API'
 ```
 
@@ -31,18 +31,24 @@ Setup
 ----------------------------
 
 #### Setup Dependency Injection
+
 In the `Startup.cs` file, add the following to the `ConfigureServices` method to allow the TeslaAPI to be dependency injected.
 ```c#
 services.AddScoped<ITeslaAPI, TeslaAPI>();
 ```
 
 #### Making a Request
+
 To make a request with the Tesla API, you'll need to create a `HttpClient` and set the `User-Agent` header to an identifier for your application.
 
 #### Authenticating with Tesla
-Follow the standard OAuth process [documented here](https://tesla-api.timdorr.com/api-basics/authentication) to get an access token. After getting an access token, add it to the `Authorization` header on the `HttpClient`, which is passed into data API calls.
+
+Follow the standard OAuth process [as documented by Tim Dorr](https://tesla-api.timdorr.com/api-basics/authentication) to get an access token. After getting an access token, add it to the `Authorization` header on the `HttpClient`, which is passed into data API calls.
+
+You can use the [TeslaAuth](https://github.com/tomhollander/TeslaAuth/) package that provides a .net implementation to obtain a (refresh) token.
 
 #### Example
+
 ```c#
 public class TeslaService
 {
