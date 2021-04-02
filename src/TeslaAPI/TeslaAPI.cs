@@ -494,7 +494,7 @@
         /// <param name="locale">The locale for the navigation request.</param>
         /// <param name="timestamp">The current UNIX timestamp.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp);
+        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp = default);
 
         /// <summary>
         /// Schedules a software update to be installed, if one is available.
@@ -526,7 +526,7 @@
         /// <inheritdoc/>
         public Task<TeslaBearerToken> GetBearerTokenAsync(HttpClient client, string authorizationCode, string codeVerifier)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "grant_type", "authorization_code" },
                 { "client_id", "ownerapi" },
@@ -547,7 +547,7 @@
                 { "Authorization", $"Bearer {bearerToken}" },
             };
 
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer" },
                 { "client_id", clientID },
@@ -561,7 +561,7 @@
         /// <inheritdoc/>
         public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string email, string password)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "grant_type", "password" },
                 { "client_id", clientID },
@@ -577,7 +577,7 @@
         /// <inheritdoc/>
         public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "grant_type", "refresh_token" },
                 { "client_id", "ownerapi" },
@@ -592,7 +592,7 @@
         /// <inheritdoc/>
         public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "grant_type", "refresh_token" },
                 { "client_id", clientID },
@@ -705,7 +705,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID, string password)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "password", password },
             };
@@ -717,7 +717,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> TriggerHomelinkAsync(HttpClient client, string vehicleID, double latitude, double longitude)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "lat", latitude.ToString() },
                 { "lon", longitude.ToString() },
@@ -730,7 +730,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> SpeedLimitSetMaximumAsync(HttpClient client, string vehicleID, int speedLimit)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "limit_mph", speedLimit.ToString() },
             };
@@ -742,7 +742,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> SpeedLimitActivateAsync(HttpClient client, string vehicleID, int pin)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "pin", pin.ToString() },
             };
@@ -754,7 +754,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> SpeedLimitDeactivateAsync(HttpClient client, string vehicleID, int pin)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "pin", pin.ToString() },
             };
@@ -766,7 +766,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> SpeedLimitClearPINAsync(HttpClient client, string vehicleID, int pin)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "pin", pin.ToString() },
             };
@@ -778,7 +778,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> ValetSetModeAsync(HttpClient client, string vehicleID, bool on, int? password = null)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "on", on.ToString() },
             };
@@ -823,7 +823,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "which_trunk", which_trunk },
             };
@@ -835,7 +835,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> WindowControlAsync(HttpClient client, string vehicleID, string command, double latitude, double longitude)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "command", command },
                 { "lat", latitude.ToString() },
@@ -849,7 +849,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> SunroofControlAsync(HttpClient client, string vehicleID, string state)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "state", state },
             };
@@ -903,7 +903,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> ChargeSetLimitAsync(HttpClient client, string vehicleID, int percent)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "percent", percent.ToString() },
             };
@@ -929,7 +929,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> ClimateSetTemperaturesAsync(HttpClient client, string vehicleID, double driverTemperature, double passengerTemperature)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "driver_temp", driverTemperature.ToString() },
                 { "passenger_temp", passengerTemperature.ToString() },
@@ -942,7 +942,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> ClimateSetPreconditioningMaxAsync(HttpClient client, string vehicleID, bool on)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "on", on.ToString() },
             };
@@ -954,7 +954,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat heater, int level)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "heater", heater.ToString() },
                 { "level", level.ToString() },
@@ -967,7 +967,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> ClimateSetSteeringWheelHeatAsync(HttpClient client, string vehicleID, bool on)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "on", on.ToString() },
             };
@@ -1026,17 +1026,22 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp)
+        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp = default)
         {
-            Dictionary<string, string> shareValue = new Dictionary<string, string>
+            if (timestamp == default)
+            {
+                timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            }
+
+            Dictionary<string, object> shareValue = new Dictionary<string, object>
             {
                 { "android.intent.extra.TEXT", value },
             };
 
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "type", "share_ext_content_raw" },
-                { "value", shareValue.ToString() },
+                { "value", shareValue },
                 { "locale", locale },
                 { "timestamp", timestamp.ToString() },
             };
@@ -1048,7 +1053,7 @@
         /// <inheritdoc/>
         public Task<CommandResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset)
         {
-            Dictionary<string, string> body = new Dictionary<string, string>
+            Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "offset", offset.ToString() },
             };
@@ -1072,7 +1077,7 @@
         /// <param name="headers">Additional headers to add to the request.</param>
         /// <param name="body">The request body.</param>
         /// <returns>Returns the build request message.</returns>
-        private static HttpRequestMessage BuildRequest(HttpMethod method, string url, Dictionary<string, string> headers = null, Dictionary<string, string> body = null)
+        private static HttpRequestMessage BuildRequest(HttpMethod method, string url, Dictionary<string, string> headers = null, Dictionary<string, object> body = null)
         {
             HttpRequestMessage request = new HttpRequestMessage
             {
