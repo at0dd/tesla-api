@@ -6,6 +6,9 @@
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
 
+    /// <summary>
+    /// The Extensions class.
+    /// </summary>
     public static class Extensions
     {
         /// <summary>
@@ -19,8 +22,7 @@
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
         public static Task<CommandResponse> ShareAsync(this ITeslaAPI instance, HttpClient client, string vehicleID, float latitude, float longitude)
         {
-            var value = string.Format(CultureInfo.InvariantCulture, "{0},{1}", latitude, longitude);
-            return instance.ShareAsync(client, vehicleID, value, "en-US");
+            return instance.ShareAsync(client, vehicleID, string.Format(CultureInfo.InvariantCulture, "{0},{1}", latitude, longitude), "en-US");
         }
     }
 }

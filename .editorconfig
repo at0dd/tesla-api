@@ -17,3 +17,9 @@ dotnet_diagnostic.SA1309.severity = none
 
 # SA1649: File name should match first type name
 dotnet_diagnostic.SA1649.severity = none
+
+# IDE0008: Use explicit type
+dotnet_diagnostic.IDE0008.severity = warning
+
+# IDE0090: Use 'new(...)'
+dotnet_diagnostic.IDE0090.severity = none
