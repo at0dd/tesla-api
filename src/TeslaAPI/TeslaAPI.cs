@@ -373,6 +373,15 @@
         public Task<CommandResponse> ChargeSetLimitAsync(HttpClient client, string vehicleID, int percent);
 
         /// <summary>
+        /// Sets the maximum charge current limit.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="maximumCurrent">The maximum current used to charge the battery.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        public Task<CommandResponse> ChargeSetMaximumCurrentAsync(HttpClient client, string vehicleID, int maximumCurrent);
+
+        /// <summary>
         /// Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
@@ -909,6 +918,17 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charge_limit", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        public Task<CommandResponse> ChargeSetMaximumCurrentAsync(HttpClient client, string vehicleID, int maximumCurrent)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "charging_amps", maximumCurrent.ToString() },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charging_amps", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
