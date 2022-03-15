@@ -12,6 +12,9 @@
         [JsonProperty("id")]
         public long ID { get; set; }
 
+        [JsonProperty("user_id")]
+        public long UserID { get; set; }
+
         [JsonProperty("vehicle_id")]
         public long VehicleID { get; set; }
 
@@ -26,6 +29,9 @@
 
         [JsonProperty("color")]
         public string? Color { get; set; }
+
+        [JsonProperty("access_type")]
+        public string AccessType { get; set; }
 
         [JsonProperty("tokens")]
         public List<string> Tokens { get; set; }

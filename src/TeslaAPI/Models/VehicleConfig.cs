@@ -3,10 +3,13 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// The VehicleConfig class.
+    /// The vehicle's configuration information including model, color, badging and wheels.
     /// </summary>
     public class VehicleConfig
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether the vehicle can accept navigation requests.
+        /// </summary>
         [JsonProperty("can_accept_navigation_requests")]
         public bool CanAcceptNavigationRequests { get; set; }
 
@@ -28,21 +31,39 @@
         [JsonProperty("eu_vehicle")]
         public bool EuropeanUnionVehicle { get; set; }
 
+        /// <summary>
+        /// Gets or sets the exterior color.
+        /// </summary>
         [JsonProperty("exterior_color")]
         public string ExteriorColor { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the vehicle has air suspension.
+        /// </summary>
         [JsonProperty("has_air_suspension")]
         public bool HasAirSuspension { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the vehicle has ludicrous mode.
+        /// </summary>
         [JsonProperty("has_ludicrous_mode")]
         public bool HasLudicrousMode { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the vehicle has a motorized charge port.
+        /// </summary>
         [JsonProperty("motorized_charge_port")]
         public bool MotorizedChargePort { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the vehicle has a power lift gate.
+        /// </summary>
         [JsonProperty("plg")]
         public bool PowerLiftGate { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the vehicle has rear seat heaters.
+        /// </summary>
         [JsonProperty("rear_seat_heaters")]
         public int RearSeatHeaters { get; set; }
 
@@ -52,6 +73,9 @@
         [JsonProperty("rhd")]
         public bool RHD { get; set; }
 
+        /// <summary>
+        /// Gets or sets the color of the vehicles roof.
+        /// </summary>
         [JsonProperty("roof_color")]
         public string RoofColor { get; set; }
 

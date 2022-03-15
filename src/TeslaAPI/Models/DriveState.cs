@@ -3,7 +3,7 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// The DriveState class.
+    /// The driving and position state of the vehicle.
     /// </summary>
     public class DriveState
     {
@@ -13,9 +13,15 @@
         [JsonProperty("heading")]
         public int Heading { get; set; }
 
+        /// <summary>
+        /// Gets or sets the current latitude.
+        /// </summary>
         [JsonProperty("latitude")]
         public double Latitude { get; set; }
 
+        /// <summary>
+        /// Gets or sets the current longitude.
+        /// </summary>
         [JsonProperty("longitude")]
         public double Longitude { get; set; }
 
@@ -37,9 +43,15 @@
         [JsonProperty("shift_state")]
         public string? ShiftState { get; set; }
 
+        /// <summary>
+        /// Gets or sets the current speed.
+        /// </summary>
         [JsonProperty("speed")]
         public string? Speed { get; set; }
 
+        /// <summary>
+        /// Gets or sets the timestamp of the response.
+        /// </summary>
         [JsonProperty("timestamp")]
         public long Timestamp { get; set; }
     }

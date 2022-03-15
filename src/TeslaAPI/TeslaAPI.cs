@@ -373,13 +373,47 @@
         public Task<CommandResponse> ChargeSetLimitAsync(HttpClient client, string vehicleID, int percent);
 
         /// <summary>
-        /// Sets the maximum charge current limit.
+        /// Sets the charge amps limit to a custom value.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <param name="maximumCurrent">The maximum current used to charge the battery.</param>
+        /// <param name="chargingAmps">The max amps to use during charging.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargeSetMaximumCurrentAsync(HttpClient client, string vehicleID, int maximumCurrent);
+        public Task<CommandResponse> SetChargingAmpsAsync(HttpClient client, string vehicleID, int chargingAmps);
+
+        /// <summary>
+        /// Set the scheduled charge.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="enabled">True if scheduled charing should be turned on.</param>
+        /// <param name="minutes">Time in minutes since midnight local time.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        public Task<CommandResponse> SetScheduledChargingAsync(HttpClient client, string vehicleID, bool enabled, int minutes);
+
+        /// <summary>
+        /// Set the scheduled departure.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="enabled">True if scheduled departure should be turned on, otherwise false.</param>
+        /// <param name="departureTime">Time in minutes since midnight local time.</param>
+        /// <param name="preconditioningEnabled">True if preconditioning should be turned on.</param>
+        /// <param name="preconditioningWeekdaysOnly">True if preconditioning should only be turned on during weekdays.</param>
+        /// <param name="offPeakChargingEnabled">True if charing should only happen during off-peak hours.</param>
+        /// <param name="offPeakChargingWeekdaysOnly">True if charing should only happen during off-peak hours, only on weekdays.</param>
+        /// <param name="endOffPeakTime">Time in minutes since midnight local time.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        public Task<CommandResponse> SetScheduledDepartureAsync(
+            HttpClient client,
+            string vehicleID,
+            bool enabled,
+            int departureTime,
+            bool preconditioningEnabled,
+            bool preconditioningWeekdaysOnly,
+            bool offPeakChargingEnabled,
+            bool offPeakChargingWeekdaysOnly,
+            int endOffPeakTime);
 
         /// <summary>
         /// Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.
@@ -921,14 +955,55 @@
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
-        public Task<CommandResponse> ChargeSetMaximumCurrentAsync(HttpClient client, string vehicleID, int maximumCurrent)
+        /// <inheritdoc/>
+        public Task<CommandResponse> SetChargingAmpsAsync(HttpClient client, string vehicleID, int chargingAmps)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "charging_amps", maximumCurrent.ToString() },
+                { "charging_amps", chargingAmps.ToString() },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charging_amps", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> SetScheduledChargingAsync(HttpClient client, string vehicleID, bool enabled, int minutes)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "enable", enabled },
+                { "time", minutes },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_scheduled_charging", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> SetScheduledDepartureAsync(
+            HttpClient client,
+            string vehicleID,
+            bool enabled,
+            int departureTime,
+            bool preconditioningEnabled,
+            bool preconditioningWeekdaysOnly,
+            bool offPeakChargingEnabled,
+            bool offPeakChargingWeekdaysOnly,
+            int endOffPeakTime)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "enable", enabled },
+                { "departure_time", departureTime },
+                { "preconditioning_enabled", preconditioningEnabled },
+                { "preconditioning_weekdays_only", preconditioningWeekdaysOnly },
+                { "off_peak_charging_enabled", offPeakChargingEnabled },
+                { "off_peak_charging_weekdays_only", offPeakChargingWeekdaysOnly },
+                { "end_off_peak_time", endOffPeakTime },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_scheduled_departure", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 

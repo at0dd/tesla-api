@@ -3,16 +3,25 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// The ChargeState class.
+    /// Information on the state of charge in the battery and its various settings.
     /// </summary>
     public class ChargeState
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether the battery heater is on.
+        /// </summary>
         [JsonProperty("battery_heater_on")]
         public bool BatteryHeaterOn { get; set; }
 
+        /// <summary>
+        /// Gets or sets the battery percent.
+        /// </summary>
         [JsonProperty("battery_level")]
         public int BatteryLevel { get; set; }
 
+        /// <summary>
+        /// Gets or sets the battery range.
+        /// </summary>
         [JsonProperty("battery_range")]
         public double BatteryRange { get; set; }
 
@@ -94,6 +103,9 @@
         [JsonProperty("fast_charger_type")]
         public string FastChargerType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ideal battery range.
+        /// </summary>
         [JsonProperty("ideal_battery_range")]
         public double IdealBatteryRange { get; set; }
 
@@ -109,27 +121,48 @@
         [JsonProperty("max_range_charge_counter")]
         public int MaxRangeChargeCounter { get; set; }
 
+        /// <summary>
+        /// Gets or sets the number of minutes left for a full charge.
+        /// </summary>
         [JsonProperty("minutes_to_full_charge")]
         public int MinutesToFullCharge { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the vehicle has enough power left to heat up.
+        /// </summary>
         [JsonProperty("not_enough_power_to_heat")]
         public bool? NotEnoughPowerToHeat { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether a scheduled charge is pending.
+        /// </summary>
         [JsonProperty("scheduled_charging_pending")]
         public bool ScheduledChargingPending { get; set; }
 
+        /// <summary>
+        /// Gets or sets the scheduled charing start time.
+        /// </summary>
         [JsonProperty("scheduled_charging_start_time")]
         public string? ScheduledChargingStartTime { get; set; }
 
+        /// <summary>
+        /// Gets or sets the amount of time left for a full charge.
+        /// </summary>
         [JsonProperty("time_to_full_charge")]
         public double TimeToFullCharge { get; set; }
 
+        /// <summary>
+        /// Gets or sets the timestamp of the response.
+        /// </summary>
         [JsonProperty("timestamp")]
         public long Timestamp { get; set; }
 
         [JsonProperty("trip_charging")]
         public bool TripCharging { get; set; }
 
+        /// <summary>
+        /// Gets or sets the usable battery percentage.
+        /// </summary>
         [JsonProperty("usable_battery_level")]
         public int UsableBatteryLevel { get; set; }
 
