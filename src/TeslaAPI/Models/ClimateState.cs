@@ -26,7 +26,7 @@
         public int FanStatus { get; set; }
 
         [JsonProperty("inside_temp")]
-        public double InsideTemperature { get; set; }
+        public double? InsideTemperature { get; set; }
 
         [JsonProperty("is_auto_conditioning_on")]
         public bool IsAutoConditioningOn { get; set; }
@@ -53,7 +53,7 @@
         public double MinimumAvailableTemperature { get; set; }
 
         [JsonProperty("outside_temp")]
-        public double OutsideTemperature { get; set; }
+        public double? OutsideTemperature { get; set; }
 
         [JsonProperty("passenger_temp_setting")]
         public double PassengerTempSetting { get; set; }
