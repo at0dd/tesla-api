@@ -38,7 +38,7 @@
         /// Gets or sets a value indicating whether auto conditioning is on.
         /// </summary>
         [JsonProperty("is_auto_conditioning_on")]
-        public bool IsAutoConditioningOn { get; set; }
+        public bool? IsAutoConditioningOn { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether climate is on.
@@ -65,7 +65,7 @@
         public bool IsRearDefrosterOn { get; set; }
 
         [JsonProperty("left_temp_direction")]
-        public int LeftTemperatureDirection { get; set; }
+        public int? LeftTemperatureDirection { get; set; }
 
         [JsonProperty("max_avail_temp")]
         public double MaximumAvailableTemperature { get; set; }
@@ -92,7 +92,7 @@
         public bool RemoteHeaterControlEnabled { get; set; }
 
         [JsonProperty("right_temp_direction")]
-        public int RightTempDirection { get; set; }
+        public int? RightTempDirection { get; set; }
 
         [JsonProperty("seat_heater_left")]
         public int SeatHeaterLeft { get; set; }
