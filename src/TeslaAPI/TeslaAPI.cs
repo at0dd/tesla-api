@@ -1213,7 +1213,17 @@
                 throw new Exception(errorMessage);
             }
 
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            string json = await response.Content.ReadAsStringAsync();
+
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            catch (Exception e)
+            {
+                e.Data["TeslaAPI.Response"] = json;
+                throw;
+            }
         }
 
         /// <summary>
