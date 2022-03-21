@@ -111,5 +111,32 @@
 
         [JsonProperty("wiper_blade_heater")]
         public bool WiperBladeHeater { get; set; }
+
+        [JsonProperty("allow_cabin_overheat_protection")]
+        public bool AllowCabinOverheatProtection { get; set; }
+
+        [JsonProperty("bioweapon_mode")]
+        public bool BioweaponMode { get; set; }
+
+        [JsonProperty("cabin_overheat_protection")]
+        public string CabinOverheatProtection { get; set; }
+
+        [JsonProperty("hvac_auto_request")]
+        public string HvacAutoRequest { get; set; }
+
+        [JsonProperty("seat_heater_rear_center")]
+        public int SeatHeaterRearCenter { get; set; }
+
+        [JsonProperty("seat_heater_rear_left")]
+        public int SeatHeaterRearLeft { get; set; }
+
+        [JsonProperty("seat_heater_rear_right")]
+        public int SeatHeaterRearRight { get; set; }
+
+        [JsonProperty("steering_wheel_heater")]
+        public bool SteeringWheelHeater { get; set; }
+
+        [JsonProperty("supports_fan_only_cabin_overheat_protection")]
+        public bool SupportsFanOnlyCabinOverheatProtection { get; set; }
     }
 }
