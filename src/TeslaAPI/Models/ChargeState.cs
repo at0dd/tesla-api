@@ -158,7 +158,7 @@
         public long Timestamp { get; set; }
 
         [JsonProperty("trip_charging")]
-        public bool TripCharging { get; set; }
+        public bool? TripCharging { get; set; }
 
         /// <summary>
         /// Gets or sets the usable battery percentage.
