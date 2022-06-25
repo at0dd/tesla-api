@@ -7,6 +7,9 @@
     using Tesla.API.Models;
     using Xunit;
 
+    /// <summary>
+    /// Tesla API Integration Tests.
+    /// </summary>
     public class IntegrationTests
     {
         private readonly string _bearerToken = "";
@@ -14,6 +17,10 @@
         private readonly ITeslaAPI _teslaAPI;
         private readonly HttpClient _client = new HttpClient();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IntegrationTests"/> class.
+        /// </summary>
+        /// <param name="teslaAPI">The Tesla API library.</param>
         public IntegrationTests(ITeslaAPI teslaAPI)
         {
             _teslaAPI = teslaAPI;
