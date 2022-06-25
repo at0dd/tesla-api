@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.API", "src\Tesla.API\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.Tests", "tests\Tesla.Tests\Tesla.Tests.csproj", "{D8539C63-9BA0-4BB6-88D8-1F6F88C9B007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.Auth", "src\Tesla.Auth\Tesla.Auth.csproj", "{8F9159E4-93E9-49BB-9BF0-2078F5E6EFF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.Auth", "src\Tesla.Auth\Tesla.Auth.csproj", "{5457D36F-65C9-4992-8C42-3A2F363474DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{D8539C63-9BA0-4BB6-88D8-1F6F88C9B007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8539C63-9BA0-4BB6-88D8-1F6F88C9B007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8539C63-9BA0-4BB6-88D8-1F6F88C9B007}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F9159E4-93E9-49BB-9BF0-2078F5E6EFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F9159E4-93E9-49BB-9BF0-2078F5E6EFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F9159E4-93E9-49BB-9BF0-2078F5E6EFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F9159E4-93E9-49BB-9BF0-2078F5E6EFF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5457D36F-65C9-4992-8C42-3A2F363474DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5457D36F-65C9-4992-8C42-3A2F363474DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5457D36F-65C9-4992-8C42-3A2F363474DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5457D36F-65C9-4992-8C42-3A2F363474DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
