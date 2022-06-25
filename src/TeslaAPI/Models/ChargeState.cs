@@ -25,6 +25,12 @@
         [JsonProperty("battery_range")]
         public double BatteryRange { get; set; }
 
+        /// <summary>
+        /// Gets or sets the current charging amperage.
+        /// </summary>
+        [JsonProperty("charge_amps")]
+        public int ChargeAmps { get; set; }
+
         [JsonProperty("charge_current_request")]
         public int ChargeCurrentRequest { get; set; }
 
