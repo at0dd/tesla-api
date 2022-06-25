@@ -1,7 +1,7 @@
 ﻿namespace Tesla.API.Models
 {
-    using global::TeslaAPI.Enumerators;
     using Newtonsoft.Json;
+    using Tesla.API.Enumerators;
 
     /// <summary>
     /// The vehicle's physical state, such as which doors are open.
