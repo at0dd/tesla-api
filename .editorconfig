@@ -21,6 +21,9 @@ dotnet_diagnostic.SA1101.severity = none
 # SA1309: Field names should not begin with underscore
 dotnet_diagnostic.SA1309.severity = none
 
+# SA1401: Fields should be private
+dotnet_diagnostic.SA1401.severity = none
+
 # SA1625: Element documentation should not be copied and pasted
 dotnet_diagnostic.SA1625.severity = none
 
