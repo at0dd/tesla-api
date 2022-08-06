@@ -14,10 +14,10 @@
         public double CurrentLimitMilesPerHour { get; set; }
 
         [JsonProperty("max_limit_mph")]
-        public int MaximumLimitMilesPerHour { get; set; }
+        public double MaximumLimitMilesPerHour { get; set; }
 
         [JsonProperty("min_limit_mph")]
-        public int MinimumLimitMilesPerHour { get; set; }
+        public double MinimumLimitMilesPerHour { get; set; }
 
         [JsonProperty("pin_code_set")]
         public bool PINCodeSet { get; set; }
