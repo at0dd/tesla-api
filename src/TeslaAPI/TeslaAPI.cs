@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using global::TeslaAPI.Enumerators;
+    using global::TeslaAPI.Exceptions;
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
     using Newtonsoft.Json;
@@ -663,7 +664,7 @@
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(await response.Content.ReadAsStringAsync()).Error;
-                throw new Exception(errorMessage);
+                throw new TeslaApiRequestUnsuccessfulException(errorMessage);
             }
 
             string json = await response.Content.ReadAsStringAsync();
