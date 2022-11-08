@@ -32,9 +32,9 @@ Setup
 
 #### Setup Dependency Injection
 
-In the `Startup.cs` file, add the following to the `ConfigureServices` method to allow the TeslaAPI to be dependency injected.
+When registering your services, call the method below to allow all required services to be dependency injected.
 ```c#
-services.AddScoped<ITeslaAPI, TeslaAPI>();
+services.AddTeslaApi();
 ```
 
 #### Making a Request
