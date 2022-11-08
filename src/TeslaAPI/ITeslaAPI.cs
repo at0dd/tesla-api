@@ -9,7 +9,7 @@
     using global::TeslaAPI.Models.Response;
 
     /// <summary>
-    /// The TeslaClient interface.
+    /// The interface for making API requests to the Tesla API.
     /// </summary>
     public interface ITeslaAPI
     {
@@ -42,7 +42,7 @@
         /// <param name="email">The user's email address.</param>
         /// <param name="password">The user's password.</param>
         /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
-        [Obsolete("This method will be depreciated as Tesla switches over to OAuth.")]
+        [Obsolete("This method will be deprecated as Tesla switches over to OAuth.")]
         public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientId, string clientSecret, string email, string password);
 
         /// <summary>
@@ -61,7 +61,7 @@
         /// <param name="clientSecret">The Tesla client secret.</param>
         /// <param name="refreshToken">The exising refresh token.</param>
         /// <returns>Returns a new <see cref="TeslaAccessToken"/>.</returns>
-        [Obsolete("This method will be depreciated as Tesla switches over to OAuth.")]
+        [Obsolete("This method will be deprecated as Tesla switches over to OAuth.")]
         public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientId, string clientSecret, string refreshToken);
 
         /// <summary>

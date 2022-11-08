@@ -12,7 +12,7 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// The TeslaClient class.
+    /// The implementation class for making API requests to the Tesla API.
     /// </summary>
     public class TeslaAPI : ITeslaAPI
     {
