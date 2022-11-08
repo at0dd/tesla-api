@@ -24,5 +24,8 @@ dotnet_diagnostic.SA1309.severity = none
 # SA1625: Element documentation should not be copied and pasted
 dotnet_diagnostic.SA1625.severity = none
 
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none #this is duplicated by CS1591
+
 # SA1649: File name should match first type name
 dotnet_diagnostic.SA1649.severity = none
