@@ -15,7 +15,6 @@
     <Title>Tesla API</Title>
     <Description>An unofficial .NET Core implementation of the Tesla API.</Description>
     <RepositoryUrl>https://github.com/at0dd/tesla-api</RepositoryUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/at0dd/tesla-api/main/LICENSE</PackageLicenseUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
