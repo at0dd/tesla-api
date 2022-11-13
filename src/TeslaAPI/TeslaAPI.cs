@@ -6,18 +6,19 @@
     using System.Text;
     using System.Threading.Tasks;
     using global::TeslaAPI.Enumerators;
+    using global::TeslaAPI.Exceptions;
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
     using Newtonsoft.Json;
 
     /// <summary>
-    /// The TeslaClient class.
+    /// The implementation class for making API requests to the Tesla API.
     /// </summary>
     public class TeslaAPI : ITeslaAPI
     {
-        private readonly string _authenticationBaseUrl = "https://auth.tesla.com/oauth2/v3";
-        private readonly string _ownerApiBaseUrl = "https://owner-api.teslamotors.com";
-        private readonly string _apiV1 = "/api/1";
+        private const string AuthenticationBaseUrl = "https://auth.tesla.com/oauth2/v3";
+        private const string OwnerApiBaseUrl = "https://owner-api.teslamotors.com";
+        private const string ApiV1 = "/api/1";
 
         /// <inheritdoc/>
         public Task<TeslaBearerToken> GetBearerTokenAsync(HttpClient client, string authorizationCode, string codeVerifier)
@@ -31,7 +32,7 @@
                 { "redirect_uri", "https://auth.tesla.com/void/callback" },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_authenticationBaseUrl}/token", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{AuthenticationBaseUrl}/token", body: body);
             return SendRequestAsync<TeslaBearerToken>(client, request);
         }
 
@@ -50,7 +51,7 @@
                 { "client_secret", clientSecret },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token", headers: headers, body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/oauth/token", headers: headers, body: body);
             return SendRequestAsync<TeslaAccessToken>(client, request);
         }
 
@@ -66,7 +67,7 @@
                 { "password", password },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=password", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/oauth/token?grant_type=password", body: body);
             return SendRequestAsync<TeslaAccessToken>(client, request);
         }
 
@@ -81,7 +82,7 @@
                 { "scope", "openid email offline_access" },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_authenticationBaseUrl}/token", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{AuthenticationBaseUrl}/token", body: body);
             return SendRequestAsync<TeslaRefreshToken>(client, request);
         }
 
@@ -96,105 +97,105 @@
                 { "refresh_token", refreshToken },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}/oauth/token?grant_type=refresh_token", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/oauth/token?grant_type=refresh_token", body: body);
             return SendRequestAsync<TeslaAccessToken>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles");
             return SendRequestResponseListUnwrapAsync<Vehicle>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<Vehicle> GetVehicleAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}");
             return SendRequestResponseUnwrapAsync<Vehicle>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/vehicle_data");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/vehicle_data");
             return SendRequestResponseUnwrapAsync<VehicleDataResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<ChargeState> GetVehicleChargeStateAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/charge_state");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/charge_state");
             return SendRequestResponseUnwrapAsync<ChargeState>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<ClimateState> GetVehicleClimateStateAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/climate_state");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/climate_state");
             return SendRequestResponseUnwrapAsync<ClimateState>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<DriveState> GetVehicleDriveStateAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/drive_state");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/drive_state");
             return SendRequestResponseUnwrapAsync<DriveState>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<GUISettings> GetVehicleGUISettingsAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/gui_settings");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/gui_settings");
             return SendRequestResponseUnwrapAsync<GUISettings>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<VehicleState> GetVehicleStateAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/vehicle_state");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/vehicle_state");
             return SendRequestResponseUnwrapAsync<VehicleState>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<VehicleConfig> GetVehicleConfigAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/vehicle_config");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/vehicle_config");
             return SendRequestResponseUnwrapAsync<VehicleConfig>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/mobile_enabled");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/mobile_enabled");
             return SendRequestResponseUnwrapAsync<bool>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/data_request/nearby_charging_sites");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/nearby_charging_sites");
             return SendRequestResponseUnwrapAsync<NearbyChargingSitesResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<Vehicle> WakeUpAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/wake_up");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/wake_up");
             return SendRequestResponseUnwrapAsync<Vehicle>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> HonkHornAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/honk_horn");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/honk_horn");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> FlashLightsAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/flash_lights");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/flash_lights");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -206,7 +207,7 @@
                 { "password", password },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_start_drive", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_start_drive", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -219,7 +220,7 @@
                 { "lon", longitude.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/trigger_homelink", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/trigger_homelink", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -231,7 +232,7 @@
                 { "limit_mph", speedLimit.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_set_limit", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_set_limit", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -243,7 +244,7 @@
                 { "pin", pin.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_activate", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_activate", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -255,7 +256,7 @@
                 { "pin", pin.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_deactivate", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_deactivate", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -267,7 +268,7 @@
                 { "pin", pin.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/speed_limit_clear_pin", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_clear_pin", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -284,35 +285,35 @@
                 body.Add("password", password.ToString());
             }
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_valet_mode", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_valet_mode", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ValetResetPINAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/reset_valet_pin");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/reset_valet_pin");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> SetSentryModeAsync(HttpClient client, string vehicleID, bool on)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_sentry_mode");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_sentry_mode");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> DoorsUnlockAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/door_unlock");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/door_unlock");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> DoorsLockAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/door_lock");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/door_lock");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -324,7 +325,7 @@
                 { "which_trunk", which_trunk },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/actuate_trunk", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/actuate_trunk", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -338,7 +339,7 @@
                 { "lon", longitude.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/window_control", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/window_control", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -350,49 +351,49 @@
                 { "state", state },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/sun_roof_control", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/sun_roof_control", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ChargingPortOpenAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_port_door_open");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/charge_port_door_open");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ChargingPortCloseAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_port_door_close");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/charge_port_door_close");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ChargeStartAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_start");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/charge_start");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ChargeStopAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_stop");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/charge_stop");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ChargeStandardAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_standard");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/charge_standard");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ChargeMaximumRangeAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/charge_max_range");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/charge_max_range");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -404,7 +405,7 @@
                 { "percent", percent.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charge_limit", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_charge_limit", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -416,7 +417,7 @@
                 { "charging_amps", chargingAmps.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_charging_amps", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_charging_amps", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -429,7 +430,7 @@
                 { "time", minutes },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_scheduled_charging", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_scheduled_charging", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -456,21 +457,21 @@
                 { "end_off_peak_time", endOffPeakTime },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_scheduled_departure", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_scheduled_departure", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ClimateStartAutoConditioningAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/auto_conditioning_start");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/auto_conditioning_start");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> ClimateStopAutoConditioningAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/auto_conditioning_stop");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/auto_conditioning_stop");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -483,7 +484,7 @@
                 { "passenger_temp", passengerTemperature.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_temps", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_temps", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -495,7 +496,7 @@
                 { "on", on.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/set_preconditioning_max", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_preconditioning_max", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -508,7 +509,7 @@
                 { "level", level.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_seat_heater_request", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_seat_heater_request", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -520,56 +521,56 @@
                 { "on", on.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/remote_steering_wheel_heater_request", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_steering_wheel_heater_request", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> MediaTogglePlaybackAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_toggle_playback");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_toggle_playback");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> MediaNextTrackAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_next_track");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_next_track");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> MediaPreviousTrackAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_prev_track");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_prev_track");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> MediaNextFavoriteAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_next_fav");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_next_fav");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> MediaPreviousFavoriteAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_prev_fav");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_prev_fav");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> MediaVolumeUpAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_volume_up");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_volume_up");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> MediaVolumeDownAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/media_volume_down");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_volume_down");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -594,7 +595,7 @@
                 { "timestamp", timestamp.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/share", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/share", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -606,14 +607,14 @@
                 { "offset", offset.ToString() },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/schedule_software_update", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/schedule_software_update", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{_ownerApiBaseUrl}{_apiV1}/vehicles/{vehicleID}/command/cancel_software_update");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/cancel_software_update");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -663,7 +664,7 @@
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(await response.Content.ReadAsStringAsync()).Error;
-                throw new Exception(errorMessage);
+                throw new TeslaApiRequestUnsuccessfulException(errorMessage);
             }
 
             string json = await response.Content.ReadAsStringAsync();
