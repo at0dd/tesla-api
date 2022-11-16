@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Tesla-API</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.0.8</Version>
     <PackageReleaseNotes>Add custom exception type for when Tesla API fails. Add extension method for registering required services.</PackageReleaseNotes>
     <Authors>Alex Todd</Authors>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -17,8 +17,14 @@
     <RepositoryUrl>https://github.com/at0dd/tesla-api</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Models\Users\" />
+    <None Remove="Models\Engery\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
@@ -38,5 +44,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Users\" />
+    <Folder Include="Models\Engery\" />
   </ItemGroup>
 </Project>

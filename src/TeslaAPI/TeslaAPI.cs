@@ -9,6 +9,7 @@
     using global::TeslaAPI.Exceptions;
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
+    using global::TeslaAPI.Models.Users;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -99,6 +100,27 @@
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/oauth/token?grant_type=refresh_token", body: body);
             return SendRequestAsync<TeslaAccessToken>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<User> GetMe(HttpClient client)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/me");
+            return SendRequestAsync<User>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<VaultProfile> GetUserVaultProfile(HttpClient client)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/vault_profile");
+            return SendRequestAsync<VaultProfile>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<FeatureConfig> GetUserFeatureConfig(HttpClient client)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/feature_config");
+            return SendRequestAsync<FeatureConfig>(client, request);
         }
 
         /// <inheritdoc/>

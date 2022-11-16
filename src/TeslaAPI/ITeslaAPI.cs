@@ -7,6 +7,7 @@
     using global::TeslaAPI.Enumerators;
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
+    using global::TeslaAPI.Models.Users;
 
     /// <summary>
     /// The interface for making API requests to the Tesla API.
@@ -63,6 +64,28 @@
         /// <returns>Returns a new <see cref="TeslaAccessToken"/>.</returns>
         [Obsolete("This method will be deprecated as Tesla switches over to OAuth.")]
         public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken);
+
+        /// <summary>
+        /// Get the current user's information.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <returns>Returns the current user.</returns>
+        public Task<User> GetMe(HttpClient client);
+
+        /// <summary>
+        /// This endpoint is a mystery, it returns what appears to be base64 encoded strings.
+        /// When decoded it has a bunch of jibberish and then two certificates and some readable strings, and what appears to be a hash of something.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <returns>Returns the user's vault profile.</returns>
+        public Task<VaultProfile> GetUserVaultProfile(HttpClient client);
+
+        /// <summary>
+        /// Get the feature configuration for the mobile app.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <returns>Returns the user's feature configuration.</returns>
+        public Task<FeatureConfig> GetUserFeatureConfig(HttpClient client);
 
         /// <summary>
         /// Get all <see cref="Vehicle"/>s in the user's Tesla account.
