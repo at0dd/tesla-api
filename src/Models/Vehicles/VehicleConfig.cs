@@ -80,13 +80,13 @@
         public string RoofColor { get; set; }
 
         [JsonProperty("seat_type")]
-        public int SeatType { get; set; }
+        public int? SeatType { get; set; }
 
         [JsonProperty("spoiler_type")]
         public string SpoilerType { get; set; }
 
         [JsonProperty("sun_roof_installed")]
-        public int SunroofInstalled { get; set; }
+        public int? SunroofInstalled { get; set; }
 
         [JsonProperty("third_row_seats")]
         public string ThirdRowSeats { get; set; }

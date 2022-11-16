@@ -190,14 +190,14 @@
         /// <inheritdoc/>
         public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/mobile_enabled");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/mobile_enabled");
             return SendRequestResponseUnwrapAsync<bool>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/nearby_charging_sites");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/nearby_charging_sites");
             return SendRequestResponseUnwrapAsync<NearbyChargingSitesResponse>(client, request);
         }
 

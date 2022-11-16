@@ -136,25 +136,25 @@
         /// Gets or sets the tire pressure of the front left tire.
         /// </summary>
         [JsonProperty("tpms_pressure_fl")]
-        public double TPMSPressureFrontLeft { get; set; }
+        public double? TPMSPressureFrontLeft { get; set; }
 
         /// <summary>
         /// Gets or sets the tire pressure of the front right tire.
         /// </summary>
         [JsonProperty("tpms_pressure_fr")]
-        public double TPMSPressureFrontRight { get; set; }
+        public double? TPMSPressureFrontRight { get; set; }
 
         /// <summary>
         /// Gets or sets the tire pressure of the rear left tire.
         /// </summary>
         [JsonProperty("tpms_pressure_rl")]
-        public double TPMSPressureRearLeft { get; set; }
+        public double? TPMSPressureRearLeft { get; set; }
 
         /// <summary>
         /// Gets or sets the tire pressure of the rear right tire.
         /// </summary>
         [JsonProperty("tpms_pressure_rr")]
-        public double TPMSPressureRearRight { get; set; }
+        public double? TPMSPressureRearRight { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether valet mode is enabled.

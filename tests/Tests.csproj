@@ -62,6 +62,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TeslaAPI\TeslaAPI.csproj" />
+    <ProjectReference Include="..\src\TeslaAPI.csproj" />
   </ItemGroup>
 </Project>
