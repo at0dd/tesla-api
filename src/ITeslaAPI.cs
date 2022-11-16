@@ -8,6 +8,7 @@
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
     using global::TeslaAPI.Models.Users;
+    using global::TeslaAPI.Models.Vehicles;
 
     /// <summary>
     /// The interface for making API requests to the Tesla API.

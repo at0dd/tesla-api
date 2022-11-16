@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.README.md = .README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeslaAPI", "src\TeslaAPI\TeslaAPI.csproj", "{AB55AA91-1D11-46F2-B178-D920A8DECE4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeslaAPI", "src\TeslaAPI.csproj", "{AB55AA91-1D11-46F2-B178-D920A8DECE4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeslaAPI.Tests", "tests\TeslaAPI.Tests\TeslaAPI.Tests.csproj", "{E1044AA2-96B6-448E-B2BE-E3037E7BD3B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\Tests.csproj", "{E1044AA2-96B6-448E-B2BE-E3037E7BD3B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

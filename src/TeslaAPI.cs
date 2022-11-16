@@ -10,6 +10,7 @@
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
     using global::TeslaAPI.Models.Users;
+    using global::TeslaAPI.Models.Vehicles;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -106,21 +107,21 @@
         public Task<User> GetMe(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/me");
-            return SendRequestAsync<User>(client, request);
+            return SendRequestResponseUnwrapAsync<User>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<VaultProfile> GetUserVaultProfile(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/vault_profile");
-            return SendRequestAsync<VaultProfile>(client, request);
+            return SendRequestResponseUnwrapAsync<VaultProfile>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<FeatureConfig> GetUserFeatureConfig(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/feature_config");
-            return SendRequestAsync<FeatureConfig>(client, request);
+            return SendRequestResponseUnwrapAsync<FeatureConfig>(client, request);
         }
 
         /// <inheritdoc/>

@@ -1,5 +1,6 @@
 ﻿namespace TeslaAPI.Models.Response
 {
+    using global::TeslaAPI.Models.Vehicles;
     using Newtonsoft.Json;
 
     /// <summary>
