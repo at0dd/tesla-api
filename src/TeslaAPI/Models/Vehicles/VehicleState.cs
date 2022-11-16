@@ -1,4 +1,4 @@
-﻿namespace TeslaAPI.Models
+﻿namespace TeslaAPI.Models.Vehicles
 {
     using global::TeslaAPI.Enumerators;
     using Newtonsoft.Json;
