@@ -5,7 +5,7 @@
     /// <summary>
     /// The Supercharger class.
     /// </summary>
-    public class Supercharger : Charger
+    public class Supercharger : DestinationCharger
     {
         /// <summary>
         /// Gets or sets the number of available stalls at the supercharger.

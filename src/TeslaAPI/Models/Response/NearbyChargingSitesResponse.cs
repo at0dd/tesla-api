@@ -15,7 +15,7 @@
         /// Gets or sets a list of destination chargers.
         /// </summary>
         [JsonProperty("destination_charging")]
-        public List<Charger> DestinationCharging { get; set; } = new List<Charger>();
+        public List<DestinationCharger> DestinationCharging { get; set; } = new List<DestinationCharger>();
 
         /// <summary>
         /// Gets or sets a list of superchargers.
