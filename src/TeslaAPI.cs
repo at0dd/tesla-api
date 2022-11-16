@@ -8,6 +8,7 @@
     using global::TeslaAPI.Enumerators;
     using global::TeslaAPI.Exceptions;
     using global::TeslaAPI.Models;
+    using global::TeslaAPI.Models.Engery;
     using global::TeslaAPI.Models.Response;
     using global::TeslaAPI.Models.Users;
     using global::TeslaAPI.Models.Vehicles;
@@ -639,6 +640,47 @@
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/cancel_software_update");
             return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySite> GetEnergyProducts(HttpClient client)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/products");
+            return SendRequestResponseUnwrapAsync<EnergySite>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySitePowerHistory> GetEnergySitePowerHistory(HttpClient client, string siteID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=power");
+            return SendRequestResponseUnwrapAsync<EnergySitePowerHistory>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistory(HttpClient client, string siteID, string period)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=energy&period={period}");
+            return SendRequestResponseUnwrapAsync<EnergySiteEnergyHistory>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistory(HttpClient client, string siteID, string endDate)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=power&end_date={endDate}");
+            return SendRequestResponseUnwrapAsync<EnergySitePowerCalendarHistory>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistory(HttpClient client, string siteID, string period, string endDate, string? interval = null)
+        {
+            string url = $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=energy&period={period}&end_date={endDate}";
+            if (!string.IsNullOrWhiteSpace(interval))
+            {
+                url += $"&interval={interval}";
+            }
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, url);
+            return SendRequestResponseUnwrapAsync<EnergySiteEnergyCalendarHistory>(client, request);
         }
 
         /// <summary>

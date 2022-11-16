@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using global::TeslaAPI.Enumerators;
     using global::TeslaAPI.Models;
+    using global::TeslaAPI.Models.Engery;
     using global::TeslaAPI.Models.Response;
     using global::TeslaAPI.Models.Users;
     using global::TeslaAPI.Models.Vehicles;
@@ -577,5 +578,73 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
         public Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Retrieve a list of your Tesla Energy products.
+        /// The value of energy_site_id is used as site_id in the various energy product endpoints.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <returns>Returns an energy site.</returns>
+        public Task<EnergySite> GetEnergyProducts(HttpClient client);
+
+        /// <summary>
+        /// Retrieves the power generation/storage (watts) for the previous day.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <returns>Returns the energy site power history.</returns>
+        public Task<EnergySitePowerHistory> GetEnergySitePowerHistory(HttpClient client, string siteID);
+
+        /// <summary>
+        /// Retrieves the cumulative energy generation/storage (kWh) for a specified recent period.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <param name="period">
+        /// The time span for energy statistics to cover.
+        /// "day": Total kWh for yesterday, and for today up to the current time.
+        /// "week": Total kWh for each of the past 7 days, not including today.
+        /// "month": Total kWh for each of the past 4 weeks, not including the current week. Weeks are Sunday to Saturday; timestamps are for Saturdays.
+        /// "year": Total kWh for each of the past 12 months, not including the current month.
+        /// </param>
+        /// <returns>Returns the energy site energy history.</returns>
+        public Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistory(HttpClient client, string siteID, string period);
+
+        /// <summary>
+        /// Retrieves the power generation/storage (watts) at 15-minute intervals for a given day.
+        /// See notes: https://tesla-api.timdorr.com/energy-products/energy/history#get-api-1-energy_sites-site_id-calendar_history.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <param name="endDate">
+        /// The format for the end_date parameter value is "yyyy-mm-ddThh:mm:ss-hh:mm".
+        /// Specify your local time zone offset for best clarity.
+        /// Universal time is accepted in the format "yyyy-mm-ddThh:mm:ssZ", but the time is converted to your local time zone, which could also change the date.
+        /// </param>
+        /// <returns>Returns the site power calendar history.</returns>
+        public Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistory(HttpClient client, string siteID, string endDate);
+
+        /// <summary>
+        /// Retrieves the energy generation/storage (kWh) for a specified period.
+        /// See notes: https://tesla-api.timdorr.com/energy-products/energy/history#get-api-1-energy_sites-site_id-calendar_history.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <param name="period">
+        /// The time span for energy statistics to cover.
+        /// "day": Total kWh for the day specified by end_date.
+        /// "week": Total kWh for each day from the previous Monday to, and including, end_date.
+        /// "month": Total kWh for each day from the first of the month to, and including,end_date.
+        /// "year": Total kWh for each calendar month from the previous January to, and including, end_date.
+        /// "lifetime": Total kWh for each calendar year from installation to, and including, end_date.
+        /// </param>
+        /// <param name="endDate">
+        /// The format for the end_date parameter value is "yyyy-mm-ddThh:mm:ss-hh:mm".
+        /// Specify your local time zone offset for best clarity.
+        /// Universal time is accepted in the format "yyyy-mm-ddThh:mm:ssZ", but the time is converted to your local time zone, which could also change the date.
+        /// </param>
+        /// <param name="interval">Optional. For 15 minute energy intervals when period is day (raises an error when tested on a number of other period/interval values).</param>
+        /// <returns>Returns the site energy calendar history.</returns>
+        public Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistory(HttpClient client, string siteID, string period, string endDate, string? interval = null);
     }
 }
