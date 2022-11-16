@@ -81,4 +81,3 @@ namespace TeslaAPI.Models.Engery
         public int ConsumerEnergyImportedFromGenerator { get; set; }
     }
 }
-}
