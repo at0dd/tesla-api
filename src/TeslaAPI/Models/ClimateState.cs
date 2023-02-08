@@ -11,7 +11,7 @@
         public bool BatteryHeater { get; set; }
 
         [JsonProperty("battery_heater_no_power")]
-        public bool BatteryHeaterNoPower { get; set; }
+        public bool? BatteryHeaterNoPower { get; set; }
 
         [JsonProperty("climate_keeper_mode")]
         public string ClimateKeeperMode { get; set; }
