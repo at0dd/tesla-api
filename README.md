@@ -1,4 +1,4 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/at0dd/tesla-api/.NET)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/at0dd/tesla-api/.github/workflows/dotnet.yml?branch=main)
 ![Release Version](https://img.shields.io/github/v/release/at0dd/tesla-api)
 ![Nuget Version](https://img.shields.io/nuget/v/tesla-api)
 ![Nuget Downloads](https://img.shields.io/nuget/dt/tesla-api)
