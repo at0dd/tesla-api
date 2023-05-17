@@ -16,6 +16,8 @@
     /// </summary>
     public interface ITeslaAPI
     {
+        /* ---- AUTHENTICATION ---- */
+
         /// <summary>
         /// Exchange an authorization code for a bearer token.
         /// This is part of the standard OAuth 2.0 Authorization Code exchange.
@@ -24,7 +26,7 @@
         /// <param name="authorizationCode">The authorization code from the previous OAuth request.</param>
         /// <param name="codeVerifier">The code verifier string generated previously.</param>
         /// <returns>Returns a <see cref="TeslaBearerToken"/>.</returns>
-        public Task<TeslaBearerToken> GetBearerTokenAsync(HttpClient client, string authorizationCode, string codeVerifier);
+        Task<TeslaBearerToken> GetBearerTokenAsync(HttpClient client, string authorizationCode, string codeVerifier);
 
         /// <summary>
         /// Exchange a bearer token for an access token.
@@ -35,7 +37,7 @@
         /// <param name="bearerToken">The generated bearer token.</param>
         /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
         [Obsolete("No longer used with OAuth.")]
-        public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken);
+        Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken);
 
         /// <summary>
         /// Refresh an access token.
@@ -43,14 +45,16 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="refreshToken">The refresh token from a prior authentication.</param>
         /// <returns>Returns a <see cref="TeslaRefreshToken"/> with the new access token.</returns>
-        public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken);
+        Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken);
+
+        /* ---- USERS ---- */
 
         /// <summary>
         /// Get the current user's information.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns the current user.</returns>
-        public Task<User> GetMe(HttpClient client);
+        Task<User> GetMe(HttpClient client);
 
         /// <summary>
         /// This endpoint is a mystery, it returns what appears to be base64 encoded strings.
@@ -58,21 +62,21 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns the user's vault profile.</returns>
-        public Task<VaultProfile> GetUserVaultProfile(HttpClient client);
+        Task<VaultProfile> GetUserVaultProfile(HttpClient client);
 
         /// <summary>
         /// Get the feature configuration for the mobile app.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns the user's feature configuration.</returns>
-        public Task<FeatureConfig> GetUserFeatureConfig(HttpClient client);
+        Task<FeatureConfig> GetUserFeatureConfig(HttpClient client);
 
         /// <summary>
         /// Get all <see cref="Vehicle"/>s in the user's Tesla account.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns a list of <see cref="Vehicle"/>s.</returns>
-        public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client);
+        Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client);
 
         /// <summary>
         /// Get all <see cref="Vehicle"/> by its ID.
@@ -80,7 +84,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
         /// <returns>Returns the <see cref="Vehicle"/>.</returns>
-        public Task<Vehicle> GetVehicleAsync(HttpClient client, string vehicleID);
+        Task<Vehicle> GetVehicleAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Get all data for a <see cref="Vehicle"/>.
@@ -88,7 +92,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
         /// <returns>Returns the <see cref="VehicleDataResponse"/>.</returns>
-        public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID);
+        Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Gets if mobile access is enabled for a <see cref="Vehicle"/>.
@@ -96,7 +100,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="bool"/>.</returns>
-        public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID);
+        Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Gets <see cref="NearbyChargingSitesResponse"/> for a <see cref="Vehicle"/>.
@@ -105,7 +109,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="NearbyChargingSitesResponse"/>.</returns>
-        public Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID);
+        Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Wake up a <see cref="Vehicle"/> from a sleeping state.
@@ -114,7 +118,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="Vehicle"/>.</returns>
-        public Task<Vehicle> WakeUpAsync(HttpClient client, string vehicleID);
+        Task<Vehicle> WakeUpAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Honks the horn twice.
@@ -122,7 +126,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> HonkHornAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> HonkHornAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Flash the headlights once.
@@ -130,7 +134,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> FlashLightsAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> FlashLightsAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Enables keyless driving.
@@ -140,7 +144,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="password">The password for the Tesla account.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID, string password);
+        Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID, string password);
 
         /// <summary>
         /// Opens or closes the primary Homelink device.
@@ -151,7 +155,7 @@
         /// <param name="latitude">The current location latitude.</param>
         /// <param name="longitude">The current location longitude.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> TriggerHomelinkAsync(HttpClient client, string vehicleID, double latitude, double longitude);
+        Task<CommandResponse> TriggerHomelinkAsync(HttpClient client, string vehicleID, double latitude, double longitude);
 
         /// <summary>
         /// Sets the maximum speed allowed when Speed Limit Mode is active.
@@ -160,7 +164,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="speedLimit">The speed limit in miles per hour. Must be between 50-90.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SpeedLimitSetMaximumAsync(HttpClient client, string vehicleID, int speedLimit);
+        Task<CommandResponse> SpeedLimitSetMaximumAsync(HttpClient client, string vehicleID, int speedLimit);
 
         /// <summary>
         /// Activates Speed Limit Mode at the currently set speed.
@@ -169,7 +173,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The existing PIN, if previously set, or a new 4 digit PIN.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SpeedLimitActivateAsync(HttpClient client, string vehicleID, int pin);
+        Task<CommandResponse> SpeedLimitActivateAsync(HttpClient client, string vehicleID, int pin);
 
         /// <summary>
         /// Deactivates Speed Limit Mode if it is currently active.
@@ -178,7 +182,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The 4 digit PIN used to activate Speed Limit Mode.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SpeedLimitDeactivateAsync(HttpClient client, string vehicleID, int pin);
+        Task<CommandResponse> SpeedLimitDeactivateAsync(HttpClient client, string vehicleID, int pin);
 
         /// <summary>
         /// Clears the currently set PIN for Speed Limit Mode.
@@ -187,7 +191,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The 4 digit PIN used to activate Speed Limit Mode.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SpeedLimitClearPINAsync(HttpClient client, string vehicleID, int pin);
+        Task<CommandResponse> SpeedLimitClearPINAsync(HttpClient client, string vehicleID, int pin);
 
         /// <summary>
         /// Activates or deactivates Valet Mode.
@@ -199,7 +203,7 @@
         /// <param name="on">T to activate, False to deactivate.</param>
         /// <param name="password">A PIN to deactivate Valet Mode.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ValetSetModeAsync(HttpClient client, string vehicleID, bool on, int? password = null);
+        Task<CommandResponse> ValetSetModeAsync(HttpClient client, string vehicleID, bool on, int? password = null);
 
         /// <summary>
         /// Clears the currently set PIN for Valet Mode when deactivated.
@@ -208,7 +212,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ValetResetPINAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ValetResetPINAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Turns sentry mode on or off.
@@ -217,7 +221,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SetSentryModeAsync(HttpClient client, string vehicleID, bool on);
+        Task<CommandResponse> SetSentryModeAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
         /// Unlocks the doors to the car. Extends the handles on the S and X.
@@ -225,7 +229,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> DoorsUnlockAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> DoorsUnlockAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Locks the doors to the car. Retracts the handles on the S and X, if they are extended.
@@ -233,7 +237,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> DoorsLockAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> DoorsLockAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Opens either the front or rear trunk. On the Model S and X, it will also close the rear trunk.
@@ -242,7 +246,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="which_trunk">Which trunk to open/close. rear and front are the only options.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk);
+        Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk);
 
         /// <summary>
         /// Controls the windows. Will vent or close all windows simultaneously.
@@ -255,7 +259,7 @@
         /// <param name="latitude">Your current latitude.</param>
         /// <param name="longitude">Your current longitude.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> WindowControlAsync(HttpClient client, string vehicleID, string command, double latitude, double longitude);
+        Task<CommandResponse> WindowControlAsync(HttpClient client, string vehicleID, string command, double latitude, double longitude);
 
         /// <summary>
         /// Controls the panoramic sunroof on the Model S.
@@ -266,7 +270,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="state">The amount to open the sunroof. Currently this only allows the values vent and close.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SunroofControlAsync(HttpClient client, string vehicleID, string state);
+        Task<CommandResponse> SunroofControlAsync(HttpClient client, string vehicleID, string state);
 
         /// <summary>
         /// Opens the charge port.
@@ -274,7 +278,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargingPortOpenAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ChargingPortOpenAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// For vehicles with a motorized charge port, this closes it.
@@ -282,7 +286,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargingPortCloseAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ChargingPortCloseAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// If the car is plugged in but not currently charging, this will start it charging.
@@ -290,7 +294,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargeStartAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ChargeStartAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// If the car is currently charging, this will stop it.
@@ -298,7 +302,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargeStopAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ChargeStopAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the charge limit to "standard" or ~90%.
@@ -306,7 +310,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargeStandardAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ChargeStandardAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the charge limit to "max range" or 100%.
@@ -314,7 +318,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargeMaximumRangeAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ChargeMaximumRangeAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the charge limit to a custom value.
@@ -323,7 +327,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="percent">The percentage the battery will charge until.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ChargeSetLimitAsync(HttpClient client, string vehicleID, int percent);
+        Task<CommandResponse> ChargeSetLimitAsync(HttpClient client, string vehicleID, int percent);
 
         /// <summary>
         /// Sets the charge amps limit to a custom value.
@@ -332,7 +336,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="chargingAmps">The max amps to use during charging.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SetChargingAmpsAsync(HttpClient client, string vehicleID, int chargingAmps);
+        Task<CommandResponse> SetChargingAmpsAsync(HttpClient client, string vehicleID, int chargingAmps);
 
         /// <summary>
         /// Set the scheduled charge.
@@ -342,7 +346,7 @@
         /// <param name="enabled">True if scheduled charing should be turned on.</param>
         /// <param name="minutes">Time in minutes since midnight local time.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SetScheduledChargingAsync(HttpClient client, string vehicleID, bool enabled, int minutes);
+        Task<CommandResponse> SetScheduledChargingAsync(HttpClient client, string vehicleID, bool enabled, int minutes);
 
         /// <summary>
         /// Set the scheduled departure.
@@ -357,7 +361,7 @@
         /// <param name="offPeakChargingWeekdaysOnly">True if charing should only happen during off-peak hours, only on weekdays.</param>
         /// <param name="endOffPeakTime">Time in minutes since midnight local time.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SetScheduledDepartureAsync(
+        Task<CommandResponse> SetScheduledDepartureAsync(
             HttpClient client,
             string vehicleID,
             bool enabled,
@@ -374,7 +378,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ClimateStartAutoConditioningAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ClimateStartAutoConditioningAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Stop the climate control (HVAC) system.
@@ -382,7 +386,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ClimateStopAutoConditioningAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> ClimateStopAutoConditioningAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sets the target temperature for the climate control (HVAC) system.
@@ -394,7 +398,7 @@
         /// <param name="driverTemperature">The desired temperature on the driver's side in celsius.</param>
         /// <param name="passengerTemperature">The desired temperature on the passenger's side in celsius.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ClimateSetTemperaturesAsync(HttpClient client, string vehicleID, double driverTemperature, double passengerTemperature);
+        Task<CommandResponse> ClimateSetTemperaturesAsync(HttpClient client, string vehicleID, double driverTemperature, double passengerTemperature);
 
         /// <summary>
         /// Toggles the climate controls between Max Defrost and the previous setting.
@@ -403,7 +407,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ClimateSetPreconditioningMaxAsync(HttpClient client, string vehicleID, bool on);
+        Task<CommandResponse> ClimateSetPreconditioningMaxAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
         /// Sets the specified seat's heater level.
@@ -413,7 +417,7 @@
         /// <param name="heater">The desired seat to heat. (0-5).</param>
         /// <param name="level">The desired level for the heater. (0-3).</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat heater, int level);
+        Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat heater, int level);
 
         /// <summary>
         /// Turn steering wheel heater on or off.
@@ -422,7 +426,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ClimateSetSteeringWheelHeatAsync(HttpClient client, string vehicleID, bool on);
+        Task<CommandResponse> ClimateSetSteeringWheelHeatAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
         /// Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.
@@ -430,7 +434,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> MediaTogglePlaybackAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> MediaTogglePlaybackAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the next track in the current playlist.
@@ -438,7 +442,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> MediaNextTrackAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> MediaNextTrackAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the previous track in the current playlist.
@@ -447,7 +451,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> MediaPreviousTrackAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> MediaPreviousTrackAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the next saved favorite in the media system.
@@ -455,7 +459,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> MediaNextFavoriteAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> MediaNextFavoriteAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Skips to the previous saved favorite in the media system.
@@ -463,7 +467,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> MediaPreviousFavoriteAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> MediaPreviousFavoriteAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Turns up the volume of the media system.
@@ -471,7 +475,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> MediaVolumeUpAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> MediaVolumeUpAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Turns down the volume of the media system.
@@ -479,7 +483,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> MediaVolumeDownAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> MediaVolumeDownAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Sends a location for the car to start navigation or play a video in theatre mode.
@@ -490,7 +494,7 @@
         /// <param name="locale">The locale for the navigation request.</param>
         /// <param name="timestamp">The current UNIX timestamp.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp = default);
+        Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp = default);
 
         /// <summary>
         /// Schedules a software update to be installed, if one is available.
@@ -499,7 +503,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="offset">How many seconds in the future to schedule the update. Set to 0 for immediate install.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset);
+        Task<CommandResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset);
 
         /// <summary>
         /// Cancels a software update, if one is scheduled and has not yet started.
@@ -507,7 +511,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        public Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID);
+        Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Retrieve a list of your Tesla Energy products.
@@ -515,7 +519,7 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns an energy site.</returns>
-        public Task<EnergySite> GetEnergyProducts(HttpClient client);
+        Task<EnergySite> GetEnergyProducts(HttpClient client);
 
         /// <summary>
         /// Retrieves the power generation/storage (watts) for the previous day.
@@ -523,7 +527,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="siteID">The ID of the energy site.</param>
         /// <returns>Returns the energy site power history.</returns>
-        public Task<EnergySitePowerHistory> GetEnergySitePowerHistory(HttpClient client, string siteID);
+        Task<EnergySitePowerHistory> GetEnergySitePowerHistory(HttpClient client, string siteID);
 
         /// <summary>
         /// Retrieves the cumulative energy generation/storage (kWh) for a specified recent period.
@@ -538,7 +542,7 @@
         /// "year": Total kWh for each of the past 12 months, not including the current month.
         /// </param>
         /// <returns>Returns the energy site energy history.</returns>
-        public Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistory(HttpClient client, string siteID, string period);
+        Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistory(HttpClient client, string siteID, string period);
 
         /// <summary>
         /// Retrieves the power generation/storage (watts) at 15-minute intervals for a given day.
@@ -552,7 +556,7 @@
         /// Universal time is accepted in the format "yyyy-mm-ddThh:mm:ssZ", but the time is converted to your local time zone, which could also change the date.
         /// </param>
         /// <returns>Returns the site power calendar history.</returns>
-        public Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistory(HttpClient client, string siteID, string endDate);
+        Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistory(HttpClient client, string siteID, string endDate);
 
         /// <summary>
         /// Retrieves the energy generation/storage (kWh) for a specified period.
@@ -575,6 +579,6 @@
         /// </param>
         /// <param name="interval">Optional. For 15 minute energy intervals when period is day (raises an error when tested on a number of other period/interval values).</param>
         /// <returns>Returns the site energy calendar history.</returns>
-        public Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistory(HttpClient client, string siteID, string period, string endDate, string? interval = null);
+        Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistory(HttpClient client, string siteID, string period, string endDate, string? interval = null);
     }
 }

@@ -6,9 +6,9 @@ using TeslaAPI.Models.Users;
 using Tests.Models;
 using Xunit;
 
-public class UserTests : BaseTests
+public class UsersTests : BaseTests
 {
-    public UserTests(IOptions<TeslaConfiguration> teslaConfiguration, ITeslaAPI teslaAPI)
+    public UsersTests(IOptions<TeslaConfiguration> teslaConfiguration, ITeslaAPI teslaAPI)
         : base(teslaConfiguration, teslaAPI)
     {
     }
@@ -34,7 +34,7 @@ public class UserTests : BaseTests
     }
 
     [Fact]
-    public async Task GetUserFeatureConfig()
+    public async Task TestGetUserFeatureConfig()
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {

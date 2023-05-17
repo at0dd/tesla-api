@@ -23,6 +23,8 @@
         private const string OwnerApiBaseUrl = "https://owner-api.teslamotors.com";
         private const string ApiV1 = "/api/1";
 
+        /* ---- AUTHENTICATION ---- */
+
         /// <inheritdoc/>
         public Task<TeslaBearerToken> GetBearerTokenAsync(HttpClient client, string authorizationCode, string codeVerifier)
         {
@@ -72,6 +74,8 @@
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{AuthenticationBaseUrl}/token", body: body);
             return SendRequestAsync<TeslaRefreshToken>(client, request);
         }
+
+        /* ---- USERS ---- */
 
         /// <inheritdoc/>
         public Task<User> GetMe(HttpClient client)

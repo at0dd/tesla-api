@@ -63,3 +63,6 @@ dotnet_diagnostic.SA1600.severity = none #this is duplicated by CS1591
 
 # SA1649: File name should match first type name
 dotnet_diagnostic.SA1649.severity = none
+
+# SA1518: Use line endings correctly at end of file
+dotnet_diagnostic.SA1518.severity = error
