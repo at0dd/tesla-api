@@ -7,6 +7,12 @@
     /// </summary>
     public class VehicleConfig
     {
+        [JsonProperty("aux_park_lamps")]
+        public string AuxiliaryParkLamps { get; set; }
+
+        [JsonProperty("badge_version")]
+        public int BadgeVersion { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether the vehicle can accept navigation requests.
         /// </summary>
@@ -25,8 +31,23 @@
         [JsonProperty("charge_port_type")]
         public string ChargePortType { get; set; }
 
+        [JsonProperty("cop_user_set_temp_supported")]
+        public bool CabinOverheatProtectionUserSetTemperatureSupported { get; set; }
+
+        [JsonProperty("dashcam_clip_save_supported")]
+        public bool DashcamClipSaveSupported { get; set; }
+
+        [JsonProperty("default_charge_to_max")]
+        public bool DefaultChargeToMax { get; set; }
+
+        [JsonProperty("driver_assist")]
+        public string DriverAssist { get; set; }
+
         [JsonProperty("ece_restrictions")]
         public bool ECERestrictions { get; set; }
+
+        [JsonProperty("efficiency_package")]
+        public string EfficiencyPackage { get; set; }
 
         [JsonProperty("eu_vehicle")]
         public bool EuropeanUnionVehicle { get; set; }
@@ -36,6 +57,18 @@
         /// </summary>
         [JsonProperty("exterior_color")]
         public string ExteriorColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the exterior trim color.
+        /// </summary>
+        [JsonProperty("exterior_trim")]
+        public string ExteriorTrim { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user entered exterior trim color.
+        /// </summary>
+        [JsonProperty("exterior_trim_override")]
+        public string ExteriorTrimOverride { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the vehicle has air suspension.
@@ -50,16 +83,49 @@
         public bool HasLudicrousMode { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the vehicle has seat cooling.
+        /// </summary>
+        [JsonProperty("has_seat_cooling")]
+        public bool HasSeatCooling { get; set; }
+
+        [JsonProperty("headlamp_type")]
+        public string HeadlampType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the interior trim.
+        /// </summary>
+        [JsonProperty("interior_trim_type")]
+        public string InteriorTrimType { get; set; }
+
+        [JsonProperty("key_version")]
+        public int KeyVersion { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the vehicle has a motorized charge port.
         /// </summary>
         [JsonProperty("motorized_charge_port")]
         public bool MotorizedChargePort { get; set; }
 
         /// <summary>
+        /// Gets or sets the user entered paint colors.
+        /// </summary>
+        [JsonProperty("paint_color_override")]
+        public string PaintColorOverride { get; set; }
+
+        [JsonProperty("performance_package")]
+        public string PerformancePackage { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the vehicle has a power lift gate.
         /// </summary>
         [JsonProperty("plg")]
         public bool PowerLiftGate { get; set; }
+
+        [JsonProperty("pws")]
+        public bool PedestrianWarningSystem { get; set; }
+
+        [JsonProperty("rear_drive_unit")]
+        public string RearDriveUnit { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the vehicle has rear seat heaters.
@@ -71,7 +137,7 @@
         public int RearSeatType { get; set; }
 
         [JsonProperty("rhd")]
-        public bool RHD { get; set; }
+        public bool RightHandDrive { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the vehicles roof.
@@ -88,6 +154,9 @@
         [JsonProperty("sun_roof_installed")]
         public int? SunroofInstalled { get; set; }
 
+        [JsonProperty("supports_qr_pairing")]
+        public bool SupportsQRParing { get; set; }
+
         [JsonProperty("third_row_seats")]
         public string ThirdRowSeats { get; set; }
 
@@ -99,6 +168,15 @@
 
         [JsonProperty("use_range_badging")]
         public bool UseRangeBadging { get; set; }
+
+        [JsonProperty("utc_offset")]
+        public int UTCOffset { get; set; }
+
+        [JsonProperty("webcam_selfie_supported")]
+        public bool WebcamSelfieSupported { get; set; }
+
+        [JsonProperty("webcam_supported")]
+        public bool WebcamSupported { get; set; }
 
         [JsonProperty("wheel_type")]
         public string WheelType { get; set; }

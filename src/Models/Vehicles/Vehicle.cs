@@ -59,5 +59,11 @@
 
         [JsonProperty("ble_autopair_enrolled")]
         public bool BluetoothAutopairEnrolled { get; set; }
+
+        [JsonProperty("command_signing")]
+        public string? CommandSigning { get; set; }
+
+        [JsonProperty("release_notes_supported")]
+        public bool? ReleaseNotesSupported { get; set; }
     }
 }
