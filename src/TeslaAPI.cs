@@ -147,48 +147,6 @@
         }
 
         /// <inheritdoc/>
-        public Task<ChargeState> GetVehicleChargeStateAsync(HttpClient client, string vehicleID)
-        {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/charge_state");
-            return SendRequestResponseUnwrapAsync<ChargeState>(client, request);
-        }
-
-        /// <inheritdoc/>
-        public Task<ClimateState> GetVehicleClimateStateAsync(HttpClient client, string vehicleID)
-        {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/climate_state");
-            return SendRequestResponseUnwrapAsync<ClimateState>(client, request);
-        }
-
-        /// <inheritdoc/>
-        public Task<DriveState> GetVehicleDriveStateAsync(HttpClient client, string vehicleID)
-        {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/drive_state");
-            return SendRequestResponseUnwrapAsync<DriveState>(client, request);
-        }
-
-        /// <inheritdoc/>
-        public Task<GUISettings> GetVehicleGUISettingsAsync(HttpClient client, string vehicleID)
-        {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/gui_settings");
-            return SendRequestResponseUnwrapAsync<GUISettings>(client, request);
-        }
-
-        /// <inheritdoc/>
-        public Task<VehicleState> GetVehicleStateAsync(HttpClient client, string vehicleID)
-        {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/vehicle_state");
-            return SendRequestResponseUnwrapAsync<VehicleState>(client, request);
-        }
-
-        /// <inheritdoc/>
-        public Task<VehicleConfig> GetVehicleConfigAsync(HttpClient client, string vehicleID)
-        {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/data_request/vehicle_config");
-            return SendRequestResponseUnwrapAsync<VehicleConfig>(client, request);
-        }
-
-        /// <inheritdoc/>
         public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/mobile_enabled");

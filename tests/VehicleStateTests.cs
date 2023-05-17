@@ -25,66 +25,6 @@ public class VehicleStateTests : BaseTests
     }
 
     [Fact]
-    public async Task TestGetVehicleChargeStateAsync()
-    {
-        Exception exception = await Record.ExceptionAsync(async () =>
-        {
-            ChargeState chargeState = await API.GetVehicleChargeStateAsync(Client, VehicleID);
-        });
-        Assert.Null(exception);
-    }
-
-    [Fact]
-    public async Task TestGetVehicleClimateStateAsync()
-    {
-        Exception exception = await Record.ExceptionAsync(async () =>
-        {
-            ClimateState climateState = await API.GetVehicleClimateStateAsync(Client, VehicleID);
-        });
-        Assert.Null(exception);
-    }
-
-    [Fact]
-    public async Task TestGetVehicleDriveStateAsync()
-    {
-        Exception exception = await Record.ExceptionAsync(async () =>
-        {
-            DriveState driveState = await API.GetVehicleDriveStateAsync(Client, VehicleID);
-        });
-        Assert.Null(exception);
-    }
-
-    [Fact]
-    public async Task TestGetVehicleGUISettingsAsync()
-    {
-        Exception exception = await Record.ExceptionAsync(async () =>
-        {
-            GUISettings guiSettings = await API.GetVehicleGUISettingsAsync(Client, VehicleID);
-        });
-        Assert.Null(exception);
-    }
-
-    [Fact]
-    public async Task TestGetVehicleStateAsync()
-    {
-        Exception exception = await Record.ExceptionAsync(async () =>
-        {
-            VehicleState vehicleState = await API.GetVehicleStateAsync(Client, VehicleID);
-        });
-        Assert.Null(exception);
-    }
-
-    [Fact]
-    public async Task TestGetVehicleConfigAsync()
-    {
-        Exception exception = await Record.ExceptionAsync(async () =>
-        {
-            VehicleConfig vehicleConfig = await API.GetVehicleConfigAsync(Client, VehicleID);
-        });
-        Assert.Null(exception);
-    }
-
-    [Fact]
     public async Task TestGetMobileEnabledAsync()
     {
         Exception exception = await Record.ExceptionAsync(async () =>

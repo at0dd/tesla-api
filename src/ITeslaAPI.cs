@@ -113,54 +113,6 @@
         public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID);
 
         /// <summary>
-        /// Get the <see cref="ChargeState"/> for a <see cref="Vehicle"/>.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <returns>Returns the <see cref="ChargeState"/>.</returns>
-        public Task<ChargeState> GetVehicleChargeStateAsync(HttpClient client, string vehicleID);
-
-        /// <summary>
-        /// Get the <see cref="ClimateState"/> for a <see cref="Vehicle"/>.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <returns>Returns the <see cref="ClimateState"/>.</returns>
-        public Task<ClimateState> GetVehicleClimateStateAsync(HttpClient client, string vehicleID);
-
-        /// <summary>
-        /// Get the <see cref="DriveState"/> for a <see cref="Vehicle"/>.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <returns>Returns the <see cref="DriveState"/>.</returns>
-        public Task<DriveState> GetVehicleDriveStateAsync(HttpClient client, string vehicleID);
-
-        /// <summary>
-        /// Get the <see cref="GUISettings"/> for a <see cref="Vehicle"/>.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <returns>Returns the <see cref="GUISettings"/>.</returns>
-        public Task<GUISettings> GetVehicleGUISettingsAsync(HttpClient client, string vehicleID);
-
-        /// <summary>
-        /// Get the <see cref="VehicleState"/> for a <see cref="Vehicle"/>.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <returns>Returns the <see cref="VehicleState"/>.</returns>
-        public Task<VehicleState> GetVehicleStateAsync(HttpClient client, string vehicleID);
-
-        /// <summary>
-        /// Get the <see cref="VehicleConfig"/> for a <see cref="Vehicle"/>.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <returns>Returns the <see cref="VehicleConfig"/>.</returns>
-        public Task<VehicleConfig> GetVehicleConfigAsync(HttpClient client, string vehicleID);
-
-        /// <summary>
         /// Gets if mobile access is enabled for a <see cref="Vehicle"/>.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
