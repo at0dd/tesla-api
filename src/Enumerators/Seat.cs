@@ -6,27 +6,27 @@
     public enum Seat
     {
         /// <summary>
-        /// Driver Seat
+        /// Driver Seat.
         /// </summary>
         Driver = 0,
 
         /// <summary>
-        /// Passenger Seat
+        /// Passenger Seat.
         /// </summary>
         Passenger = 1,
 
         /// <summary>
-        /// Rear Left Seat
+        /// Rear Left Seat.
         /// </summary>
         RearLeft = 2,
 
         /// <summary>
-        /// Rear Center Seat
+        /// Rear Center Seat.
         /// </summary>
         RearCenter = 4,
 
         /// <summary>
-        /// Rear Right Seat
+        /// Rear Right Seat.
         /// </summary>
         RearRight = 5,
     }

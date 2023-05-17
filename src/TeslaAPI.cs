@@ -99,6 +99,23 @@
         }
 
         /// <inheritdoc/>
+        public Task<bool> UpdateUserKeys(HttpClient client, string publicKey, string name, string model)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "kind", "mobile_device" },
+                { "public_key", publicKey },
+                { "name", name },
+                { "model", model },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/users/keys", body: body);
+            return SendRequestResponseUnwrapAsync<bool>(client, request);
+        }
+
+        /* ---- VEHICLES ---- */
+
+        /// <inheritdoc/>
         public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles");

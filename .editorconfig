@@ -55,14 +55,17 @@ dotnet_diagnostic.SA1401.severity = none
 # SA1402: File may only contain a single type
 dotnet_diagnostic.SA1402.severity = none
 
+# SA1518: Use line endings correctly at end of file
+dotnet_diagnostic.SA1518.severity = error
+
 # SA1625: Element documentation should not be copied and pasted
 dotnet_diagnostic.SA1625.severity = none
 
 # SA1600: Elements should be documented
 dotnet_diagnostic.SA1600.severity = none #this is duplicated by CS1591
 
+# SA1629: Documentation text should end with a period
+dotnet_diagnostic.SA1629.severity = error
+
 # SA1649: File name should match first type name
 dotnet_diagnostic.SA1649.severity = none
-
-# SA1518: Use line endings correctly at end of file
-dotnet_diagnostic.SA1518.severity = error

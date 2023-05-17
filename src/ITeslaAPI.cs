@@ -72,6 +72,18 @@
         Task<FeatureConfig> GetUserFeatureConfig(HttpClient client);
 
         /// <summary>
+        /// Update the name of a (bluetooth) key in all vehicles linked to the account. Refreshed inside the vehicle everytime the "Locks" menu is opened.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="publicKey">The ANSI X9.62/X9.63 representation of the public key that you wish to change (65 bytes long) - as a hex string.</param>
+        /// <param name="name">The name of the key (main text).</param>
+        /// <param name="model">The model of the key (sub text).</param>
+        /// <returns>Returns a <see cref="bool"/>.</returns>
+        Task<bool> UpdateUserKeys(HttpClient client, string publicKey, string name, string model);
+
+        /* ---- VEHICLES ---- */
+
+        /// <summary>
         /// Get all <see cref="Vehicle"/>s in the user's Tesla account.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>

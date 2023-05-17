@@ -6,47 +6,47 @@
     public enum CenterDisplayState
     {
         /// <summary>
-        /// Off
+        /// Off.
         /// </summary>
         Off = 0,
 
         /// <summary>
-        /// On, Standby, or Camp Mode
+        /// On, Standby, or Camp Mode.
         /// </summary>
         NormalOn = 2,
 
         /// <summary>
-        /// On, Charging Screen
+        /// On, Charging Screen.
         /// </summary>
         ChargingScreen = 3,
 
         /// <summary>
-        /// On
+        /// On.
         /// </summary>
         On = 4,
 
         /// <summary>
-        /// On, Big Charging Screen
+        /// On, Big Charging Screen.
         /// </summary>
         BigChargingScreen = 5,
 
         /// <summary>
-        /// Ready to Unlock
+        /// Ready to Unlock.
         /// </summary>
         ReadyToUnlock = 6,
 
         /// <summary>
-        /// Sentry Mode
+        /// Sentry Mode.
         /// </summary>
         SentryMode = 7,
 
         /// <summary>
-        /// Dog Mode
+        /// Dog Mode.
         /// </summary>
         DogMode = 8,
 
         /// <summary>
-        /// Media
+        /// Media.
         /// </summary>
         Media = 9,
     }
