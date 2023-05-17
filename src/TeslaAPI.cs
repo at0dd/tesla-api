@@ -129,6 +129,21 @@
             return SendRequestResponseUnwrapAsync<Vehicle>(client, request);
         }
 
+        /* ---- ENERGY PRODUCTS ---- */
+
+        /// <inheritdoc/>
+        public Task<List<EnergySite>> GetEnergyProductsAsync(HttpClient client)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/products");
+            return SendRequestResponseUnwrapAsync<List<EnergySite>>(client, request);
+        }
+
+
+
+
+
+
+
         /// <inheritdoc/>
         public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID)
         {
@@ -588,13 +603,6 @@
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/cancel_software_update");
             return SendRequestAsync<CommandResponse>(client, request);
-        }
-
-        /// <inheritdoc/>
-        public Task<EnergySite> GetEnergyProducts(HttpClient client)
-        {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/products");
-            return SendRequestResponseUnwrapAsync<EnergySite>(client, request);
         }
 
         /// <inheritdoc/>

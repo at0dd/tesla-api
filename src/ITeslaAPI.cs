@@ -98,6 +98,20 @@
         /// <returns>Returns the <see cref="Vehicle"/>.</returns>
         Task<Vehicle> GetVehicleAsync(HttpClient client, string vehicleID);
 
+        /* ---- ENERGY PRODUCTS ---- */
+
+        /// <summary>
+        /// Retrieve a list of your Tesla Energy products.
+        /// The value of energy_site_id is used as site_id in the various energy product endpoints.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <returns>Returns an energy site.</returns>
+        [Obsolete("This endpoint does not currently work. It returns both vehicle and energy products in same array of data.")]
+        Task<List<EnergySite>> GetEnergyProductsAsync(HttpClient client);
+
+
+
+
         /// <summary>
         /// Get all data for a <see cref="Vehicle"/>.
         /// </summary>
@@ -524,14 +538,6 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
         Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID);
-
-        /// <summary>
-        /// Retrieve a list of your Tesla Energy products.
-        /// The value of energy_site_id is used as site_id in the various energy product endpoints.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <returns>Returns an energy site.</returns>
-        Task<EnergySite> GetEnergyProducts(HttpClient client);
 
         /// <summary>
         /// Retrieves the power generation/storage (watts) for the previous day.
