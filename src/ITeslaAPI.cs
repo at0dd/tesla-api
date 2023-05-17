@@ -34,19 +34,8 @@
         /// <param name="clientSecret">The Tesla client secret.</param>
         /// <param name="bearerToken">The generated bearer token.</param>
         /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
-        public Task<TeslaAccessToken> GetAccesTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken);
-
-        /// <summary>
-        /// Authenticate with the Tesla API via email address and password to get an access token.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="clientID">The Tesla client ID.</param>
-        /// <param name="clientSecret">The Tesla client secret.</param>
-        /// <param name="email">The user's email address.</param>
-        /// <param name="password">The user's password.</param>
-        /// <returns>Returns a <see cref="TeslaAccessToken"/>.</returns>
-        [Obsolete("This method will be deprecated as Tesla switches over to OAuth.")]
-        public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string email, string password);
+        [Obsolete("No longer used with OAuth.")]
+        public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken);
 
         /// <summary>
         /// Refresh an access token.
@@ -55,17 +44,6 @@
         /// <param name="refreshToken">The refresh token from a prior authentication.</param>
         /// <returns>Returns a <see cref="TeslaRefreshToken"/> with the new access token.</returns>
         public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken);
-
-        /// <summary>
-        /// Refresh an access token.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="clientID">The Tesla client ID.</param>
-        /// <param name="clientSecret">The Tesla client secret.</param>
-        /// <param name="refreshToken">The exising refresh token.</param>
-        /// <returns>Returns a new <see cref="TeslaAccessToken"/>.</returns>
-        [Obsolete("This method will be deprecated as Tesla switches over to OAuth.")]
-        public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken);
 
         /// <summary>
         /// Get the current user's information.

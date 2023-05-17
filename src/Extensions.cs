@@ -3,7 +3,6 @@
     using System.Globalization;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Response;
 
     /// <summary>

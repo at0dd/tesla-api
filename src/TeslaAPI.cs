@@ -40,7 +40,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<TeslaAccessToken> GetAccesTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken)
+        public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string bearerToken)
         {
             Dictionary<string, string> headers = new Dictionary<string, string>
             {
@@ -59,22 +59,6 @@
         }
 
         /// <inheritdoc/>
-        public Task<TeslaAccessToken> GetAccessTokenAsync(HttpClient client, string clientID, string clientSecret, string email, string password)
-        {
-            Dictionary<string, object> body = new Dictionary<string, object>
-            {
-                { "grant_type", "password" },
-                { "client_id", clientID },
-                { "client_secret", clientSecret },
-                { "email", email },
-                { "password", password },
-            };
-
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/oauth/token?grant_type=password", body: body);
-            return SendRequestAsync<TeslaAccessToken>(client, request);
-        }
-
-        /// <inheritdoc/>
         public Task<TeslaRefreshToken> RefreshTokenAsync(HttpClient client, string refreshToken)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
@@ -87,21 +71,6 @@
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{AuthenticationBaseUrl}/token", body: body);
             return SendRequestAsync<TeslaRefreshToken>(client, request);
-        }
-
-        /// <inheritdoc/>
-        public Task<TeslaAccessToken> RefreshTokenAsync(HttpClient client, string clientID, string clientSecret, string refreshToken)
-        {
-            Dictionary<string, object> body = new Dictionary<string, object>
-            {
-                { "grant_type", "refresh_token" },
-                { "client_id", clientID },
-                { "client_secret", clientSecret },
-                { "refresh_token", refreshToken },
-            };
-
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/oauth/token?grant_type=refresh_token", body: body);
-            return SendRequestAsync<TeslaAccessToken>(client, request);
         }
 
         /// <inheritdoc/>
