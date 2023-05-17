@@ -7,6 +7,15 @@
     /// </summary>
     public class DriveState
     {
+        [JsonProperty("active_route_latitude")]
+        public double ActiveRouteLatitude { get; set; }
+
+        [JsonProperty("active_route_longitude")]
+        public double ActiveRouteLongitude { get; set; }
+
+        [JsonProperty("active_route_traffic_minutes_delay")]
+        public double ActiveRouteTrafficMinutesDelay { get; set; }
+
         [JsonProperty("gps_as_of")]
         public long GPSAsOf { get; set; }
 

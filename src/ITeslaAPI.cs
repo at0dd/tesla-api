@@ -127,7 +127,7 @@
         Task<Trip> RequestTripPlanAsync(HttpClient client, string carTrim, string carType, string destination, string origin, double originSOE, string vin);
 
         /* ---- VEHICLE ---- */
-        /* -- State -- */
+        /* -- Data -- */
 
         /// <summary>
         /// Get all data for a <see cref="Vehicle"/>.

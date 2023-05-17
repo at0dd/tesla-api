@@ -34,6 +34,12 @@
         [JsonProperty("gui_temperature_units")]
         public string GUITemperatureUnits { get; set; }
 
+        /// <summary>
+        /// Gets or sets the tire pressure units (PSI/BAR).
+        /// </summary>
+        [JsonProperty("gui_tirepressure_units")]
+        public string GUITirePressureUnits { get; set; }
+
         [JsonProperty("show_range_units")]
         public bool ShowRangeUnits { get; set; }
 

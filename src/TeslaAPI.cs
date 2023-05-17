@@ -159,7 +159,7 @@
         }
 
         /* ---- VEHICLE ---- */
-        /* -- State -- */
+        /* -- Date -- */
 
         /// <inheritdoc/>
         public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID)

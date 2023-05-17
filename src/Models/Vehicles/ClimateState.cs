@@ -7,14 +7,35 @@
     /// </summary>
     public class ClimateState
     {
+        [JsonProperty("allow_cabin_overheat_protection")]
+        public bool AllowCabinOverheatProtection { get; set; }
+
+        [JsonProperty("auto_seat_climate_left")]
+        public bool AutoSeatClimateLeft { get; set; }
+
+        [JsonProperty("auto_seat_climate_right")]
+        public bool AutoSeatClimateRight { get; set; }
+
         [JsonProperty("battery_heater")]
         public bool BatteryHeater { get; set; }
 
         [JsonProperty("battery_heater_no_power")]
         public bool? BatteryHeaterNoPower { get; set; }
 
+        [JsonProperty("bioweapon_mode")]
+        public bool? BioweaponMode { get; set; }
+
+        [JsonProperty("cabin_overheat_protection")]
+        public string CabinOverheatProtection { get; set; }
+
+        [JsonProperty("cabin_overheat_protection_actively_cooling")]
+        public bool CabinOverheatProtectionActivelyCooling { get; set; }
+
         [JsonProperty("climate_keeper_mode")]
         public string ClimateKeeperMode { get; set; }
+
+        [JsonProperty("cop_activation_temperature")]
+        public string CabinOverheatProtectionActivationTemperature { get; set; }
 
         [JsonProperty("defrost_mode")]
         public int DefrostMode { get; set; }
@@ -27,6 +48,9 @@
 
         [JsonProperty("fan_status")]
         public int FanStatus { get; set; }
+
+        [JsonProperty("hvac_auto_request")]
+        public string HvacAutoRequest { get; set; }
 
         /// <summary>
         /// Gets or sets the temperature inside the vehicle.
@@ -97,33 +121,6 @@
         [JsonProperty("seat_heater_left")]
         public int SeatHeaterLeft { get; set; }
 
-        [JsonProperty("seat_heater_right")]
-        public int SeatHeaterRight { get; set; }
-
-        [JsonProperty("side_mirror_heaters")]
-        public bool SideMirrorHeaters { get; set; }
-
-        /// <summary>
-        /// Gets or sets the timestamp of the response.
-        /// </summary>
-        [JsonProperty("timestamp")]
-        public long Timestamp { get; set; }
-
-        [JsonProperty("wiper_blade_heater")]
-        public bool WiperBladeHeater { get; set; }
-
-        [JsonProperty("allow_cabin_overheat_protection")]
-        public bool AllowCabinOverheatProtection { get; set; }
-
-        [JsonProperty("bioweapon_mode")]
-        public bool BioweaponMode { get; set; }
-
-        [JsonProperty("cabin_overheat_protection")]
-        public string CabinOverheatProtection { get; set; }
-
-        [JsonProperty("hvac_auto_request")]
-        public string HvacAutoRequest { get; set; }
-
         [JsonProperty("seat_heater_rear_center")]
         public int SeatHeaterRearCenter { get; set; }
 
@@ -133,10 +130,25 @@
         [JsonProperty("seat_heater_rear_right")]
         public int SeatHeaterRearRight { get; set; }
 
+        [JsonProperty("seat_heater_right")]
+        public int SeatHeaterRight { get; set; }
+
+        [JsonProperty("side_mirror_heaters")]
+        public bool SideMirrorHeaters { get; set; }
+
         [JsonProperty("steering_wheel_heater")]
-        public bool SteeringWheelHeater { get; set; }
+        public bool? SteeringWheelHeater { get; set; }
 
         [JsonProperty("supports_fan_only_cabin_overheat_protection")]
         public bool SupportsFanOnlyCabinOverheatProtection { get; set; }
+
+        /// <summary>
+        /// Gets or sets the timestamp of the response.
+        /// </summary>
+        [JsonProperty("timestamp")]
+        public long Timestamp { get; set; }
+
+        [JsonProperty("wiper_blade_heater")]
+        public bool WiperBladeHeater { get; set; }
     }
 }
