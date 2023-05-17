@@ -127,6 +127,7 @@
         Task<Trip> RequestTripPlanAsync(HttpClient client, string carTrim, string carType, string destination, string origin, double originSOE, string vin);
 
         /* ---- VEHICLE ---- */
+        /* --- State --- */
         /* -- Data -- */
 
         /// <summary>
@@ -168,6 +169,8 @@
         /// <param name="staged">If there is currently a pending software update, this will return the upcoming software update's release notes.</param>
         /// <returns>Returns the release notes.</returns>
         Task<ReleaseNotesResponse> GetReleaseNotesAsync(HttpClient client, string vehicleID, bool? staged = false);
+
+        /* --- Commands --- */
 
         /// <summary>
         /// Wake up a <see cref="Vehicle"/> from a sleeping state.

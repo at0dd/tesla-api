@@ -195,6 +195,8 @@
             return SendRequestResponseUnwrapAsync<ReleaseNotesResponse>(client, request);
         }
 
+        /* --- Commands --- */
+
         /// <inheritdoc/>
         public Task<Vehicle> WakeUpAsync(HttpClient client, string vehicleID)
         {
