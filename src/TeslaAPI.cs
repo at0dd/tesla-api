@@ -168,6 +168,8 @@
             return SendRequestResponseUnwrapAsync<VehicleDataResponse>(client, request);
         }
 
+        /* -- Mobile Enabled -- */
+
         /// <inheritdoc/>
         public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID)
         {
@@ -175,11 +177,22 @@
             return SendRequestResponseUnwrapAsync<bool>(client, request);
         }
 
+        /* -- Nearby Charging Sites -- */
+
         /// <inheritdoc/>
-        public Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID)
+        public Task<NearbyChargingSites> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/nearby_charging_sites");
-            return SendRequestResponseUnwrapAsync<NearbyChargingSitesResponse>(client, request);
+            return SendRequestResponseUnwrapAsync<NearbyChargingSites>(client, request);
+        }
+
+        /* -- Miscellaneous -- */
+
+        /// <inheritdoc/>
+        public Task<ReleaseNotesResponse> GetReleaseNotesAsync(HttpClient client, string vehicleID, bool? staged = false)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/release_notes");
+            return SendRequestResponseUnwrapAsync<ReleaseNotesResponse>(client, request);
         }
 
         /// <inheritdoc/>

@@ -39,7 +39,17 @@ public class VehicleTests : BaseTests
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            NearbyChargingSitesResponse nearbyChargingSites = await API.GetNearbyChargingSitesAsync(Client, Configuration.VehicleID);
+            NearbyChargingSites nearbyChargingSites = await API.GetNearbyChargingSitesAsync(Client, Configuration.VehicleID);
+        });
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task TestGetReleaseNotesAsync()
+    {
+        Exception exception = await Record.ExceptionAsync(async () =>
+        {
+            ReleaseNotesResponse releaseNotes = await API.GetReleaseNotesAsync(Client, Configuration.VehicleID);
         });
         Assert.Null(exception);
     }

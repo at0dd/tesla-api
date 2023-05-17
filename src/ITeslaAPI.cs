@@ -137,6 +137,8 @@
         /// <returns>Returns the <see cref="VehicleDataResponse"/>.</returns>
         Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID);
 
+        /* -- Mobile Enabled -- */
+
         /// <summary>
         /// Gets if mobile access is enabled for a <see cref="Vehicle"/>.
         /// </summary>
@@ -145,14 +147,27 @@
         /// <returns>Returns a <see cref="bool"/>.</returns>
         Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID);
 
+        /* -- Nearby Charging Sites -- */
+
         /// <summary>
-        /// Gets <see cref="NearbyChargingSitesResponse"/> for a <see cref="Vehicle"/>.
+        /// Gets <see cref="NearbyChargingSites"/> for a <see cref="Vehicle"/>.
         /// Requires car software version 2018.48 or higher.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <returns>Returns the <see cref="NearbyChargingSitesResponse"/>.</returns>
-        Task<NearbyChargingSitesResponse> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID);
+        /// <returns>Returns the <see cref="NearbyChargingSites"/>.</returns>
+        Task<NearbyChargingSites> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID);
+
+        /* -- Miscellaneous -- */
+
+        /// <summary>
+        /// Get the current software version or upcoming software update's release notes.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="staged">If there is currently a pending software update, this will return the upcoming software update's release notes.</param>
+        /// <returns>Returns the release notes.</returns>
+        Task<ReleaseNotesResponse> GetReleaseNotesAsync(HttpClient client, string vehicleID, bool? staged = false);
 
         /// <summary>
         /// Wake up a <see cref="Vehicle"/> from a sleeping state.

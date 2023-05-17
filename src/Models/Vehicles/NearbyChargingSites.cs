@@ -1,13 +1,12 @@
-﻿namespace TeslaAPI.Models.Response
+﻿namespace TeslaAPI.Models.Vehicles
 {
     using System.Collections.Generic;
-    using global::TeslaAPI.Models.Vehicles;
     using Newtonsoft.Json;
 
     /// <summary>
     /// Returns a list of nearby Tesla-operated charging stations. (Requires car software version 2018.48 or higher.)
     /// </summary>
-    public class NearbyChargingSitesResponse
+    public class NearbyChargingSites
     {
         [JsonProperty("congestion_sync_time_utc_secs")]
         public long CongestionSyncTimeUTCSeconds { get; set; }

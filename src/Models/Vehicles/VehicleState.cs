@@ -252,7 +252,7 @@
         /// <summary>
         /// Gets or sets the recommended cold tire pressure for the rear tires.
         /// </summary>
-        [JsonProperty("tpms_rcp_front_value")]
+        [JsonProperty("tpms_rcp_rear_value")]
         public double TPMSRecommendedColdPressureRearValue { get; set; }
 
         /// <summary>
