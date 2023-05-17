@@ -19,7 +19,7 @@ public class VehicleStateTests : BaseTests
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            Vehicle vehicle = await API.GetVehicleDataAsync(Client, VehicleID);
+            Vehicle vehicle = await API.GetVehicleDataAsync(Client, Configuration.VehicleID);
         });
         Assert.Null(exception);
     }
@@ -29,7 +29,7 @@ public class VehicleStateTests : BaseTests
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            bool mobileEnabled = await API.GetMobileEnabledAsync(Client, VehicleID);
+            bool mobileEnabled = await API.GetMobileEnabledAsync(Client, Configuration.VehicleID);
         });
         Assert.Null(exception);
     }
@@ -39,7 +39,7 @@ public class VehicleStateTests : BaseTests
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            NearbyChargingSitesResponse nearbyChargingSites = await API.GetNearbyChargingSitesAsync(Client, VehicleID);
+            NearbyChargingSitesResponse nearbyChargingSites = await API.GetNearbyChargingSitesAsync(Client, Configuration.VehicleID);
         });
         Assert.Null(exception);
     }

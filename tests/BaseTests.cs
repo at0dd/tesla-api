@@ -8,19 +8,15 @@ public class BaseTests
 {
     public readonly HttpClient Client;
     public readonly ITeslaAPI API;
-    public readonly string VehicleID;
-    public readonly string EnergySiteID;
+    public readonly TeslaConfiguration Configuration;
 
     public BaseTests(IOptions<TeslaConfiguration> teslaConfiguration, ITeslaAPI teslaAPI)
     {
         API = teslaAPI;
-        TeslaConfiguration config = teslaConfiguration.Value;
+        Configuration = teslaConfiguration.Value;
 
         Client = new HttpClient();
         Client.DefaultRequestHeaders.Add("User-Agent", "Tests");
-        Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {config.AccessToken}");
-
-        VehicleID = config.VehicleID;
-        EnergySiteID = config.EnergySiteID;
+        Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Configuration.AccessToken}");
     }
 }

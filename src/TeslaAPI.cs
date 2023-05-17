@@ -10,6 +10,7 @@
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Engery;
     using global::TeslaAPI.Models.Response;
+    using global::TeslaAPI.Models.TripPlanner;
     using global::TeslaAPI.Models.Users;
     using global::TeslaAPI.Models.Vehicles;
     using Newtonsoft.Json;
@@ -138,11 +139,27 @@
             return SendRequestResponseUnwrapAsync<List<EnergySite>>(client, request);
         }
 
+        /* ---- TRIP PLANNER ---- */
 
+        /// <inheritdoc/>
+        public Task<Trip> RequestTripPlanAsync(HttpClient client, string carTrim, string carType, string destination, string origin, double originSOE, string vin)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "car_trim", carTrim },
+                { "car_type", carType },
+                { "destination", destination },
+                { "origin", origin },
+                { "origin_soe", originSOE },
+                { "vin", vin },
+            };
 
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/trip-planner{ApiV1}/tripplan", body: body);
+            return SendRequestAsync<Trip>(client, request);
+        }
 
-
-
+        /* ---- VEHICLE ---- */
+        /* -- State -- */
 
         /// <inheritdoc/>
         public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID)

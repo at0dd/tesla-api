@@ -8,6 +8,7 @@
     using global::TeslaAPI.Models;
     using global::TeslaAPI.Models.Engery;
     using global::TeslaAPI.Models.Response;
+    using global::TeslaAPI.Models.TripPlanner;
     using global::TeslaAPI.Models.Users;
     using global::TeslaAPI.Models.Vehicles;
 
@@ -106,11 +107,27 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns an energy site.</returns>
-        [Obsolete("This endpoint does not currently work. It returns both vehicle and energy products in same array of data.")]
+        [Obsolete("This endpoint does not currently work. It returns all vehicle, powerwall, and energy site products in same array of data.")]
         Task<List<EnergySite>> GetEnergyProductsAsync(HttpClient client);
 
+        /* ---- TRIP PLANNER ---- */
 
+        /// <summary>
+        /// Request a trip plan based on the car model, origin, destination and remaining charge.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="carTrim">Car Model Variant.</param>
+        /// <param name="carType">Car model.</param>
+        /// <param name="destination">Destination Latitude and Longitude, separated by comma.</param>
+        /// <param name="origin">Origin Latitude and Longitude, separated by comma.</param>
+        /// <param name="originSOE">State of energy (charging) on the origin. Values goes from 0.0 to 1.0.</param>
+        /// <param name="vin">Car VIN.</param>
+        /// <returns>Returns the requested trip data.</returns>
+        [Obsolete("Added endpoint as listed in documentation, but URL returns a 404.")]
+        Task<Trip> RequestTripPlanAsync(HttpClient client, string carTrim, string carType, string destination, string origin, double originSOE, string vin);
 
+        /* ---- VEHICLE ---- */
+        /* -- State -- */
 
         /// <summary>
         /// Get all data for a <see cref="Vehicle"/>.

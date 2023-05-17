@@ -23,6 +23,7 @@
   <ItemGroup>
     <None Remove="Models\Users\" />
     <None Remove="Models\Engery\" />
+    <None Remove="Models\Trip Planner\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\" />
@@ -59,5 +60,6 @@
   <ItemGroup>
     <Folder Include="Models\Users\" />
     <Folder Include="Models\Engery\" />
+    <Folder Include="Models\Trip Planner\" />
   </ItemGroup>
 </Project>

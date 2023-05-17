@@ -28,7 +28,7 @@ public class VehiclesTests : BaseTests
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            Vehicle vehicle = await API.GetVehicleAsync(Client, VehicleID);
+            Vehicle vehicle = await API.GetVehicleAsync(Client, Configuration.VehicleID);
         });
         Assert.Null(exception);
     }
