@@ -78,28 +78,28 @@
         /* ---- USERS ---- */
 
         /// <inheritdoc/>
-        public Task<User> GetMe(HttpClient client)
+        public Task<User> GetMeAsync(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/me");
             return SendRequestResponseUnwrapAsync<User>(client, request);
         }
 
         /// <inheritdoc/>
-        public Task<VaultProfile> GetUserVaultProfile(HttpClient client)
+        public Task<VaultProfile> GetUserVaultProfileAsync(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/vault_profile");
             return SendRequestResponseUnwrapAsync<VaultProfile>(client, request);
         }
 
         /// <inheritdoc/>
-        public Task<FeatureConfig> GetUserFeatureConfig(HttpClient client)
+        public Task<FeatureConfig> GetUserFeatureConfigAsync(HttpClient client)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/users/feature_config");
             return SendRequestResponseUnwrapAsync<FeatureConfig>(client, request);
         }
 
         /// <inheritdoc/>
-        public Task<bool> UpdateUserKeys(HttpClient client, string publicKey, string name, string model)
+        public Task<bool> UpdateUserKeysAsync(HttpClient client, string publicKey, string name, string model)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
@@ -674,13 +674,13 @@
         private static async Task<T> SendRequestAsync<T>(HttpClient client, HttpRequestMessage request)
         {
             HttpResponseMessage response = await client.SendAsync(request);
+            string json = await response.Content.ReadAsStringAsync();
+
             if (!response.IsSuccessStatusCode)
             {
-                string errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(await response.Content.ReadAsStringAsync()).Error;
-                throw new TeslaApiRequestUnsuccessfulException(errorMessage);
+                string errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(json).Error;
+                throw new TeslaApiRequestUnsuccessfulException(response.StatusCode, errorMessage);
             }
-
-            string json = await response.Content.ReadAsStringAsync();
 
             try
             {

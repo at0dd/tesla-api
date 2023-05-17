@@ -14,31 +14,31 @@ public class UsersTests : BaseTests
     }
 
     [Fact]
-    public async Task TestGetMe()
+    public async Task TestGetMeAsync()
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            User user = await API.GetMe(Client);
+            User user = await API.GetMeAsync(Client);
         });
         Assert.Null(exception);
     }
 
     [Fact]
-    public async Task TestGetUserVaultProfile()
+    public async Task TestGetUserVaultProfileAsync()
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            VaultProfile vaultProfile = await API.GetUserVaultProfile(Client);
+            VaultProfile vaultProfile = await API.GetUserVaultProfileAsync(Client);
         });
         Assert.Null(exception);
     }
 
     [Fact]
-    public async Task TestGetUserFeatureConfig()
+    public async Task TestGetUserFeatureConfigAsync()
     {
         Exception exception = await Record.ExceptionAsync(async () =>
         {
-            FeatureConfig featureConfig = await API.GetUserFeatureConfig(Client);
+            FeatureConfig featureConfig = await API.GetUserFeatureConfigAsync(Client);
         });
         Assert.Null(exception);
     }

@@ -54,7 +54,7 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns the current user.</returns>
-        Task<User> GetMe(HttpClient client);
+        Task<User> GetMeAsync(HttpClient client);
 
         /// <summary>
         /// This endpoint is a mystery, it returns what appears to be base64 encoded strings.
@@ -62,14 +62,14 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns the user's vault profile.</returns>
-        Task<VaultProfile> GetUserVaultProfile(HttpClient client);
+        Task<VaultProfile> GetUserVaultProfileAsync(HttpClient client);
 
         /// <summary>
         /// Get the feature configuration for the mobile app.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <returns>Returns the user's feature configuration.</returns>
-        Task<FeatureConfig> GetUserFeatureConfig(HttpClient client);
+        Task<FeatureConfig> GetUserFeatureConfigAsync(HttpClient client);
 
         /// <summary>
         /// Update the name of a (bluetooth) key in all vehicles linked to the account. Refreshed inside the vehicle everytime the "Locks" menu is opened.
@@ -79,7 +79,7 @@
         /// <param name="name">The name of the key (main text).</param>
         /// <param name="model">The model of the key (sub text).</param>
         /// <returns>Returns a <see cref="bool"/>.</returns>
-        Task<bool> UpdateUserKeys(HttpClient client, string publicKey, string name, string model);
+        Task<bool> UpdateUserKeysAsync(HttpClient client, string publicKey, string name, string model);
 
         /* ---- VEHICLES ---- */
 

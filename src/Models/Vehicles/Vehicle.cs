@@ -13,7 +13,7 @@
         public long ID { get; set; }
 
         [JsonProperty("user_id")]
-        public long UserID { get; set; }
+        public long? UserID { get; set; }
 
         [JsonProperty("vehicle_id")]
         public long VehicleID { get; set; }
@@ -25,7 +25,7 @@
         public string DisplayName { get; set; }
 
         [JsonProperty("option_codes")]
-        public string OptionCodes { get; set; }
+        public string? OptionCodes { get; set; }
 
         [JsonProperty("color")]
         public string? Color { get; set; }
@@ -34,7 +34,7 @@
         public string AccessType { get; set; }
 
         [JsonProperty("tokens")]
-        public List<string> Tokens { get; set; }
+        public List<string> Tokens { get; set; } = new List<string>();
 
         [JsonProperty("state")]
         public string State { get; set; }
@@ -56,5 +56,8 @@
 
         [JsonProperty("backseat_token_updated_at")]
         public DateTime? BackseatTokenUpdatedAt { get; set; }
+
+        [JsonProperty("ble_autopair_enrolled")]
+        public bool BluetoothAutopairEnrolled { get; set; }
     }
 }

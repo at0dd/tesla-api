@@ -6,9 +6,9 @@ using TeslaAPI.Models.Vehicles;
 using Tests.Models;
 using Xunit;
 
-public class VehicleTests : BaseTests
+public class VehiclesTests : BaseTests
 {
-    public VehicleTests(IOptions<TeslaConfiguration> teslaConfiguration, ITeslaAPI teslaAPI)
+    public VehiclesTests(IOptions<TeslaConfiguration> teslaConfiguration, ITeslaAPI teslaAPI)
         : base(teslaConfiguration, teslaAPI)
     {
     }
