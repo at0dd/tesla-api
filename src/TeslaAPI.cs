@@ -670,14 +670,14 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string locale, long timestamp = default)
+        public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string? locale = "en-US", long? timestamp = null)
         {
-            if (timestamp == default)
+            if (timestamp.HasValue)
             {
                 timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             }
 
-            Dictionary<string, object> shareValue = new Dictionary<string, object>
+            Dictionary<string, string> shareValue = new Dictionary<string, string>
             {
                 { "android.intent.extra.TEXT", value },
             };
@@ -687,7 +687,7 @@
                 { "type", "share_ext_content_raw" },
                 { "value", shareValue },
                 { "locale", locale },
-                { "timestamp", timestamp.ToString() },
+                { "timestamp", timestamp.Value.ToString() },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/share", body: body);
@@ -710,6 +710,44 @@
         public Task<CommandResponse> SoftwareUpdateCancelAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/cancel_software_update");
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> TakeDriveNodeAsync(HttpClient client, string vehicleID, string note)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "note", note },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/take_drivenote", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> SetVehicleNameAsync(HttpClient client, string vehicleID, string name)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "vehicle_name", name },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_vehicle_name", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<string> TakeScreenshotAsync(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/screenshot");
+            return SendRequestResponseUnwrapAsync<string>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> RemoteBoomboxAsync(HttpClient client, string vehicleID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_boombox");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
