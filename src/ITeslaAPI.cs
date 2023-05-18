@@ -673,6 +673,8 @@
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
         Task<CommandResponse> RemoteBoomboxAsync(HttpClient client, string vehicleID);
 
+        /* ---- ENERGY PRODUCTS ---- */
+
         /// <summary>
         /// Retrieves the power generation/storage (watts) for the previous day.
         /// </summary>

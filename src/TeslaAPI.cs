@@ -751,6 +751,8 @@
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
+        /* ---- ENERGY PRODUCTS ---- */
+
         /// <inheritdoc/>
         public Task<EnergySitePowerHistory> GetEnergySitePowerHistoryAsync(HttpClient client, string siteID)
         {
