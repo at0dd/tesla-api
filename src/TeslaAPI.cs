@@ -159,7 +159,7 @@
         }
 
         /* ---- VEHICLE ---- */
-        /* -- Date -- */
+        /* --- State --- */
 
         /// <inheritdoc/>
         public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID)
@@ -168,8 +168,6 @@
             return SendRequestResponseUnwrapAsync<VehicleDataResponse>(client, request);
         }
 
-        /* -- Mobile Enabled -- */
-
         /// <inheritdoc/>
         public Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID)
         {
@@ -177,16 +175,12 @@
             return SendRequestResponseUnwrapAsync<bool>(client, request);
         }
 
-        /* -- Nearby Charging Sites -- */
-
         /// <inheritdoc/>
         public Task<NearbyChargingSites> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/nearby_charging_sites");
             return SendRequestResponseUnwrapAsync<NearbyChargingSites>(client, request);
         }
-
-        /* -- Miscellaneous -- */
 
         /// <inheritdoc/>
         public Task<ReleaseNotesResponse> GetReleaseNotesAsync(HttpClient client, string vehicleID, bool? staged = false)
@@ -219,14 +213,9 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID, string password)
+        public Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID)
         {
-            Dictionary<string, object> body = new Dictionary<string, object>
-            {
-                { "password", password },
-            };
-
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_start_drive", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_start_drive");
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -520,15 +509,28 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat heater, int level)
+        public Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat seat, int level)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "heater", heater.ToString() },
+                { "heater", seat.ToString() },
                 { "level", level.ToString() },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_seat_heater_request", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> ClimateSetSeatCoolersAsync(HttpClient client, string vehicleID, Seat seat, int level)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "seat_position", seat.ToString() },
+                { "seat_cooler_level", level.ToString() },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_seat_cooler_request", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 

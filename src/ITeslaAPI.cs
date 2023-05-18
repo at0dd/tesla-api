@@ -128,7 +128,6 @@
 
         /* ---- VEHICLE ---- */
         /* --- State --- */
-        /* -- Data -- */
 
         /// <summary>
         /// Get all data for a <see cref="Vehicle"/>.
@@ -138,8 +137,6 @@
         /// <returns>Returns the <see cref="VehicleDataResponse"/>.</returns>
         Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID);
 
-        /* -- Mobile Enabled -- */
-
         /// <summary>
         /// Gets if mobile access is enabled for a <see cref="Vehicle"/>.
         /// </summary>
@@ -147,8 +144,6 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="bool"/>.</returns>
         Task<bool> GetMobileEnabledAsync(HttpClient client, string vehicleID);
-
-        /* -- Nearby Charging Sites -- */
 
         /// <summary>
         /// Gets <see cref="NearbyChargingSites"/> for a <see cref="Vehicle"/>.
@@ -158,8 +153,6 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns the <see cref="NearbyChargingSites"/>.</returns>
         Task<NearbyChargingSites> GetNearbyChargingSitesAsync(HttpClient client, string vehicleID);
-
-        /* -- Miscellaneous -- */
 
         /// <summary>
         /// Get the current software version or upcoming software update's release notes.
@@ -203,9 +196,8 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <param name="password">The password for the Tesla account.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID, string password);
+        Task<CommandResponse> RemoteStartAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Opens or closes the primary Homelink device.
@@ -475,10 +467,20 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <param name="heater">The desired seat to heat. (0-5).</param>
+        /// <param name="seat">The desired seat to heat. (0-5).</param>
         /// <param name="level">The desired level for the heater. (0-3).</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat heater, int level);
+        Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat seat, int level);
+
+        /// <summary>
+        /// Sets the specified seat's cooler level (Refresh Model S & X).
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="seat">The desired seat to cool. (0-5).</param>
+        /// <param name="level">The desired level for the cooler. (0-3).</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> ClimateSetSeatCoolersAsync(HttpClient client, string vehicleID, Seat seat, int level);
 
         /// <summary>
         /// Turn steering wheel heater on or off.
