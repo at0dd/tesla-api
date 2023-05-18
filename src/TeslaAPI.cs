@@ -547,6 +547,30 @@
         }
 
         /// <inheritdoc/>
+        public Task<CommandResponse> ClimateSetBioweaponModeAsync(HttpClient client, string vehicleID, bool on)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "on", on.ToString() },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_bioweapon_mode", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> ClimateSetKeeperMode(HttpClient client, string vehicleID, ClimateKeeperMode mode)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "climate_keeper_mode", mode },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_climate_keeper_mode", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
         public Task<CommandResponse> MediaTogglePlaybackAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_toggle_playback");

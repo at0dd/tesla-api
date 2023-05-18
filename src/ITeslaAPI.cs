@@ -492,6 +492,24 @@
         Task<CommandResponse> ClimateSetSteeringWheelHeatAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
+        /// Set the Climate Keeper mode.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="mode">The mode to set.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> ClimateSetKeeperMode(HttpClient client, string vehicleID, ClimateKeeperMode mode);
+
+        /// <summary>
+        /// Enable or disable Bioweapon Defense Mode.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="on">True to turn on, False to turn off.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> ClimateSetBioweaponModeAsync(HttpClient client, string vehicleID, bool on);
+
+        /// <summary>
         /// Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
