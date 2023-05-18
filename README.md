@@ -70,3 +70,11 @@ public class TeslaService
     }
 }
 ```
+
+# Tests
+
+To run tests you will need a Tesla access token along with additional vehicle and/or energy site information. These tests make actuall calls to the Tesla API, thus Tesla products are required on your account. i.e. to test the vehicle endpoints, you have to have a vehicle registered to your Tesla account.
+
+1. Generate a Tesla access token. There's a handy [Chrome plugin](https://chrome.google.com/webstore/detail/tesla-access-token-genera/kokkedfblmfbngojkeaepekpidghjgag) for this.
+2. Copy the `appsettings.json` file to `appsettings.Development.json` and fill in the `Tesla.AccessToken` field along with any other fields required by the test(s) you want to run. 
+3. Run the test(s).

@@ -1,4 +1,32 @@
-﻿[*.cs]
+﻿root = true
+
+# All files
+[*]
+indent_style = space
+
+# XML project files
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
+indent_size = 2
+
+# XML config files
+[*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
+indent_size = 2
+
+# Code files
+[*.{cs,csx,vb,vbx}]
+indent_size = 4
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+charset = utf-8
+
+[*.cs]
+
+# CS8618: Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+dotnet_diagnostic.CS8618.severity = none
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = error
 
 # IDE0008: Use explicit type
 dotnet_diagnostic.IDE0008.severity = warning
@@ -18,14 +46,29 @@ dotnet_diagnostic.CS8632.severity = none
 # SA1101: Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = none
 
+# SA1200: Using directives should be placed correctly
+dotnet_diagnostic.SA1200.severity = error
+
 # SA1309: Field names should not begin with underscore
 dotnet_diagnostic.SA1309.severity = none
+
+# SA1401: Fields should be private
+dotnet_diagnostic.SA1401.severity = none
+
+# SA1402: File may only contain a single type
+dotnet_diagnostic.SA1402.severity = none
+
+# SA1518: Use line endings correctly at end of file
+dotnet_diagnostic.SA1518.severity = error
 
 # SA1625: Element documentation should not be copied and pasted
 dotnet_diagnostic.SA1625.severity = none
 
 # SA1600: Elements should be documented
 dotnet_diagnostic.SA1600.severity = none #this is duplicated by CS1591
+
+# SA1629: Documentation text should end with a period
+dotnet_diagnostic.SA1629.severity = error
 
 # SA1649: File name should match first type name
 dotnet_diagnostic.SA1649.severity = none

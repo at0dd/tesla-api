@@ -20,10 +20,7 @@ jobs:
         dotnet-version: 7.0.x
 
     - name: Restore dependencies
-      run: dotnet restore src/TeslaAPI.sln
+      run: dotnet restore TeslaAPI.sln
 
     - name: Build
-      run: dotnet build --no-restore src/TeslaAPI.sln
-
-    - name: Test
-      run: dotnet test --no-build --verbosity normal src/TeslaAPI.sln
+      run: dotnet build --no-restore TeslaAPI.sln
