@@ -537,7 +537,7 @@
         /// <param name="on">Turns COP on/off.</param>
         /// <param name="fanOnly">Use only the fans, do not use/turn on HVAC/AC.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        Task<CommandResponse> SetCabinOverheatProtection(HttpClient client, string vehicleID, bool on, bool fanOnly);
+        Task<CommandResponse> SetCabinOverheatProtectionAsync(HttpClient client, string vehicleID, bool on, bool fanOnly);
 
         /// <summary>
         /// Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.
@@ -595,6 +595,15 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
         Task<CommandResponse> MediaVolumeDownAsync(HttpClient client, string vehicleID);
+
+        /// <summary>
+        /// Adjusts the volume of the media system to the desired volume.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="volume">Numerical value from 0-11.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> MediaAdjustVolumeAsync(HttpClient client, string vehicleID, double volume);
 
         /// <summary>
         /// Sends a location for the car to start navigation or play a video in theatre mode.

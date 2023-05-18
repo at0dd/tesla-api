@@ -596,7 +596,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> SetCabinOverheatProtection(HttpClient client, string vehicleID, bool on, bool fanOnly)
+        public Task<CommandResponse> SetCabinOverheatProtectionAsync(HttpClient client, string vehicleID, bool on, bool fanOnly)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
@@ -654,6 +654,18 @@
         public Task<CommandResponse> MediaVolumeDownAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/media_volume_down");
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> MediaAdjustVolumeAsync(HttpClient client, string vehicleID, double volume)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "volume", volume },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/adjust_volume", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
