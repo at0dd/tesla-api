@@ -7,7 +7,7 @@
     /// A rollup of all the data_request endpoints plus vehicle configuration.
     /// Note: all *_range values are in miles, irrespective of GUI configuration.
     /// </summary>
-    public class VehicleDataResponse : Vehicle
+    public class VehicleData : Vehicle
     {
         /// <summary>
         /// Gets or sets the vehicle drive state.

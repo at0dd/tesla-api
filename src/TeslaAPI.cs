@@ -162,10 +162,10 @@
         /* --- State --- */
 
         /// <inheritdoc/>
-        public Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID)
+        public Task<VehicleData> GetVehicleDataAsync(HttpClient client, string vehicleID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/vehicle_data");
-            return SendRequestResponseUnwrapAsync<VehicleDataResponse>(client, request);
+            return SendRequestResponseUnwrapAsync<VehicleData>(client, request);
         }
 
         /// <inheritdoc/>
@@ -752,28 +752,28 @@
         }
 
         /// <inheritdoc/>
-        public Task<EnergySitePowerHistory> GetEnergySitePowerHistory(HttpClient client, string siteID)
+        public Task<EnergySitePowerHistory> GetEnergySitePowerHistoryAsync(HttpClient client, string siteID)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=power");
             return SendRequestResponseUnwrapAsync<EnergySitePowerHistory>(client, request);
         }
 
         /// <inheritdoc/>
-        public Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistory(HttpClient client, string siteID, string period)
+        public Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistoryAsync(HttpClient client, string siteID, string period)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=energy&period={period}");
             return SendRequestResponseUnwrapAsync<EnergySiteEnergyHistory>(client, request);
         }
 
         /// <inheritdoc/>
-        public Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistory(HttpClient client, string siteID, string endDate)
+        public Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistoryAsync(HttpClient client, string siteID, string endDate)
         {
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=power&end_date={endDate}");
             return SendRequestResponseUnwrapAsync<EnergySitePowerCalendarHistory>(client, request);
         }
 
         /// <inheritdoc/>
-        public Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistory(HttpClient client, string siteID, string period, string endDate, string? interval = null)
+        public Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistoryAsync(HttpClient client, string siteID, string period, string endDate, string? interval = null)
         {
             string url = $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=energy&period={period}&end_date={endDate}";
             if (!string.IsNullOrWhiteSpace(interval))
@@ -783,6 +783,55 @@
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, url);
             return SendRequestResponseUnwrapAsync<EnergySiteEnergyCalendarHistory>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<BackupTimeRemaining> GetEnergySiteBackupTimeRemainingAsync(HttpClient client, string siteID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/backup_time_remaining");
+            return SendRequestResponseUnwrapAsync<BackupTimeRemaining>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySiteLiveStatus> GetEnergySiteLiveStatusAsync(HttpClient client, string siteID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/live_status");
+            return SendRequestResponseUnwrapAsync<EnergySiteLiveStatus>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySiteStatus> GetEnergySiteStatusAsync(HttpClient client, string siteID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/site_status");
+            return SendRequestResponseUnwrapAsync<EnergySiteStatus>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<EnergySiteInfo> GetEnergySiteInfoAsync(HttpClient client, string siteID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/site_info");
+            return SendRequestResponseUnwrapAsync<EnergySiteInfo>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<List<Tariff>> GetTariffsAsync(HttpClient client)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/rate_tariffs");
+            return SendRequestResponseListUnwrapAsync<Tariff>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<ProgramsResponse> GetEnergySiteProgramsAsync(HttpClient client, string siteID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/programs");
+            return SendRequestResponseUnwrapAsync<ProgramsResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<TariffRate> GetEnergySiteTariffRateAsync(HttpClient client, string siteID)
+        {
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/tariff_rate");
+            return SendRequestResponseUnwrapAsync<TariffRate>(client, request);
         }
 
         /// <summary>

@@ -134,8 +134,8 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/> to get.</param>
-        /// <returns>Returns the <see cref="VehicleDataResponse"/>.</returns>
-        Task<VehicleDataResponse> GetVehicleDataAsync(HttpClient client, string vehicleID);
+        /// <returns>Returns the <see cref="VehicleData"/>.</returns>
+        Task<VehicleData> GetVehicleDataAsync(HttpClient client, string vehicleID);
 
         /// <summary>
         /// Gets if mobile access is enabled for a <see cref="Vehicle"/>.
@@ -679,7 +679,7 @@
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="siteID">The ID of the energy site.</param>
         /// <returns>Returns the energy site power history.</returns>
-        Task<EnergySitePowerHistory> GetEnergySitePowerHistory(HttpClient client, string siteID);
+        Task<EnergySitePowerHistory> GetEnergySitePowerHistoryAsync(HttpClient client, string siteID);
 
         /// <summary>
         /// Retrieves the cumulative energy generation/storage (kWh) for a specified recent period.
@@ -694,7 +694,7 @@
         /// "year": Total kWh for each of the past 12 months, not including the current month.
         /// </param>
         /// <returns>Returns the energy site energy history.</returns>
-        Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistory(HttpClient client, string siteID, string period);
+        Task<EnergySiteEnergyHistory> GetEnergySiteEnergyHistoryAsync(HttpClient client, string siteID, string period);
 
         /// <summary>
         /// Retrieves the power generation/storage (watts) at 15-minute intervals for a given day.
@@ -708,7 +708,7 @@
         /// Universal time is accepted in the format "yyyy-mm-ddThh:mm:ssZ", but the time is converted to your local time zone, which could also change the date.
         /// </param>
         /// <returns>Returns the site power calendar history.</returns>
-        Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistory(HttpClient client, string siteID, string endDate);
+        Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistoryAsync(HttpClient client, string siteID, string endDate);
 
         /// <summary>
         /// Retrieves the energy generation/storage (kWh) for a specified period.
@@ -731,6 +731,62 @@
         /// </param>
         /// <param name="interval">Optional. For 15 minute energy intervals when period is day (raises an error when tested on a number of other period/interval values).</param>
         /// <returns>Returns the site energy calendar history.</returns>
-        Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistory(HttpClient client, string siteID, string period, string endDate, string? interval = null);
+        Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistoryAsync(HttpClient client, string siteID, string period, string endDate, string? interval = null);
+
+        /// <summary>
+        /// Retrieves backup time remaining if battery were to go off grid.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <returns>Returns the remaining backup time.</returns>
+        Task<BackupTimeRemaining> GetEnergySiteBackupTimeRemainingAsync(HttpClient client, string siteID);
+
+        /// <summary>
+        /// Retrieves current system information (e.g. solar production, grid export/import, home consumption, etc.).
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <returns>Returns the remaining backup time.</returns>
+        Task<EnergySiteLiveStatus> GetEnergySiteLiveStatusAsync(HttpClient client, string siteID);
+
+        /// <summary>
+        /// Retrieves general system information.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <returns>Returns the remaining backup time.</returns>
+        Task<EnergySiteStatus> GetEnergySiteStatusAsync(HttpClient client, string siteID);
+
+        /// <summary>
+        /// Retrieves general system information.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <returns>Returns the remaining backup time.</returns>
+        Task<EnergySiteInfo> GetEnergySiteInfoAsync(HttpClient client, string siteID);
+
+        /// <summary>
+        /// Retrieves tarriff IDs for utility companies.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <returns>Returns a list of tariffs.</returns>
+        Task<List<Tariff>> GetTariffsAsync(HttpClient client);
+
+        /// <summary>
+        /// Retrieves energy site program information.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <returns>Returns energy site program information.</returns>
+        Task<ProgramsResponse> GetEnergySiteProgramsAsync(HttpClient client, string siteID);
+
+        /// <summary>
+        /// Retrieves the user defined Utility Rate Plan used for Time-Based Control mode.
+        /// It looks like this endpoint is updated every 30 minutes.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="siteID">The ID of the energy site.</param>
+        /// <returns>Returns the site tariff rate information.</returns>
+        Task<TariffRate> GetEnergySiteTariffRateAsync(HttpClient client, string siteID);
     }
 }
