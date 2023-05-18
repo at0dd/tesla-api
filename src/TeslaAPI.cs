@@ -559,7 +559,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> ClimateSetKeeperMode(HttpClient client, string vehicleID, ClimateKeeperMode mode)
+        public Task<CommandResponse> SetClimateKeeperModeAsync(HttpClient client, string vehicleID, ClimateKeeperMode mode)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
@@ -567,6 +567,44 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_climate_keeper_mode", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> SetAutomaticSeatClimateAsync(HttpClient client, string vehicleID, Seat seat, bool on)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "auto_seat_position", seat },
+                { "auto_climate_on", on },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_auto_seat_climate_request", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> SetCabinOverheatProtectionTemperatureAsync(HttpClient client, string vehicleID, int temperature)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "temp", temperature },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_cop_temp", body: body);
+            return SendRequestAsync<CommandResponse>(client, request);
+        }
+
+        /// <inheritdoc/>
+        public Task<CommandResponse> SetCabinOverheatProtection(HttpClient client, string vehicleID, bool on, bool fanOnly)
+        {
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "on", on },
+                { "fan_only", fanOnly },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_cabin_overheat_protection", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 

@@ -492,15 +492,6 @@
         Task<CommandResponse> ClimateSetSteeringWheelHeatAsync(HttpClient client, string vehicleID, bool on);
 
         /// <summary>
-        /// Set the Climate Keeper mode.
-        /// </summary>
-        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
-        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <param name="mode">The mode to set.</param>
-        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        Task<CommandResponse> ClimateSetKeeperMode(HttpClient client, string vehicleID, ClimateKeeperMode mode);
-
-        /// <summary>
         /// Enable or disable Bioweapon Defense Mode.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
@@ -508,6 +499,45 @@
         /// <param name="on">True to turn on, False to turn off.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
         Task<CommandResponse> ClimateSetBioweaponModeAsync(HttpClient client, string vehicleID, bool on);
+
+        /// <summary>
+        /// Set the Climate Keeper mode.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="mode">The mode to set.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> SetClimateKeeperModeAsync(HttpClient client, string vehicleID, ClimateKeeperMode mode);
+
+        /// <summary>
+        /// Enables/disables Automatic Seat Climate on the specified seat.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="seat">The seat to control.</param>
+        /// <param name="on">True to turn on, False to turn off.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> SetAutomaticSeatClimateAsync(HttpClient client, string vehicleID, Seat seat, bool on);
+
+        /// <summary>
+        /// Sets the Cabin Overheat Protection (COP) temperature.
+        /// This endpoint appears to be in progress and is not yet fully functional/disabled as of December 13, 2022..
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="temperature">The COP temperature in Celcius.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> SetCabinOverheatProtectionTemperatureAsync(HttpClient client, string vehicleID, int temperature);
+
+        /// <summary>
+        /// Turns on the Cabin Overheat Protection (COP) and sets its mode.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
+        /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
+        /// <param name="on">Turns COP on/off.</param>
+        /// <param name="fanOnly">Use only the fans, do not use/turn on HVAC/AC.</param>
+        /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
+        Task<CommandResponse> SetCabinOverheatProtection(HttpClient client, string vehicleID, bool on, bool fanOnly);
 
         /// <summary>
         /// Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.
