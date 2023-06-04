@@ -695,7 +695,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset)
+        public Task<ScheduleSoftwareUpdateResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
@@ -703,7 +703,7 @@
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/schedule_software_update", body: body);
-            return SendRequestAsync<CommandResponse>(client, request);
+            return SendRequestAsync<ScheduleSoftwareUpdateResponse>(client, request);
         }
 
         /// <inheritdoc/>
