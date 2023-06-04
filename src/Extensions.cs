@@ -4,6 +4,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using global::TeslaAPI.Models.Response;
+    using global::TeslaAPI.Models.Vehicles;
 
     /// <summary>
     /// The Extensions class.

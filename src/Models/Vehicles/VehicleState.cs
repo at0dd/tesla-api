@@ -199,25 +199,25 @@
         /// Gets or sets when the tire pressure of the front left tire was last seen.
         /// </summary>
         [JsonProperty("tpms_last_seen_pressure_time_fl")]
-        public long TPMSLastSeenPressureTimeFrontLeft { get; set; }
+        public long? TPMSLastSeenPressureTimeFrontLeft { get; set; }
 
         /// <summary>
         /// Gets or sets when the tire pressure of the front right tire was last seen.
         /// </summary>
         [JsonProperty("tpms_last_seen_pressure_time_fr")]
-        public long TPMSLastSeenPressureTimeFrontRight { get; set; }
+        public long? TPMSLastSeenPressureTimeFrontRight { get; set; }
 
         /// <summary>
         /// Gets or sets when the tire pressure of the rear left tire was last seen.
         /// </summary>
         [JsonProperty("tpms_last_seen_pressure_time_rl")]
-        public long TPMSLastSeenPressureTimeRearLeft { get; set; }
+        public long? TPMSLastSeenPressureTimeRearLeft { get; set; }
 
         /// <summary>
         /// Gets or sets when the tire pressure of the rear right tire was last seen.
         /// </summary>
         [JsonProperty("tpms_last_seen_pressure_time_rr")]
-        public long TPMSLastSeenPressureTimeRearRight { get; set; }
+        public long? TPMSLastSeenPressureTimeRearRight { get; set; }
 
         /// <summary>
         /// Gets or sets the tire pressure of the front left tire.

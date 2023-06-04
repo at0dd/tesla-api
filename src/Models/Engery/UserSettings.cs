@@ -10,6 +10,9 @@ namespace TeslaAPI.Models.Engery
         [JsonProperty("powerwall_onboarding_settings_set")]
         public bool? PowerwallOnboardingSettingsSet { get; set; }
 
+        [JsonProperty("powerwall_tesla_electric_interested_in")]
+        public bool? PowerwallTeslaElectricInterestedIn { get; set; }
+
         [JsonProperty("sync_grid_alert_enabled")]
         public bool SyncGridAlertEnabled { get; set; }
 

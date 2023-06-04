@@ -473,7 +473,7 @@
         Task<CommandResponse> ClimateSetSeatHeatersAsync(HttpClient client, string vehicleID, Seat seat, int level);
 
         /// <summary>
-        /// Sets the specified seat's cooler level (Refresh Model S & X).
+        /// Sets the specified seat's cooler level (Refresh Model S and X).
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
@@ -623,7 +623,7 @@
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="offset">How many seconds in the future to schedule the update. Set to 0 for immediate install.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        Task<CommandResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset);
+        Task<ScheduleSoftwareUpdateResponse> SoftwareUpdateScheduleAsync(HttpClient client, string vehicleID, int offset);
 
         /// <summary>
         /// Cancels a software update, if one is scheduled and has not yet started.
@@ -656,8 +656,8 @@
         Task<CommandResponse> SetVehicleNameAsync(HttpClient client, string vehicleID, string name);
 
         /// <summary>
-        /// Take a screenshot of both displays (IC & MCU), which can be retrieved via the vehicle's CAN/OBD interface by Tesla Service.
-        /// This is can be triggered inside of the vehicle as well, by holding the lower left & right buttons (Model S & X pre-refresh) on the steering wheel for around 5-10 seconds, kind of like the scroll wheel MCU restart.
+        /// Take a screenshot of both displays (IC and MCU), which can be retrieved via the vehicle's CAN/OBD interface by Tesla Service.
+        /// This is can be triggered inside of the vehicle as well, by holding the lower left and right buttons (Model S and X pre-refresh) on the steering wheel for around 5-10 seconds, kind of like the scroll wheel MCU restart.
         /// Note: No on-screen message will appear.
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
