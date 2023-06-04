@@ -5,8 +5,9 @@ namespace TeslaAPI.Models.Engery
 
     public class EnergySiteInfo
     {
+        // Without Powerwall.
         [JsonProperty("id")]
-        public Guid ID { get; set; }
+        public string ID { get; set; }
 
         [JsonProperty("site_name")]
         public string SiteName { get; set; }
@@ -34,5 +35,36 @@ namespace TeslaAPI.Models.Engery
 
         [JsonProperty("address")]
         public Address Address { get; set; }
+
+        // With Powerwall.
+        [JsonProperty("backup_reserve_percent")]
+        public int? BackupReservePercent { get; set; }
+
+        [JsonProperty("default_real_mode")]
+        public string? DefaultRealMode { get; set; }
+
+        [JsonProperty("version")]
+        public string? Version { get; set; }
+
+        [JsonProperty("battery_count")]
+        public int? BatteryCount { get; set; }
+
+        [JsonProperty("tou_settings")]
+        public TOUSettings? TOUSettings { get; set; }
+
+        [JsonProperty("nameplate_power")]
+        public long? NameplatePower { get; set; }
+
+        [JsonProperty("nameplate_energy")]
+        public long? NameplateEnergy { get; set; }
+
+        [JsonProperty("off_grid_vehicle_charging_reserve_percent")]
+        public int? OffGridVehicleChargingReservePercent { get; set; }
+
+        [JsonProperty("max_site_meter_power_ac")]
+        public long? MaxSiteMeterPowerAC { get; set; }
+
+        [JsonProperty("min_site_meter_power_ac")]
+        public long? MinSiteMeterPowerAC { get; set; }
     }
 }
