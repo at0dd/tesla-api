@@ -164,7 +164,7 @@
         /// <inheritdoc/>
         public Task<VehicleData> GetVehicleDataAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/vehicle_data");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/vehicle_data?endpoints=location_data");
             return SendRequestResponseUnwrapAsync<VehicleData>(client, request);
         }
 
