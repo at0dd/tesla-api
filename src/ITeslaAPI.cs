@@ -297,9 +297,9 @@
         /// </summary>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
-        /// <param name="which_trunk">Which trunk to open/close. rear and front are the only options.</param>
+        /// <param name="whichTrunk">Which trunk to open/close. rear and front are the only options.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
-        Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk);
+        Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string whichTrunk);
 
         /// <summary>
         /// Controls the windows. Will vent or close all windows simultaneously.
