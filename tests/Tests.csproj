@@ -54,9 +54,7 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="appsettings.Development.json" CopyToPublishDirectory="Always">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="appsettings.Development.json" CopyToPublishDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
