@@ -2,7 +2,6 @@ namespace Tests;
 
 using Microsoft.Extensions.Options;
 using TeslaAPI;
-using TeslaAPI.Models.Response;
 using TeslaAPI.Models.Vehicles;
 using Tests.Models;
 using Xunit;

@@ -164,7 +164,7 @@
         /// <inheritdoc/>
         public Task<VehicleData> GetVehicleDataAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/vehicle_data");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/vehicle_data?endpoints=charge_state%3Bclimate_state%3Bclosures_state%3Bdrive_state%3Bgui_settings%3Blocation_data%3Bvehicle_config%3Bvehicle_state%3Bvehicle_data_combo");
             return SendRequestResponseUnwrapAsync<VehicleData>(client, request);
         }
 
@@ -326,11 +326,11 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk)
+        public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string whichTrunk)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "which_trunk", which_trunk },
+                { "which_trunk", whichTrunk },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/actuate_trunk", body: body);
