@@ -326,11 +326,11 @@
         }
 
         /// <inheritdoc/>
-        public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string which_trunk)
+        public Task<CommandResponse> ActuateTrunkAsync(HttpClient client, string vehicleID, string whichTrunk)
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "which_trunk", which_trunk },
+                { "which_trunk", whichTrunk },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/actuate_trunk", body: body);
