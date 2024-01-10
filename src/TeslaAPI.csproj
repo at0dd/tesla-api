@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
@@ -19,6 +19,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <ReleaseVersion>1.1.2</ReleaseVersion>
+    <NoWarn>$(NoWarn),CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
