@@ -14,6 +14,7 @@ public class EnergyProductsTests : BaseTests
     }
 
     [Fact(Skip = "Endpoint does not currently work.")]
+    [Obsolete]
     public async Task TestGetEnergyProductsAsync()
     {
         Exception exception = await Record.ExceptionAsync(async () =>
