@@ -1,4 +1,4 @@
-﻿namespace TeslaAPI.Models.Vehicles
+namespace TeslaAPI.Models.Vehicles
 {
     using Newtonsoft.Json;
 
@@ -89,7 +89,7 @@
         public string? ChargerPhases { get; set; }
 
         [JsonProperty("charger_pilot_current")]
-        public int ChargerPilotCurrent { get; set; }
+        public int? ChargerPilotCurrent { get; set; }
 
         [JsonProperty("charger_power")]
         public int ChargerPower { get; set; }
