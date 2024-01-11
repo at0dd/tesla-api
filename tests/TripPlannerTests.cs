@@ -14,6 +14,7 @@ public class TripPlannerTests : BaseTests
     }
 
     [Fact(Skip = "Endpoint does not currently work.")]
+    [Obsolete]
     public async Task TestRequestTripPlanAsync()
     {
         string destination = "40.6973709,-74.1444848";
