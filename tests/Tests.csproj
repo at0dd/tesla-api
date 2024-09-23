@@ -49,6 +49,9 @@
     <None Remove="Microsoft.Extensions.Configuration.Binder" />
     <None Remove="Models\" />
     <None Remove="Xunit.DependencyInjection" />
+    <None Update="responses\vehicle_data\20240923.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="appsettings.json">
