@@ -179,7 +179,7 @@ namespace TeslaAPI.Models.Vehicles
         public int ScheduledChargingStartTimeApp { get; set; }
 
         [JsonProperty("scheduled_departure_time")]
-        public long ScheduledDepartureTime { get; set; }
+        public long? ScheduledDepartureTime { get; set; }
 
         [JsonProperty("scheduled_departure_time_minutes")]
         public int ScheduledDepartureTimeMinutes { get; set; }
