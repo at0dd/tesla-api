@@ -1,4 +1,4 @@
-﻿namespace TeslaAPI
+namespace TeslaAPI
 {
     using System;
     using System.Collections.Generic;
@@ -119,7 +119,7 @@
         /// <inheritdoc/>
         public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/products");
             return SendRequestResponseListUnwrapAsync<Vehicle>(client, request);
         }
 
