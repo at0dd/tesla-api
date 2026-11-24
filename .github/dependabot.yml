@@ -45,3 +45,8 @@ updates:
     multi-ecosystem-group: "all-dependencies"
     cooldown:
       default-days: 7
+    ignore:
+      # Stay on .NET 10, the long-term support release (supported to November 2028).
+      # Patch and feature-band updates within 10.0 still come through.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
