@@ -2,6 +2,7 @@ namespace TeslaAPI
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
@@ -224,8 +225,8 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "lat", latitude.ToString() },
-                { "lon", longitude.ToString() },
+                { "lat", latitude.ToString(CultureInfo.InvariantCulture) },
+                { "lon", longitude.ToString(CultureInfo.InvariantCulture) },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/trigger_homelink", body: body);
@@ -307,7 +308,12 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<CommandResponse> SetSentryModeAsync(HttpClient client, string vehicleID, bool on)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_sentry_mode");
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "on", on },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_sentry_mode", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -343,8 +349,8 @@ namespace TeslaAPI
             Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "command", command },
-                { "lat", latitude.ToString() },
-                { "lon", longitude.ToString() },
+                { "lat", latitude.ToString(CultureInfo.InvariantCulture) },
+                { "lon", longitude.ToString(CultureInfo.InvariantCulture) },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/window_control", body: body);
@@ -488,8 +494,8 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "driver_temp", driverTemperature.ToString() },
-                { "passenger_temp", passengerTemperature.ToString() },
+                { "driver_temp", driverTemperature.ToString(CultureInfo.InvariantCulture) },
+                { "passenger_temp", passengerTemperature.ToString(CultureInfo.InvariantCulture) },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_temps", body: body);
@@ -513,7 +519,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "heater", seat.ToString() },
+                { "heater", (int)seat },
                 { "level", level.ToString() },
             };
 
@@ -526,7 +532,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "seat_position", seat.ToString() },
+                { "seat_position", (int)seat },
                 { "seat_cooler_level", level.ToString() },
             };
 
@@ -575,7 +581,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "auto_seat_position", seat },
+                { "auto_seat_position", (int)seat },
                 { "auto_climate_on", on },
             };
 
@@ -672,7 +678,7 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string? locale = "en-US", long? timestamp = null)
         {
-            if (timestamp.HasValue)
+            if (!timestamp.HasValue)
             {
                 timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             }
@@ -687,7 +693,7 @@ namespace TeslaAPI
                 { "type", "share_ext_content_raw" },
                 { "value", shareValue },
                 { "locale", locale },
-                { "timestamp", timestamp.Value.ToString() },
+                { "timestamp", timestamp.Value.ToString(CultureInfo.InvariantCulture) },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/share", body: body);
