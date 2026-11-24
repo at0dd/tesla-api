@@ -92,7 +92,7 @@ public class ResponseHandlingTests
 
         await api.ShareAsync(client, "123", "1 Tesla Rd");
 
-        long timestamp = long.Parse(JToken.Parse(handler.LastRequest.Body!)["timestamp"]!.Value<string>()!, CultureInfo.InvariantCulture);
+        long timestamp = long.Parse(JToken.Parse(handler.LastRequest.Body!)["timestamp_ms"]!.Value<string>()!, CultureInfo.InvariantCulture);
         await Assert.That(timestamp).IsGreaterThanOrEqualTo(before);
         await Assert.That(timestamp).IsLessThanOrEqualTo(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
     }
@@ -126,11 +126,8 @@ public class ResponseHandlingTests
             CultureInfo.CurrentCulture = original;
         }
 
-        JToken temps = JToken.Parse(handler.Requests[0].Body!);
-        JToken homelink = JToken.Parse(handler.Requests[1].Body!);
-        await Assert.That(temps["driver_temp"]!.Value<string>()).IsEqualTo("21.5");
-        await Assert.That(homelink["lat"]!.Value<string>()).IsEqualTo("40.5");
-        await Assert.That(homelink["lon"]!.Value<string>()).IsEqualTo("-74.25");
+        await Assert.That(handler.Requests[0].Body).IsEqualTo("""{"driver_temp":21.5,"passenger_temp":22.5}""");
+        await Assert.That(handler.Requests[1].Body).IsEqualTo("""{"lat":40.5,"lon":-74.25}""");
     }
 
     [Test]

@@ -42,10 +42,10 @@ public class RequestTests
                 """{"kind":"mobile_device","public_key":"key","name":"name","model":"model"}""", """{"response":true}"""),
 
             // Products
-            new("GetAllVehicles", (api, c) => api.GetAllVehiclesAsync(c), Get, $"{Api}/products"),
+            new("GetAllVehicles", (api, c) => api.GetAllVehiclesAsync(c), Get, $"{Api}/vehicles"),
             new("GetVehicle", (api, c) => api.GetVehicleAsync(c, "123"), Get, Vehicle),
             new("GetEnergyProducts", (api, c) => api.GetEnergyProductsAsync(c), Get, $"{Api}/products"),
-            new("RequestTripPlan", (api, c) => api.RequestTripPlanAsync(c, "trim", "type", "dest", "orig", 0.5, "vin"), Post, $"{Owner}/trip-planner/api/1/tripplan",
+            new("RequestTripPlan", (api, c) => api.RequestTripPlanAsync(c, "trim", "type", "dest", "orig", 0.5, "vin"), Post, $"{Owner}/trip-planner/api/v1/tripplan",
                 """{"car_trim":"trim","car_type":"type","destination":"dest","origin":"orig","origin_soe":0.5,"vin":"vin"}"""),
 
             // Vehicle state
@@ -54,6 +54,7 @@ public class RequestTests
             new("GetMobileEnabled", (api, c) => api.GetMobileEnabledAsync(c, "123"), Get, $"{Vehicle}/mobile_enabled", ResponseJson: """{"response":true}"""),
             new("GetNearbyChargingSites", (api, c) => api.GetNearbyChargingSitesAsync(c, "123"), Get, $"{Vehicle}/nearby_charging_sites"),
             new("GetReleaseNotes", (api, c) => api.GetReleaseNotesAsync(c, "123"), Get, $"{Vehicle}/release_notes"),
+            new("GetReleaseNotesStaged", (api, c) => api.GetReleaseNotesAsync(c, "123", true), Get, $"{Vehicle}/release_notes?staged=true"),
 
             // Vehicle commands
             new("WakeUp", (api, c) => api.WakeUpAsync(c, "123"), Post, $"{Vehicle}/wake_up"),
@@ -61,20 +62,20 @@ public class RequestTests
             new("FlashLights", (api, c) => api.FlashLightsAsync(c, "123"), Post, $"{Command}/flash_lights"),
             new("RemoteStart", (api, c) => api.RemoteStartAsync(c, "123"), Post, $"{Command}/remote_start_drive"),
             new("TriggerHomelink", (api, c) => api.TriggerHomelinkAsync(c, "123", 40.5, -74.25), Post, $"{Command}/trigger_homelink",
-                """{"lat":"40.5","lon":"-74.25"}"""),
-            new("SpeedLimitSetMaximum", (api, c) => api.SpeedLimitSetMaximumAsync(c, "123", 65), Post, $"{Command}/speed_limit_set_limit", """{"limit_mph":"65"}"""),
-            new("SpeedLimitActivate", (api, c) => api.SpeedLimitActivateAsync(c, "123", 1234), Post, $"{Command}/speed_limit_activate", """{"pin":"1234"}"""),
-            new("SpeedLimitDeactivate", (api, c) => api.SpeedLimitDeactivateAsync(c, "123", 1234), Post, $"{Command}/speed_limit_deactivate", """{"pin":"1234"}"""),
-            new("SpeedLimitClearPIN", (api, c) => api.SpeedLimitClearPINAsync(c, "123", 1234), Post, $"{Command}/speed_limit_clear_pin", """{"pin":"1234"}"""),
-            new("ValetSetMode", (api, c) => api.ValetSetModeAsync(c, "123", true, 1234), Post, $"{Command}/set_valet_mode", """{"on":"True","password":"1234"}"""),
-            new("ValetSetModeWithoutPassword", (api, c) => api.ValetSetModeAsync(c, "123", false), Post, $"{Command}/set_valet_mode", """{"on":"False"}"""),
+                """{"lat":40.5,"lon":-74.25}"""),
+            new("SpeedLimitSetMaximum", (api, c) => api.SpeedLimitSetMaximumAsync(c, "123", 65), Post, $"{Command}/speed_limit_set_limit", """{"limit_mph":65}"""),
+            new("SpeedLimitActivate", (api, c) => api.SpeedLimitActivateAsync(c, "123", 1234), Post, $"{Command}/speed_limit_activate", """{"pin":1234}"""),
+            new("SpeedLimitDeactivate", (api, c) => api.SpeedLimitDeactivateAsync(c, "123", 1234), Post, $"{Command}/speed_limit_deactivate", """{"pin":1234}"""),
+            new("SpeedLimitClearPIN", (api, c) => api.SpeedLimitClearPINAsync(c, "123", 1234), Post, $"{Command}/speed_limit_clear_pin", """{"pin":1234}"""),
+            new("ValetSetMode", (api, c) => api.ValetSetModeAsync(c, "123", true, 1234), Post, $"{Command}/set_valet_mode", """{"on":true,"password":1234}"""),
+            new("ValetSetModeWithoutPassword", (api, c) => api.ValetSetModeAsync(c, "123", false), Post, $"{Command}/set_valet_mode", """{"on":false}"""),
             new("ValetResetPIN", (api, c) => api.ValetResetPINAsync(c, "123"), Post, $"{Command}/reset_valet_pin"),
             new("SetSentryMode", (api, c) => api.SetSentryModeAsync(c, "123", true), Post, $"{Command}/set_sentry_mode", """{"on":true}"""),
             new("DoorsUnlock", (api, c) => api.DoorsUnlockAsync(c, "123"), Post, $"{Command}/door_unlock"),
             new("DoorsLock", (api, c) => api.DoorsLockAsync(c, "123"), Post, $"{Command}/door_lock"),
             new("ActuateTrunk", (api, c) => api.ActuateTrunkAsync(c, "123", "rear"), Post, $"{Command}/actuate_trunk", """{"which_trunk":"rear"}"""),
             new("WindowControl", (api, c) => api.WindowControlAsync(c, "123", "vent", 40.5, -74.25), Post, $"{Command}/window_control",
-                """{"command":"vent","lat":"40.5","lon":"-74.25"}"""),
+                """{"command":"vent","lat":40.5,"lon":-74.25}"""),
             new("SunroofControl", (api, c) => api.SunroofControlAsync(c, "123", "vent"), Post, $"{Command}/sun_roof_control", """{"state":"vent"}"""),
 
             // Charging
@@ -84,8 +85,8 @@ public class RequestTests
             new("ChargeStop", (api, c) => api.ChargeStopAsync(c, "123"), Post, $"{Command}/charge_stop"),
             new("ChargeStandard", (api, c) => api.ChargeStandardAsync(c, "123"), Post, $"{Command}/charge_standard"),
             new("ChargeMaximumRange", (api, c) => api.ChargeMaximumRangeAsync(c, "123"), Post, $"{Command}/charge_max_range"),
-            new("ChargeSetLimit", (api, c) => api.ChargeSetLimitAsync(c, "123", 80), Post, $"{Command}/set_charge_limit", """{"percent":"80"}"""),
-            new("SetChargingAmps", (api, c) => api.SetChargingAmpsAsync(c, "123", 16), Post, $"{Command}/set_charging_amps", """{"charging_amps":"16"}"""),
+            new("ChargeSetLimit", (api, c) => api.ChargeSetLimitAsync(c, "123", 80), Post, $"{Command}/set_charge_limit", """{"percent":80}"""),
+            new("SetChargingAmps", (api, c) => api.SetChargingAmpsAsync(c, "123", 16), Post, $"{Command}/set_charging_amps", """{"charging_amps":16}"""),
             new("SetScheduledCharging", (api, c) => api.SetScheduledChargingAsync(c, "123", true, 120), Post, $"{Command}/set_scheduled_charging",
                 """{"enable":true,"time":120}"""),
             new("SetScheduledDeparture", (api, c) => api.SetScheduledDepartureAsync(c, "123", true, 480, true, false, true, false, 360), Post, $"{Command}/set_scheduled_departure",
@@ -95,14 +96,14 @@ public class RequestTests
             new("ClimateStartAutoConditioning", (api, c) => api.ClimateStartAutoConditioningAsync(c, "123"), Post, $"{Command}/auto_conditioning_start"),
             new("ClimateStopAutoConditioning", (api, c) => api.ClimateStopAutoConditioningAsync(c, "123"), Post, $"{Command}/auto_conditioning_stop"),
             new("ClimateSetTemperatures", (api, c) => api.ClimateSetTemperaturesAsync(c, "123", 21.5, 22.5), Post, $"{Command}/set_temps",
-                """{"driver_temp":"21.5","passenger_temp":"22.5"}"""),
-            new("ClimateSetPreconditioningMax", (api, c) => api.ClimateSetPreconditioningMaxAsync(c, "123", true), Post, $"{Command}/set_preconditioning_max", """{"on":"True"}"""),
+                """{"driver_temp":21.5,"passenger_temp":22.5}"""),
+            new("ClimateSetPreconditioningMax", (api, c) => api.ClimateSetPreconditioningMaxAsync(c, "123", true), Post, $"{Command}/set_preconditioning_max", """{"on":true}"""),
             new("ClimateSetSeatHeaters", (api, c) => api.ClimateSetSeatHeatersAsync(c, "123", Seat.RearCenter, 3), Post, $"{Command}/remote_seat_heater_request",
-                """{"heater":4,"level":"3"}"""),
+                """{"heater":4,"level":3}"""),
             new("ClimateSetSeatCoolers", (api, c) => api.ClimateSetSeatCoolersAsync(c, "123", Seat.Passenger, 2), Post, $"{Command}/remote_seat_cooler_request",
-                """{"seat_position":1,"seat_cooler_level":"2"}"""),
-            new("ClimateSetSteeringWheelHeat", (api, c) => api.ClimateSetSteeringWheelHeatAsync(c, "123", true), Post, $"{Command}/remote_steering_wheel_heater_request", """{"on":"True"}"""),
-            new("ClimateSetBioweaponMode", (api, c) => api.ClimateSetBioweaponModeAsync(c, "123", true), Post, $"{Command}/set_bioweapon_mode", """{"on":"True"}"""),
+                """{"seat_position":1,"seat_cooler_level":2}"""),
+            new("ClimateSetSteeringWheelHeat", (api, c) => api.ClimateSetSteeringWheelHeatAsync(c, "123", true), Post, $"{Command}/remote_steering_wheel_heater_request", """{"on":true}"""),
+            new("ClimateSetBioweaponMode", (api, c) => api.ClimateSetBioweaponModeAsync(c, "123", true), Post, $"{Command}/set_bioweapon_mode", """{"on":true}"""),
             new("SetClimateKeeperMode", (api, c) => api.SetClimateKeeperModeAsync(c, "123", ClimateKeeperMode.DogMode), Post, $"{Command}/set_climate_keeper_mode",
                 """{"climate_keeper_mode":2}"""),
             new("SetAutomaticSeatClimate", (api, c) => api.SetAutomaticSeatClimateAsync(c, "123", Seat.Driver, true), Post, $"{Command}/remote_auto_seat_climate_request",
@@ -123,23 +124,23 @@ public class RequestTests
 
             // Other commands
             new("Share", (api, c) => api.ShareAsync(c, "123", "1 Tesla Rd", "en-GB", 1700000000), Post, $"{Command}/share",
-                """{"type":"share_ext_content_raw","value":{"android.intent.extra.TEXT":"1 Tesla Rd"},"locale":"en-GB","timestamp":"1700000000"}"""),
-            new("SoftwareUpdateSchedule", (api, c) => api.SoftwareUpdateScheduleAsync(c, "123", 60), Post, $"{Command}/schedule_software_update", """{"offset":"60"}"""),
+                """{"type":"share_ext_content_raw","value":{"android.intent.extra.TEXT":"1 Tesla Rd"},"locale":"en-GB","timestamp_ms":"1700000000"}"""),
+            new("SoftwareUpdateSchedule", (api, c) => api.SoftwareUpdateScheduleAsync(c, "123", 60), Post, $"{Command}/schedule_software_update", """{"offset_sec":60}"""),
             new("SoftwareUpdateCancel", (api, c) => api.SoftwareUpdateCancelAsync(c, "123"), Post, $"{Command}/cancel_software_update"),
             new("TakeDriveNote", (api, c) => api.TakeDriveNodeAsync(c, "123", "note"), Post, $"{Command}/take_drivenote", """{"note":"note"}"""),
             new("SetVehicleName", (api, c) => api.SetVehicleNameAsync(c, "123", "name"), Post, $"{Command}/set_vehicle_name", """{"vehicle_name":"name"}"""),
-            new("TakeScreenshot", (api, c) => api.TakeScreenshotAsync(c, "123"), Post, $"{Vehicle}/screenshot"),
+            new("TakeScreenshot", (api, c) => api.TakeScreenshotAsync(c, "123"), Get, $"{Vehicle}/screenshot"),
             new("RemoteBoombox", (api, c) => api.RemoteBoomboxAsync(c, "123"), Post, $"{Command}/remote_boombox"),
 
             // Energy sites
             new("GetEnergySitePowerHistory", (api, c) => api.GetEnergySitePowerHistoryAsync(c, "456"), Get, $"{Site}/history?kind=power"),
             new("GetEnergySiteEnergyHistory", (api, c) => api.GetEnergySiteEnergyHistoryAsync(c, "456", "day"), Get, $"{Site}/history?kind=energy&period=day"),
-            new("GetEnergySitePowerCalendarHistory", (api, c) => api.GetEnergySitePowerCalendarHistoryAsync(c, "456", "2024-01-01"), Get,
-                $"{Site}/history?kind=power&end_date=2024-01-01"),
-            new("GetEnergySiteEnergyCalendarHistory", (api, c) => api.GetEnergySiteEnergyCalendarHistoryAsync(c, "456", "week", "2024-01-01"), Get,
-                $"{Site}/history?kind=energy&period=week&end_date=2024-01-01"),
-            new("GetEnergySiteEnergyCalendarHistoryWithInterval", (api, c) => api.GetEnergySiteEnergyCalendarHistoryAsync(c, "456", "week", "2024-01-01", "1h"), Get,
-                $"{Site}/history?kind=energy&period=week&end_date=2024-01-01&interval=1h"),
+            new("GetEnergySitePowerCalendarHistory", (api, c) => api.GetEnergySitePowerCalendarHistoryAsync(c, "456", "2024-01-01T00:00:00+10:00"), Get,
+                $"{Site}/calendar_history?kind=power&end_date=2024-01-01T00%3A00%3A00%2B10%3A00"),
+            new("GetEnergySiteEnergyCalendarHistory", (api, c) => api.GetEnergySiteEnergyCalendarHistoryAsync(c, "456", "week", "2024-01-01T00:00:00-07:00"), Get,
+                $"{Site}/calendar_history?kind=energy&period=week&end_date=2024-01-01T00%3A00%3A00-07%3A00"),
+            new("GetEnergySiteEnergyCalendarHistoryWithInterval", (api, c) => api.GetEnergySiteEnergyCalendarHistoryAsync(c, "456", "day", "2024-01-01T00:00:00-07:00", "15m"), Get,
+                $"{Site}/calendar_history?kind=energy&period=day&end_date=2024-01-01T00%3A00%3A00-07%3A00&interval=15m"),
             new("GetEnergySiteBackupTimeRemaining", (api, c) => api.GetEnergySiteBackupTimeRemainingAsync(c, "456"), Get, $"{Site}/backup_time_remaining"),
             new("GetEnergySiteLiveStatus", (api, c) => api.GetEnergySiteLiveStatusAsync(c, "456"), Get, $"{Site}/live_status"),
             new("GetEnergySiteStatus", (api, c) => api.GetEnergySiteStatusAsync(c, "456"), Get, $"{Site}/site_status"),
@@ -167,6 +168,8 @@ public class RequestTests
         await Assert.That(request.Method).IsEqualTo(endpoint.Method);
         await Assert.That(request.Uri.AbsoluteUri).IsEqualTo(new Uri(endpoint.Url).AbsoluteUri);
         await Assert.That(request.Headers["Accept"]).IsEqualTo("application/json");
+        await Assert.That(request.Version).IsEqualTo(System.Net.HttpVersion.Version20);
+        await Assert.That(request.VersionPolicy).IsEqualTo(HttpVersionPolicy.RequestVersionOrLower);
 
         if (endpoint.Body is null)
         {
@@ -186,7 +189,7 @@ public class RequestTests
     {
         int apiMethods = typeof(ITeslaAPI).GetMethods().Length;
         int distinctCalls = Endpoints().Select(f => f().Name)
-            .Count(name => !name.EndsWith("WithoutPassword", StringComparison.Ordinal) && !name.EndsWith("WithInterval", StringComparison.Ordinal));
+            .Count(name => !name.EndsWith("WithoutPassword", StringComparison.Ordinal) && !name.EndsWith("WithInterval", StringComparison.Ordinal) && !name.EndsWith("Staged", StringComparison.Ordinal));
 
         await Assert.That(distinctCalls).IsEqualTo(apiMethods);
     }
