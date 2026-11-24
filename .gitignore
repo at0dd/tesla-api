@@ -406,4 +406,7 @@ ASALocalRun/
 .localhistory/
 
 # AppSettings
-**/appsettings.*.jsonTestResults/
+**/appsettings.*.json
+
+# Test results
+TestResults/
