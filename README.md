@@ -3,8 +3,6 @@
 ![Nuget Version](https://img.shields.io/nuget/v/tesla-api)
 ![Nuget Downloads](https://img.shields.io/nuget/dt/tesla-api)
 
-Buying a Tesla? [Get 1,000 miles of free supercharging](https://ts.la/alex19632) with my referral code.
-
 # C# Tesla API Client
 
 This is an unofficial .NET client implementation of the Tesla JSON API used by the Android and iOS apps. The API provides functionality to monitor and control the Tesla vehicles remotely.
