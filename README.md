@@ -7,7 +7,10 @@
 
 This is an unofficial .NET client for the Tesla Owner API, the JSON API used by the Tesla Android and iOS apps. It covers vehicle data, vehicle commands and energy sites (Powerwall and solar).
 
-> **Important:** Tesla doesn't support the Owner API, and it can change without notice. Most vehicles reject commands sent through it, such as unlocking or starting climate, with a 403 ("Tesla Vehicle Command Protocol required"), because Tesla has required signed commands since 2024. Pre-2021 Model S and X are the documented exception. Community projects report that reading vehicle and energy site data still works.
+> **The Owner API is deprecated.** Tesla replaced it with the [Fleet API](https://developer.tesla.com/docs/fleet-api), which it calls "the only supported API" for third parties, and this library does not support the Fleet API. Tesla hasn't announced a shutdown date for the Owner API, but it's unsupported and can change or stop working without notice:
+>
+> - **Vehicle commands are switched off for most vehicles.** Since 2024 Tesla requires signed commands, so commands such as unlocking or starting climate return a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception.
+> - **Reading data still works,** according to community projects, for vehicle data and energy sites. Since June 2026 it needs HTTP/2, which this library uses.
 
 [Tim Dorr API Documentation](https://tesla-api.timdorr.com/)
 
