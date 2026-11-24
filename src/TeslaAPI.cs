@@ -3,6 +3,7 @@ namespace TeslaAPI
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Net;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
@@ -862,6 +863,12 @@ namespace TeslaAPI
             {
                 Method = method,
                 RequestUri = new Uri(url),
+
+                // Since June 2026 Tesla answers HTTP/1.1 requests with 403, per community reports.
+                Version = HttpVersion.Version20,
+#if NET5_0_OR_GREATER
+                VersionPolicy = HttpVersionPolicy.RequestVersionOrLower,
+#endif
             };
 
             request.Headers.Add("Accept", "application/json");

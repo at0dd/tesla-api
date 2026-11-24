@@ -168,6 +168,8 @@ public class RequestTests
         await Assert.That(request.Method).IsEqualTo(endpoint.Method);
         await Assert.That(request.Uri.AbsoluteUri).IsEqualTo(new Uri(endpoint.Url).AbsoluteUri);
         await Assert.That(request.Headers["Accept"]).IsEqualTo("application/json");
+        await Assert.That(request.Version).IsEqualTo(System.Net.HttpVersion.Version20);
+        await Assert.That(request.VersionPolicy).IsEqualTo(HttpVersionPolicy.RequestVersionOrLower);
 
         if (endpoint.Body is null)
         {

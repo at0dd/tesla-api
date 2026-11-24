@@ -30,7 +30,7 @@ public sealed class StubHttpMessageHandler : HttpMessageHandler
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         string? body = request.Content is null ? null : await request.Content.ReadAsStringAsync(cancellationToken);
-        Requests.Add(new RecordedRequest(request.Method, request.RequestUri!, request.Headers.ToDictionary(h => h.Key, h => string.Join(",", h.Value)), body));
+        Requests.Add(new RecordedRequest(request.Method, request.RequestUri!, request.Version, request.VersionPolicy, request.Headers.ToDictionary(h => h.Key, h => string.Join(",", h.Value)), body));
 
         return new HttpResponseMessage(statusCode)
         {
@@ -39,4 +39,4 @@ public sealed class StubHttpMessageHandler : HttpMessageHandler
     }
 }
 
-public sealed record RecordedRequest(HttpMethod Method, Uri Uri, IReadOnlyDictionary<string, string> Headers, string? Body);
+public sealed record RecordedRequest(HttpMethod Method, Uri Uri, Version Version, HttpVersionPolicy VersionPolicy, IReadOnlyDictionary<string, string> Headers, string? Body);
