@@ -33,3 +33,11 @@ updates:
       semver-major-days: 21
       semver-minor-days: 14
       semver-patch-days: 7
+
+  # The SDK version in global.json. CI's setup-dotnet installs the SDK it names.
+  - package-ecosystem: "dotnet-sdk"
+    directory: "/"
+    patterns: ["*"]
+    multi-ecosystem-group: "all-dependencies"
+    cooldown:
+      default-days: 7
