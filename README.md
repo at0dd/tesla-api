@@ -78,3 +78,10 @@ public class TeslaService
 Run the tests with `dotnet test --solution TeslaAPI.slnx`. They use [TUnit](https://tunit.dev).
 
 No test calls the Tesla API, so they need no Tesla account or access token. Each test sends its request through a stub `HttpMessageHandler`, then checks the URL, method and body, or parses a canned response. Responses recorded from the real API live in `tests/responses`. CI runs the tests on every push and pull request.
+
+# Releasing
+
+1. Set `<Version>` in `src/TeslaAPI.csproj` and merge it to `main`.
+2. Publish a GitHub release whose tag is that version, e.g. `1.2.0`.
+
+The [Publish](.github/workflows/publish.yml) workflow then tests, packs and pushes the package and its symbols to nuget.org. It uses [NuGet trusted publishing](https://learn.microsoft.com/nuget/nuget-org/trusted-publishing), so no API key is stored. It fails if the tag doesn't match `<Version>`.

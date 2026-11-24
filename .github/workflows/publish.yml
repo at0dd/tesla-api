@@ -1,0 +1,50 @@
+name: Publish
+
+# Publishes the package to nuget.org when a GitHub release is published.
+# Uses NuGet trusted publishing: NuGet/login exchanges this run's GitHub OIDC token
+# for a one-hour API key, so no key is stored in the repo.
+# Setup: https://learn.microsoft.com/nuget/nuget-org/trusted-publishing
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: read
+  id-token: write # Lets NuGet/login request the OIDC token.
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
+      with:
+        global-json-file: global.json
+
+    - name: Check the release tag matches the package version
+      run: |
+        version=$(dotnet msbuild src/TeslaAPI.csproj -getProperty:Version)
+        if [ "$version" != "${{ github.event.release.tag_name }}" ]; then
+          echo "::error::Release tag ${{ github.event.release.tag_name }} doesn't match <Version> $version in src/TeslaAPI.csproj."
+          exit 1
+        fi
+
+    - name: Test
+      run: dotnet test --solution TeslaAPI.slnx
+
+    - name: Pack
+      run: dotnet pack src/TeslaAPI.csproj --configuration Release --output artifacts
+
+    - name: Log in to NuGet
+      id: login
+      uses: NuGet/login@v1
+      with:
+        user: ${{ secrets.NUGET_USER }}
+
+    - name: Push to NuGet
+      run: dotnet nuget push "artifacts/*.nupkg" --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
