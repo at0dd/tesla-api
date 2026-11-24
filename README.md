@@ -71,6 +71,6 @@ public class TeslaService
 
 # Tests
 
-Run the tests with `dotnet test --solution TeslaAPI.sln`. They use [TUnit](https://tunit.dev).
+Run the tests with `dotnet test --solution TeslaAPI.slnx`. They use [TUnit](https://tunit.dev).
 
 No test calls the Tesla API, so they need no Tesla account or access token. Each test sends its request through a stub `HttpMessageHandler`, then checks the URL, method and body, or parses a canned response. Responses recorded from the real API live in `tests/responses`. CI runs the tests on every push and pull request.

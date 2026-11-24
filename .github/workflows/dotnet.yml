@@ -20,10 +20,10 @@ jobs:
         global-json-file: global.json
 
     - name: Restore dependencies
-      run: dotnet restore TeslaAPI.sln
+      run: dotnet restore TeslaAPI.slnx
 
     - name: Build
-      run: dotnet build --no-restore TeslaAPI.sln
+      run: dotnet build --no-restore TeslaAPI.slnx
 
     - name: Test
-      run: dotnet test --solution TeslaAPI.sln --no-build
+      run: dotnet test --solution TeslaAPI.slnx --no-build
