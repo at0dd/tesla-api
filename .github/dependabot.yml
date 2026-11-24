@@ -1,16 +1,35 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# Dependabot version updates: one PR a month for every ecosystem.
+# Options: https://docs.github.com/code-security/reference/supply-chain-security/dependabot-options-reference
+# One PR: https://docs.github.com/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configuring-multi-ecosystem-updates
+#
+# Each entry must set `patterns` and `multi-ecosystem-group`. The schedule
+# and assignees live on the group.
 
 version: 2
-updates:
-  - package-ecosystem: "nuget"
-    directory: "/"
+
+multi-ecosystem-groups:
+  all-dependencies:
     schedule:
       interval: "monthly"
-      
+    commit-message:
+      prefix: "chore(deps)"
+    assignees:
+      - "at0dd"
+
+updates:
   - package-ecosystem: "github-actions"
     directory: "/"
-    schedule:
-      interval: "monthly"
+    patterns: ["*"]
+    multi-ecosystem-group: "all-dependencies"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: "nuget"
+    directory: "/"
+    patterns: ["*"]
+    multi-ecosystem-group: "all-dependencies"
+    cooldown:
+      default-days: 7
+      semver-major-days: 21
+      semver-minor-days: 14
+      semver-patch-days: 7
