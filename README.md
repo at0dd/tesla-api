@@ -5,7 +5,9 @@
 
 # C# Tesla API Client
 
-This is an unofficial .NET client implementation of the Tesla JSON API used by the Android and iOS apps. The API provides functionality to monitor and control the Tesla vehicles remotely.
+This is an unofficial .NET client for the Tesla Owner API, the JSON API used by the Tesla Android and iOS apps. It covers vehicle data, vehicle commands and energy sites (Powerwall and solar).
+
+> **Important:** Tesla doesn't support the Owner API, and it can change without notice. Most vehicles reject commands sent through it, such as unlocking or starting climate, with a 403 ("Tesla Vehicle Command Protocol required"), because Tesla has required signed commands since 2024. Pre-2021 Model S and X are the documented exception. Community projects report that reading vehicle and energy site data still works.
 
 [Tim Dorr API Documentation](https://tesla-api.timdorr.com/)
 
@@ -29,13 +31,11 @@ services.AddTeslaApi();
 
 # Usage
 
-To make a request with the Tesla API, you'll need to create a `HttpClient` and set the `User-Agent` header to an identifier for your application.
+Every method takes the `HttpClient` to send the request with. Set a `User-Agent` header that identifies your application, and an `Authorization` header with your access token.
 
 ## Authenticating with Tesla
 
-Follow the standard OAuth process [as documented by Tim Dorr](https://tesla-api.timdorr.com/api-basics/authentication) to get an access token. After getting an access token, add it to the `Authorization` header on the `HttpClient`, which is passed into data API calls.
-
-You can use the [TeslaAuth](https://github.com/tomhollander/TeslaAuth/) package that provides a .NET implementation to obtain a refresh token.
+Follow the OAuth process [documented by Tim Dorr](https://tesla-api.timdorr.com/api-basics/authentication) to get an access token. The [TeslaAuth](https://github.com/tomhollander/TeslaAuth/) package implements it in .NET. Use `RefreshTokenAsync` to get a new access token when the current one expires.
 
 # Example Code
 
@@ -44,27 +44,28 @@ public class TeslaService
 {
     private readonly ITeslaAPI _teslaAPI;
     private readonly HttpClient _client = new HttpClient();
-    
-    /// <summary>
-    /// Initializes a new instance of the <see cref="TeslaService"/> class.
-    /// </summary>
-    /// <param name="teslaClient">The TeslaAPI client.</param>
-    public TeslaService(ITeslaAPI teslaAPI)
+
+    public TeslaService(ITeslaAPI teslaAPI, string accessToken)
     {
         _teslaAPI = teslaAPI;
         _client.DefaultRequestHeaders.Add("User-Agent", "MyApplication");
+        _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
     }
-    
+
     /// <summary>
     /// Get all vehicles in the user's account.
     /// </summary>
-    /// <returns>A list containing~~~~ all vehicles.</returns>
-    public async Task<List<Vehicle>> GetVehiclesAsync(string clientId, string clientSecret, string bearerToken)
+    public Task<List<Vehicle>> GetVehiclesAsync()
     {
-        TeslaAccessToken accessToken = await _teslaAPI.GetAccesTokenAsync(_client, clientId, clientSecret, bearerToken);
-        _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken.AccessToken}");
-        
-        return await _teslaAPI.GetAllVehiclesAsync(_client);
+        return _teslaAPI.GetAllVehiclesAsync(_client);
+    }
+
+    /// <summary>
+    /// Get a vehicle's charge, climate, drive and vehicle state.
+    /// </summary>
+    public Task<VehicleData> GetVehicleDataAsync(string vehicleID)
+    {
+        return _teslaAPI.GetVehicleDataAsync(_client, vehicleID);
     }
 }
 ```
