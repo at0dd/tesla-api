@@ -42,7 +42,7 @@ public class RequestTests
                 """{"kind":"mobile_device","public_key":"key","name":"name","model":"model"}""", """{"response":true}"""),
 
             // Products
-            new("GetAllVehicles", (api, c) => api.GetAllVehiclesAsync(c), Get, $"{Api}/vehicles"),
+            new("GetAllVehicles", (api, c) => api.GetAllVehiclesAsync(c), Get, $"{Api}/products"),
             new("GetVehicle", (api, c) => api.GetVehicleAsync(c, "123"), Get, Vehicle),
             new("GetEnergyProducts", (api, c) => api.GetEnergyProductsAsync(c), Get, $"{Api}/products"),
             new("RequestTripPlan", (api, c) => api.RequestTripPlanAsync(c, "trim", "type", "dest", "orig", 0.5, "vin"), Post, $"{Owner}/trip-planner/api/v1/tripplan",

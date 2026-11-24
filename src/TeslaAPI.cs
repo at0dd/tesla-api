@@ -3,6 +3,7 @@ namespace TeslaAPI
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Text;
@@ -119,10 +120,13 @@ namespace TeslaAPI
         /* ---- VEHICLES ---- */
 
         /// <inheritdoc/>
-        public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client)
+        public async Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles");
-            return SendRequestResponseListUnwrapAsync<Vehicle>(client, request);
+            // The Owner API answers /vehicles with "Endpoint is only available on fleetapi" since January 2024 (#107).
+            // /products also lists energy sites, which have no VIN, so filter those out.
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/products");
+            List<Vehicle> products = await SendRequestResponseListUnwrapAsync<Vehicle>(client, request);
+            return products?.Where(product => !string.IsNullOrEmpty(product.VIN)).ToList();
         }
 
         /// <inheritdoc/>
