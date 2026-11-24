@@ -40,6 +40,16 @@ public class ResponseHandlingTests
     }
 
     [Test]
+    public async Task GetAllVehiclesLeavesOutEnergySites()
+    {
+        (HttpClient client, _) = StubHttpMessageHandler.CreateClient("""{"response":[{"id":1,"vin":"VIN1"},{"energy_site_id":2,"resource_type":"battery"}],"count":2}""");
+
+        List<Vehicle> vehicles = await api.GetAllVehiclesAsync(client);
+
+        await Assert.That(vehicles.Select(v => v.VIN)).IsEquivalentTo(["VIN1"]);
+    }
+
+    [Test]
     public async Task ReturnsCommandResponseWithoutUnwrapping()
     {
         (HttpClient client, _) = StubHttpMessageHandler.CreateClient("""{"reason":"already_set","result":false}""");

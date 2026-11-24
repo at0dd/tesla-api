@@ -33,6 +33,10 @@ updates:
       semver-major-days: 21
       semver-minor-days: 14
       semver-patch-days: 7
+    ignore:
+      # The library depends on the lowest version that works, so apps on older .NET
+      # aren't forced up. Bumping it would raise that floor for every consumer.
+      - dependency-name: "Microsoft.Extensions.DependencyInjection.Abstractions"
 
   # The SDK version in global.json. CI's setup-dotnet installs the SDK it names.
   - package-ecosystem: "dotnet-sdk"

@@ -2,23 +2,21 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Tesla-API</PackageId>
     <Version>1.2.0</Version>
     <Authors>Alex Todd</Authors>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <License>https://github.com/at0dd/tesla-api/blob/main/LICENSE</License>
-    <Owners>Alex Todd</Owners>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/at0dd/tesla-api</PackageProjectUrl>
-    <Summary>An unofficial .NET Core implementation of the Tesla API.</Summary>
     <Title>Tesla API</Title>
-    <Description>An unofficial .NET Core implementation of the Tesla API.</Description>
+    <Description>An unofficial .NET client for the Tesla Owner API, the JSON API used by the Tesla mobile apps. Covers vehicle data, vehicle commands and energy sites (Powerwall and solar).</Description>
+    <PackageTags>tesla;tesla-api;owner-api;powerwall;electric-vehicle</PackageTags>
+    <PackageReleaseNotes>https://github.com/at0dd/tesla-api/releases</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/at0dd/tesla-api</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <ReleaseVersion>1.1.2</ReleaseVersion>
     <NoWarn>$(NoWarn),CS1591</NoWarn>
   </PropertyGroup>
 
@@ -35,21 +33,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>portable</DebugType>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
-  <!-- Source Link configuration. The .NET SDK includes Source Link, so no package is needed. -->
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+  <!-- Source Link and symbols. The .NET SDK includes Source Link, so no package is needed. -->
+  <PropertyGroup>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.14" />
+    <!-- The lowest version that works, so apps aren't forced onto a newer one. Dependabot ignores it. -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
