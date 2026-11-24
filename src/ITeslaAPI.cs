@@ -177,6 +177,7 @@
         /// <summary>
         /// Honks the horn twice.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -185,6 +186,7 @@
         /// <summary>
         /// Flash the headlights once.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -194,6 +196,7 @@
         /// Enables keyless driving.
         /// There is a two minute window after issuing the command to start driving the car.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -203,6 +206,7 @@
         /// Opens or closes the primary Homelink device.
         /// The provided location must be in proximity of stored location of the Homelink device.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="latitude">The current location latitude.</param>
@@ -213,6 +217,7 @@
         /// <summary>
         /// Sets the maximum speed allowed when Speed Limit Mode is active.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="speedLimit">The speed limit in miles per hour. Must be between 50-90.</param>
@@ -222,6 +227,7 @@
         /// <summary>
         /// Activates Speed Limit Mode at the currently set speed.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The existing PIN, if previously set, or a new 4 digit PIN.</param>
@@ -231,6 +237,7 @@
         /// <summary>
         /// Deactivates Speed Limit Mode if it is currently active.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The 4 digit PIN used to activate Speed Limit Mode.</param>
@@ -240,6 +247,7 @@
         /// <summary>
         /// Clears the currently set PIN for Speed Limit Mode.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="pin">The 4 digit PIN used to activate Speed Limit Mode.</param>
@@ -251,6 +259,7 @@
         /// The password parameter isn't required to turn on or off Valet Mode, even with a previous PIN set.
         /// If you clear the PIN and activate Valet Mode without the parameter, you will only be able to deactivate it from your car's screen by signing into your Tesla account.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">T to activate, False to deactivate.</param>
@@ -262,6 +271,7 @@
         /// Clears the currently set PIN for Valet Mode when deactivated.
         /// A new PIN will be required when activating from the car screen.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -270,6 +280,7 @@
         /// <summary>
         /// Turns sentry mode on or off.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
@@ -279,6 +290,7 @@
         /// <summary>
         /// Unlocks the doors to the car. Extends the handles on the S and X.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -287,6 +299,7 @@
         /// <summary>
         /// Locks the doors to the car. Retracts the handles on the S and X, if they are extended.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -295,6 +308,7 @@
         /// <summary>
         /// Opens either the front or rear trunk. On the Model S and X, it will also close the rear trunk.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="whichTrunk">Which trunk to open/close. rear and front are the only options.</param>
@@ -306,6 +320,7 @@
         /// Latitude and longitude values must be near the current location of the car for close operation to succeed.
         /// For vent, the latitude and longitude values are ignored, and may both be 0 (which has been observed from the app itself).
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="command">What action to take with the windows. Allows the values vent and close.</param>
@@ -319,6 +334,7 @@
         /// There were state options for open (100%), comfort (~80%), and move (combined with a percent parameter), but they have since been disabled server side.
         /// It is unknown if they will return at a later time.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="state">The amount to open the sunroof. Currently this only allows the values vent and close.</param>
@@ -328,6 +344,7 @@
         /// <summary>
         /// Opens the charge port.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -336,6 +353,7 @@
         /// <summary>
         /// For vehicles with a motorized charge port, this closes it.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -344,6 +362,7 @@
         /// <summary>
         /// If the car is plugged in but not currently charging, this will start it charging.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -352,6 +371,7 @@
         /// <summary>
         /// If the car is currently charging, this will stop it.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -360,6 +380,7 @@
         /// <summary>
         /// Sets the charge limit to "standard" or ~90%.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -368,6 +389,7 @@
         /// <summary>
         /// Sets the charge limit to "max range" or 100%.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -376,6 +398,7 @@
         /// <summary>
         /// Sets the charge limit to a custom value.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="percent">The percentage the battery will charge until.</param>
@@ -385,6 +408,7 @@
         /// <summary>
         /// Sets the charge amps limit to a custom value.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="chargingAmps">The max amps to use during charging.</param>
@@ -394,6 +418,7 @@
         /// <summary>
         /// Set the scheduled charge.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="enabled">True if scheduled charing should be turned on.</param>
@@ -404,6 +429,7 @@
         /// <summary>
         /// Set the scheduled departure.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="enabled">True if scheduled departure should be turned on, otherwise false.</param>
@@ -428,6 +454,7 @@
         /// <summary>
         /// Start the climate control (HVAC) system. Will cool or heat automatically, depending on set temperature.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -436,6 +463,7 @@
         /// <summary>
         /// Stop the climate control (HVAC) system.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -446,6 +474,7 @@
         /// Despite accepting two parameters, only the driver_temp will be used to set the target temperature.
         /// The parameters are always in celsius, regardless of the region the car is in or the display settings of the car.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="driverTemperature">The desired temperature on the driver's side in celsius.</param>
@@ -456,6 +485,7 @@
         /// <summary>
         /// Toggles the climate controls between Max Defrost and the previous setting.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
@@ -465,6 +495,7 @@
         /// <summary>
         /// Sets the specified seat's heater level.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="seat">The desired seat to heat. (0-5).</param>
@@ -475,6 +506,7 @@
         /// <summary>
         /// Sets the specified seat's cooler level (Refresh Model S and X).
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="seat">The desired seat to cool. (0-5).</param>
@@ -485,6 +517,7 @@
         /// <summary>
         /// Turn steering wheel heater on or off.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
@@ -494,6 +527,7 @@
         /// <summary>
         /// Enable or disable Bioweapon Defense Mode.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">True to turn on, False to turn off.</param>
@@ -503,6 +537,7 @@
         /// <summary>
         /// Set the Climate Keeper mode.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="mode">The mode to set.</param>
@@ -512,6 +547,7 @@
         /// <summary>
         /// Enables/disables Automatic Seat Climate on the specified seat.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="seat">The seat to control.</param>
@@ -523,6 +559,7 @@
         /// Sets the Cabin Overheat Protection (COP) temperature.
         /// This endpoint appears to be in progress and is not yet fully functional/disabled as of December 13, 2022..
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="temperature">The COP temperature in Celcius.</param>
@@ -532,6 +569,7 @@
         /// <summary>
         /// Turns on the Cabin Overheat Protection (COP) and sets its mode.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="on">Turns COP on/off.</param>
@@ -542,6 +580,7 @@
         /// <summary>
         /// Toggles the media between playing and paused. For the radio, this mutes or unmutes the audio.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -550,6 +589,7 @@
         /// <summary>
         /// Skips to the next track in the current playlist.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -559,6 +599,7 @@
         /// Skips to the previous track in the current playlist.
         /// Does nothing for streaming from Stitcher.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -567,6 +608,7 @@
         /// <summary>
         /// Skips to the next saved favorite in the media system.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -575,6 +617,7 @@
         /// <summary>
         /// Skips to the previous saved favorite in the media system.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -583,6 +626,7 @@
         /// <summary>
         /// Turns up the volume of the media system.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -591,6 +635,7 @@
         /// <summary>
         /// Turns down the volume of the media system.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -599,6 +644,7 @@
         /// <summary>
         /// Adjusts the volume of the media system to the desired volume.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="volume">Numerical value from 0-11.</param>
@@ -608,6 +654,7 @@
         /// <summary>
         /// Sends a location for the car to start navigation or play a video in theatre mode.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="value">The address or video URL to set as the navigation destination.</param>
@@ -619,6 +666,7 @@
         /// <summary>
         /// Schedules a software update to be installed, if one is available.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="offset">How many seconds in the future to schedule the update. Set to 0 for immediate install.</param>
@@ -628,6 +676,7 @@
         /// <summary>
         /// Cancels a software update, if one is scheduled and has not yet started.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>
@@ -636,6 +685,7 @@
         /// <summary>
         /// Take a drive note. (This feature might be related to the FSD beta bug reporting system.)
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="note">The note to send.</param>
@@ -649,6 +699,7 @@
         /// Later in app version 4.19.0-1639, the endpoint was removed from the ownerapi_endpoints.json file.
         /// As of App version 4.20.5 you can change your vehicle name on software versions 2023.12+.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <param name="name">The name to set.</param>
@@ -668,6 +719,7 @@
         /// <summary>
         /// Let the car fart remotely on version 2022.44.25.1 and above.
         /// </summary>
+        /// <remarks>Most vehicles reject unsigned commands sent through the Owner API with a 403 ("Tesla Vehicle Command Protocol required"). Pre-2021 Model S and X are the documented exception. See https://developer.tesla.com/docs/fleet-api/announcements.</remarks>
         /// <param name="client">The <see cref="HttpClient"/> to make the request with.</param>
         /// <param name="vehicleID">The ID of the <see cref="Vehicle"/>.</param>
         /// <returns>Returns a <see cref="CommandResponse"/>.</returns>

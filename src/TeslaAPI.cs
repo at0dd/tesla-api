@@ -2,6 +2,8 @@ namespace TeslaAPI
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Net;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
@@ -119,7 +121,7 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<List<Vehicle>> GetAllVehiclesAsync(HttpClient client)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/products");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles");
             return SendRequestResponseListUnwrapAsync<Vehicle>(client, request);
         }
 
@@ -154,7 +156,7 @@ namespace TeslaAPI
                 { "vin", vin },
             };
 
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/trip-planner{ApiV1}/tripplan", body: body);
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}/trip-planner/api/v1/tripplan", body: body);
             return SendRequestAsync<Trip>(client, request);
         }
 
@@ -185,7 +187,13 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<ReleaseNotesResponse> GetReleaseNotesAsync(HttpClient client, string vehicleID, bool? staged = false)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/release_notes");
+            string url = $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/release_notes";
+            if (staged == true)
+            {
+                url += "?staged=true";
+            }
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, url);
             return SendRequestResponseUnwrapAsync<ReleaseNotesResponse>(client, request);
         }
 
@@ -224,8 +232,8 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "lat", latitude.ToString() },
-                { "lon", longitude.ToString() },
+                { "lat", latitude },
+                { "lon", longitude },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/trigger_homelink", body: body);
@@ -237,7 +245,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "limit_mph", speedLimit.ToString() },
+                { "limit_mph", speedLimit },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_set_limit", body: body);
@@ -249,7 +257,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "pin", pin.ToString() },
+                { "pin", pin },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_activate", body: body);
@@ -261,7 +269,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "pin", pin.ToString() },
+                { "pin", pin },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_deactivate", body: body);
@@ -273,7 +281,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "pin", pin.ToString() },
+                { "pin", pin },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/speed_limit_clear_pin", body: body);
@@ -285,12 +293,12 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "on", on.ToString() },
+                { "on", on },
             };
 
             if (password != null)
             {
-                body.Add("password", password.ToString());
+                body.Add("password", password.Value);
             }
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_valet_mode", body: body);
@@ -307,7 +315,12 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<CommandResponse> SetSentryModeAsync(HttpClient client, string vehicleID, bool on)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_sentry_mode");
+            Dictionary<string, object> body = new Dictionary<string, object>
+            {
+                { "on", on },
+            };
+
+            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_sentry_mode", body: body);
             return SendRequestAsync<CommandResponse>(client, request);
         }
 
@@ -343,8 +356,8 @@ namespace TeslaAPI
             Dictionary<string, object> body = new Dictionary<string, object>
             {
                 { "command", command },
-                { "lat", latitude.ToString() },
-                { "lon", longitude.ToString() },
+                { "lat", latitude },
+                { "lon", longitude },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/window_control", body: body);
@@ -410,7 +423,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "percent", percent.ToString() },
+                { "percent", percent },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_charge_limit", body: body);
@@ -422,7 +435,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "charging_amps", chargingAmps.ToString() },
+                { "charging_amps", chargingAmps },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_charging_amps", body: body);
@@ -488,8 +501,8 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "driver_temp", driverTemperature.ToString() },
-                { "passenger_temp", passengerTemperature.ToString() },
+                { "driver_temp", driverTemperature },
+                { "passenger_temp", passengerTemperature },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_temps", body: body);
@@ -501,7 +514,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "on", on.ToString() },
+                { "on", on },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_preconditioning_max", body: body);
@@ -513,8 +526,8 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "heater", seat.ToString() },
-                { "level", level.ToString() },
+                { "heater", (int)seat },
+                { "level", level },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_seat_heater_request", body: body);
@@ -526,8 +539,8 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "seat_position", seat.ToString() },
-                { "seat_cooler_level", level.ToString() },
+                { "seat_position", (int)seat },
+                { "seat_cooler_level", level },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_seat_cooler_request", body: body);
@@ -539,7 +552,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "on", on.ToString() },
+                { "on", on },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/remote_steering_wheel_heater_request", body: body);
@@ -551,7 +564,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "on", on.ToString() },
+                { "on", on },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/set_bioweapon_mode", body: body);
@@ -575,7 +588,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "auto_seat_position", seat },
+                { "auto_seat_position", (int)seat },
                 { "auto_climate_on", on },
             };
 
@@ -672,7 +685,7 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<CommandResponse> ShareAsync(HttpClient client, string vehicleID, string value, string? locale = "en-US", long? timestamp = null)
         {
-            if (timestamp.HasValue)
+            if (!timestamp.HasValue)
             {
                 timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             }
@@ -687,7 +700,7 @@ namespace TeslaAPI
                 { "type", "share_ext_content_raw" },
                 { "value", shareValue },
                 { "locale", locale },
-                { "timestamp", timestamp.Value.ToString() },
+                { "timestamp_ms", timestamp.Value.ToString(CultureInfo.InvariantCulture) },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/share", body: body);
@@ -699,7 +712,7 @@ namespace TeslaAPI
         {
             Dictionary<string, object> body = new Dictionary<string, object>
             {
-                { "offset", offset.ToString() },
+                { "offset_sec", offset },
             };
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/command/schedule_software_update", body: body);
@@ -740,7 +753,7 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<string> TakeScreenshotAsync(HttpClient client, string vehicleID)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Post, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/screenshot");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/vehicles/{vehicleID}/screenshot");
             return SendRequestResponseUnwrapAsync<string>(client, request);
         }
 
@@ -770,17 +783,17 @@ namespace TeslaAPI
         /// <inheritdoc/>
         public Task<EnergySitePowerCalendarHistory> GetEnergySitePowerCalendarHistoryAsync(HttpClient client, string siteID, string endDate)
         {
-            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=power&end_date={endDate}");
+            HttpRequestMessage request = BuildRequest(HttpMethod.Get, $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/calendar_history?kind=power&end_date={Uri.EscapeDataString(endDate)}");
             return SendRequestResponseUnwrapAsync<EnergySitePowerCalendarHistory>(client, request);
         }
 
         /// <inheritdoc/>
         public Task<EnergySiteEnergyCalendarHistory> GetEnergySiteEnergyCalendarHistoryAsync(HttpClient client, string siteID, string period, string endDate, string? interval = null)
         {
-            string url = $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/history?kind=energy&period={period}&end_date={endDate}";
+            string url = $"{OwnerApiBaseUrl}{ApiV1}/energy_sites/{siteID}/calendar_history?kind=energy&period={Uri.EscapeDataString(period)}&end_date={Uri.EscapeDataString(endDate)}";
             if (!string.IsNullOrWhiteSpace(interval))
             {
-                url += $"&interval={interval}";
+                url += $"&interval={Uri.EscapeDataString(interval)}";
             }
 
             HttpRequestMessage request = BuildRequest(HttpMethod.Get, url);
@@ -850,6 +863,12 @@ namespace TeslaAPI
             {
                 Method = method,
                 RequestUri = new Uri(url),
+
+                // Since June 2026 Tesla answers HTTP/1.1 requests with 403, per community reports.
+                Version = HttpVersion.Version20,
+#if NET5_0_OR_GREATER
+                VersionPolicy = HttpVersionPolicy.RequestVersionOrLower,
+#endif
             };
 
             request.Headers.Add("Accept", "application/json");
