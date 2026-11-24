@@ -2,15 +2,18 @@ namespace Tests;
 
 using Newtonsoft.Json;
 using TeslaAPI.Models.Response;
-using Xunit;
+using TeslaAPI.Models.Vehicles;
 
 public class DeserializerTests
 {
-    [Theory]
-    [InlineData("responses/vehicle_data/20240923.json")]
-    public void VehicleData(string path)
+    [Test]
+    [Arguments("responses/vehicle_data/20240923.json")]
+    public async Task VehicleData(string path)
     {
-        string json = File.ReadAllText(path);
-        _ = JsonConvert.DeserializeObject<Response<VehicleData>>(json);
+        string json = await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, path));
+
+        VehicleData? data = JsonConvert.DeserializeObject<Response<VehicleData>>(json)?.Data;
+
+        await Assert.That(data).IsNotNull();
     }
 }

@@ -73,8 +73,12 @@ public class TeslaService
 
 # Tests
 
-To run tests you will need a Tesla access token along with additional vehicle and/or energy site information. These tests make actuall calls to the Tesla API, thus Tesla products are required on your account. i.e. to test the vehicle endpoints, you have to have a vehicle registered to your Tesla account.
+Run the tests with `dotnet test --solution TeslaAPI.sln`. They use [TUnit](https://tunit.dev).
+
+Most tests run offline. They send each request through a stub `HttpMessageHandler` and check its URL, method and body, so they need no Tesla account. CI runs these on every push and pull request.
+
+The live tests (`UsersTests`, `VehicleTests`, `VehiclesTests` and the like) call the real Tesla API, so they need Tesla products on your account. They're skipped unless an access token is set. To run them:
 
 1. Generate a Tesla access token. There's a handy [Chrome plugin](https://chrome.google.com/webstore/detail/tesla-access-token-genera/kokkedfblmfbngojkeaepekpidghjgag) for this.
-2. Copy the `appsettings.json` file to `appsettings.Development.json` and fill in the `Tesla.AccessToken` field along with any other fields required by the test(s) you want to run. 
-3. Run the test(s).
+2. Copy `tests/appsettings.json` to `tests/appsettings.Development.json` and fill in `Tesla.AccessToken`, along with any other fields the tests you want to run need.
+3. Run the tests.
